@@ -54,15 +54,14 @@ abstract class Basic {
 	}
 
 	function rest_api_init(){
-		$namespace = 'rehub/v1/block-render';
+		$namespace = 'rehub/v1/block-render/';
 
-		register_rest_route($namespace,
-			$this->name,
+		register_rest_route(
+			$namespace,
+			"$this->name",
 			array(
-				array(
-					'methods'  => WP_REST_Server::CREATABLE,
-					'callback' => array( $this, 'rest_handler' ),
-				),
+				'methods'  => WP_REST_Server::CREATABLE,
+				'callback' => array( $this, 'rest_handler' ),
 			)
 		);
 	}

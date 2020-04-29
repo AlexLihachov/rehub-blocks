@@ -4,7 +4,6 @@ const {
 	RawHTML,
 } = wp.element;
 const {__, sprintf} = wp.i18n;
-const {apiFetch} = wp;
 const {addQueryArgs} = wp.url;
 
 const {
@@ -55,7 +54,7 @@ export class ServerSideRender extends Component {
 		const {block, attributes = null, urlQueryArgs = {}, blacklist = []} = props,
 			that = this;
 
-		const path = `rehub/v1/block-render/${ block }`;//rendererPath(block, attributes, urlQueryArgs);
+		const path = `/rehub/v1/block-render/${ block }`;//rendererPath(block, attributes, urlQueryArgs);
 
 		function buildFormData(formData, data, parentKey) {
 			if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File)) {
@@ -82,7 +81,7 @@ export class ServerSideRender extends Component {
 
 		// Store the latest fetch request so that when we process it, we can
 		// check if it is the current request, to avoid race conditions on slow networks.
-		const fetchRequest = this.currentFetchRequest = apiFetch({
+		const fetchRequest = this.currentFetchRequest = wp.apiFetch({
 			path: path,
 			method: 'POST',
 			body: formData,

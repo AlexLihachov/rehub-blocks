@@ -16191,8 +16191,7 @@ var _wp$element = wp.element,
 var _wp$i18n = wp.i18n,
     __ = _wp$i18n.__,
     sprintf = _wp$i18n.sprintf;
-var _wp = wp,
-    apiFetch = _wp.apiFetch;
+var apiFetch = wp.apiFetch;
 var addQueryArgs = wp.url.addQueryArgs;
 var _wp$components = wp.components,
     Placeholder = _wp$components.Placeholder,
@@ -16260,7 +16259,7 @@ function (_Component) {
         _props$blacklist = props.blacklist,
         blacklist = _props$blacklist === void 0 ? [] : _props$blacklist,
         that = this;
-    var path = "rehub/v1/block-render/".concat(block); //rendererPath(block, attributes, urlQueryArgs);
+    var path = "/rehub/v1/block-render/".concat(block); //rendererPath(block, attributes, urlQueryArgs);
 
     function buildFormData(formData, data, parentKey) {
       if (data && _typeof(data) === 'object' && !(data instanceof Date) && !(data instanceof File)) {
@@ -16282,7 +16281,7 @@ function (_Component) {
     var formData = jsonToFormData(attributes); // Store the latest fetch request so that when we process it, we can
     // check if it is the current request, to avoid race conditions on slow networks.
 
-    var fetchRequest = this.currentFetchRequest = apiFetch({
+    var fetchRequest = this.currentFetchRequest = wp.apiFetch({
       path: path,
       method: 'POST',
       body: formData

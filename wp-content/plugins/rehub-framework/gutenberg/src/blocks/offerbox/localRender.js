@@ -1,6 +1,6 @@
 import classnames from 'classnames';
 
-function LocalRender(props) {
+export default function LocalRender(props) {
 	const {
 		posts,
 		offer_url,

@@ -8,18 +8,11 @@ import ServerSideRender from '../../components/SSR';
 const {withSelect} = wp.data;
 const {compose} = wp.compose;
 import {slug} from './help';
-
-
-const {
-	RichText,
-} = wp.blockEditor || wp.editor;
-
+const {RichText} = wp.blockEditor || wp.editor;
 const {__} = wp.i18n;
 const {Component} = wp.element;
 
-const {
-	TextControl,
-} = wp.components;
+const {TextControl} = wp.components;
 
 class EditBlock extends Component {
 	render() {

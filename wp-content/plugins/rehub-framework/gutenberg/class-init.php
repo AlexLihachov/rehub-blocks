@@ -22,6 +22,7 @@ final class Init {
         Blocks\Box::instance();
         Blocks\TitleBox::instance();
         Blocks\Heading::instance();
+        Blocks\Offerbox::instance();
 	    REST::instance();
     }
 
