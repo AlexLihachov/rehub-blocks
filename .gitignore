@@ -1,0 +1,16 @@
+/*
+# ignore everything in the root except:.
+# "Rehub Gutenberg Blocks"
+!/wp-content/
+/wp-content/*
+!/wp-content/plugins
+/wp-content/plugins/*
+!/wp-content/plugins/rehub-framework
+/wp-content/plugins/rehub-framework/*
+!/wp-content/plugins/rehub-framework/gutenberg
+
+# track .gitignore
+!.gitignore
+
+#ingnore npm packages
+node_modules
