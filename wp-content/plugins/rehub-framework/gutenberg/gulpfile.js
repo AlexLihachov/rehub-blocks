@@ -28,7 +28,7 @@ const buildInclude = [
 
 const postCSSOptions = [
 	autoprefixer({remove: false}),
-	mqpacker(), // Combine media query rules.
+	mqpacker({sort: true}), // Combine media query rules.
 	cssnano(), // Minify.
 ];
 

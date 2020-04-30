@@ -1,29 +1,37 @@
+/**
+ * BLOCK: Offerbox.
+ */
+
+/**
+ * External dependencies
+ */
 const {__} = wp.i18n;
 
-import attributes from './attributes';
+/**
+ * Internal dependencies
+ */
+import schema from './schema';
 import edit from './edit';
 
-import {slug, icon, title, description} from './help';
-
 const blockProperty = {
-	save: () => null,
+	title: __('OfferBox (dev)', 'rehub-theme-child'),
+	description: __('Woo Box description', 'rehub-theme-child'),
+	icon: {
+		src: 'info',
+	},
 	category: 'helpler-modules',
+	keywords: [],
 	supports: {
 		align: ['wide', 'full'],
 		customClassName: false,
 		html: false,
 	},
-	icon: {
-		src: icon,
-	},
-	title,
-	description,
-	keywords: [],
-	attributes,
-	edit,
+	attributes: schema,
+	save: () => null,
+	edit
 };
 
 export default {
-	slug: `rehub/${slug}`,
+	slug: `rehub/offerbox`,
 	blockProperty,
 };

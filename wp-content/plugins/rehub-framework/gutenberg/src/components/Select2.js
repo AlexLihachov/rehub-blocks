@@ -114,8 +114,11 @@ class Select2 extends React.Component {
 					multiple={multiple}
 					options={select2options}
 					onChange={(event) => {
-						let value = jQuery(event.currentTarget).val() === null ? (multiple ? [] : '') : jQuery(event.currentTarget).val();
-						onChange(multiple ? value.filter((val) => val.length) : value)
+						const value = jQuery(event.currentTarget).val();
+
+						if (value !== null && value.length) {
+							onChange(value);
+						}
 					}}
 				/>
 			</BaseControl>
