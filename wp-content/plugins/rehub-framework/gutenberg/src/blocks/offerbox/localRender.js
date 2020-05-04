@@ -2,23 +2,21 @@ import classnames from 'classnames';
 
 export default function LocalRender(props) {
 	const {
-		posts,
-		offer_url,
-		offer_title,
-		offer_desc,
-		disclaimer,
-		offer_price_old,
-		offer_price,
-		percentageSaved,
-		rating,
-		offer_coupon,
-		offer_coupon_date,
-		offer_coupon_mask,
-		offer_coupon_mask_text,
-		offer_btn_text,
-		image_id,
-		bordercolor,
-	} = props.attributes;
+		      offer_url,
+		      offer_title,
+		      offer_desc,
+		      disclaimer,
+		      offer_price_old,
+		      offer_price,
+		      percentageSaved,
+		      rating,
+		      offer_coupon,
+		      offer_coupon_date,
+		      offer_coupon_mask,
+		      offer_coupon_mask_text,
+		      image_id,
+		      coupon_text
+	      } = props.attributes;
 
 
 	return <div className={classnames([
@@ -28,7 +26,7 @@ export default function LocalRender(props) {
 			<div className={'product_egg'}>
 				<div className={'image col_item mobileblockdisplay'}>
 					<a href={offer_url} className="re_track_btn">
-						<img src={image_id} />
+						<img src={image_id}/>
 						{percentageSaved && <span className="sale_a_proc">-{percentageSaved}%</span>}
 					</a>
 				</div>
@@ -49,7 +47,8 @@ export default function LocalRender(props) {
 						</span>}
 
 					</div>}
-					{disclaimer && <div className="rev_disclaimer font70 greencolor lineheight15 mb15">{disclaimer}</div>}
+					{disclaimer &&
+					<div className="rev_disclaimer font70 greencolor lineheight15 mb15">{disclaimer}</div>}
 					<div className="buttons_col">
 						<div className="priced_block clearfix">
 							<div>

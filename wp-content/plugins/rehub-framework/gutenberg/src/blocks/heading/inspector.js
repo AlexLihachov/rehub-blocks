@@ -9,11 +9,10 @@ const {
 
 const {
 	PanelBody,
-	SelectControl,
 	TextControl,
 } = wp.components;
 
-import {BaseControl, ToggleControl} from "@wordpress/components";
+import {BaseControl} from "@wordpress/components";
 
 /**
  * Create an Inspector Controls wrapper Component

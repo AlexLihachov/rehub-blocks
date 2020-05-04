@@ -1,2 +1,3 @@
 const {__} = wp.i18n;
-module.exports = __('Heading with number in background', 'rehub-theme-child');
+const description = __('Heading with number in background', 'rehub-theme-child');
+export default description;

@@ -7,12 +7,8 @@ const {
 	RichText,
 } = wp.blockEditor || wp.editor;
 
-const {__, sprintf} = wp.i18n;
+const {__} = wp.i18n;
 const {Component} = wp.element;
-
-const {
-	TextControl,
-} = wp.components;
 
 class EditBlock extends Component {
 	render() {

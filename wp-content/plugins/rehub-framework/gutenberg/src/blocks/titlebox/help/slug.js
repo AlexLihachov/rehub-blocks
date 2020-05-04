@@ -1,1 +1,2 @@
-module.exports = 'titlebox';
+const slug = 'titlebox';
+export default slug;

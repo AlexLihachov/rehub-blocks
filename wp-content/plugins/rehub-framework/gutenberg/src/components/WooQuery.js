@@ -1,21 +1,17 @@
 import {
 	PanelBody,
-	SelectControl
-} from "@wordpress/components";
-
+	SelectControl,
+	BaseControl,
+} from '@wordpress/components';
+import {Fragment, Component} from '@wordpress/element'
 import {
-	__
+	__,
 } from '@wordpress/i18n';
-
-// import AsyncSelect from 'react-select/async';
-//
-//
-// import Select2 from 'react-select2-wrapper';
+import AsyncSelect from 'react-select/async';
+import Select2 from 'react-select2-wrapper';
 import 'react-select2-wrapper/css/select2.css';
 
-import {BaseControl} from "@wordpress/components";
-
-async function postData(data = {}) {
+async function postData( data = {} ) {
 	// Значения по умолчанию обозначены знаком *
 	return fetch(ajaxurl, {
 		method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -37,20 +33,20 @@ async function postData(data = {}) {
 }
 
 
-class WooQuery extends React.Component {
-	state = {
-		values: {
-			data_source: 'cat',
-			cat: [55, 18, 81],
-		},
-		options: {
-			cat: [],
-		}
-	}
-
+class WooQuery extends Component {
 	constructor() {
 		super(...arguments);
-
+		this.state = {
+			values: {
+				data_source: 'cat',
+				cat: [55, 18, 81],
+			},
+			options: {
+				cat: [],
+			}
+		};
+		this.getOptionValue = this.getOptionValue.bind(this);
+		this.getOptionLabel = this.getOptionLabel.bind(this);
 		this.getTaxonomyValue();
 	}
 
@@ -85,7 +81,6 @@ class WooQuery extends React.Component {
 					}
 				});
 			}).catch((error) => {
-			console.log('Error', error);
 			that.setState({
 				taxonomy: {error: true, errorMsg: error, data: []}
 			});
@@ -107,30 +102,23 @@ class WooQuery extends React.Component {
 		return option.value || option.id;
 	}
 
-	getOptionLabel = option => {
+	getOptionLabel(option) {
 		return option.label || option.name;
-	};
+	}
 
 	render() {
 		const {
 			values: {
 				data_source,
 				cat,
-				tag,
-				ids,
-				type,
-				price_range,
-				user_id,
 			},
 			options: {
 				cat: options_cat,
 			}
 		} = this.state;
 
-		console.log(this.state);
 
-
-		return <>
+		return <Fragment>
 			<PanelBody
 				label={"Data query"}
 			>
@@ -172,9 +160,6 @@ class WooQuery extends React.Component {
 									}, params);
 								},
 								processResults: ({data: {results}}) => {
-									console.log(results, {
-										results: results.map(({id: value, text: label}) => ({value, label}))
-									});
 									return {
 										results
 									}
@@ -233,7 +218,7 @@ class WooQuery extends React.Component {
 				<hr />
 				<hr />
 			</PanelBody>
-		</>
+		</Fragment>
 
 
 	}

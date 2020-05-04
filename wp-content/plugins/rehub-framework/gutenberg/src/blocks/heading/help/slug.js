@@ -1,1 +1,2 @@
-module.exports = 'heading';
+const slug = 'heading';
+export default slug;

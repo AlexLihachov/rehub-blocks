@@ -1,5 +1,3 @@
-const {__} = wp.i18n;
-
 import attributes from './attributes';
 import edit from './edit';
 

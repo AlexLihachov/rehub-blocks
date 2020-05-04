@@ -1,9 +1,9 @@
-const {isEqual, debounce} = _;
+import {isEqual, debounce} from 'lodash';
 const {
 	Component,
 	RawHTML,
 } = wp.element;
-const {__, sprintf} = wp.i18n;
+import {__, sprintf} from '@wordpress/i18n'
 const {addQueryArgs} = wp.url;
 
 const {
@@ -11,7 +11,7 @@ const {
 	Spinner,
 } = wp.components;
 
-export function rendererPath(block, attributes = null, urlQueryArgs = {}) {
+export function rendererPath(block, urlQueryArgs = {}) {
 	return addQueryArgs(`/wp-json/gt3/v1/photo-gallery/block-renderer/${ block }`, {
 		context: 'edit',
 		...urlQueryArgs,
@@ -51,7 +51,7 @@ export class ServerSideRender extends Component {
 		if (null !== this.state.response) {
 			this.setState({response: null});
 		}
-		const {block, attributes = null, urlQueryArgs = {}, blacklist = []} = props,
+		const {block, attributes = null, blacklist = []} = props,
 			that = this;
 
 		const path = `/rehub/v1/block-render/${ block }`;//rendererPath(block, attributes, urlQueryArgs);

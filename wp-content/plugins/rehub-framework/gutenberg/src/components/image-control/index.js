@@ -109,8 +109,8 @@ ImageControl.defaultProps = {
 	label: '',
 	imageID: '',
 	imageURL: '',
-	onChange: ({url, id, width, height}) => {
-	}, // eslint-disable-line
+	onChange: () => {
+	},
 	onRemove: () => {
 	},
 	allowedTypes: ['image'],

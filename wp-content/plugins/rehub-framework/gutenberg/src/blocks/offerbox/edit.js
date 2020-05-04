@@ -143,8 +143,8 @@ class EditBlock extends Component {
 							/>
 							{+rating > 0 && (
 								<div className="c-offer-box__rating">
-									{[...Array(+rating).keys()].map(() => {
-										return <span>☆</span>;
+									{[...Array(+rating).keys()].map((item) => {
+										return <span key={item}>☆</span>;
 									})}
 								</div>
 							)}

@@ -20,10 +20,7 @@ const ariaOpen = __('Hide more tools & options', 'rehub-theme-child');
 const UrlInputPopover = withState({
 	openAdvanced: false,
 })(props => {
-	const {
-		      openAdvanced,
-		      setState,
-	      } = props;
+	const {openAdvanced, setState,} = props;
 
 	if (!props.onChange && !props.onChangeNewTab && !props.onChangeNoFollow && !props.onChangeModal && !props.onChangeModalId) {
 		return null

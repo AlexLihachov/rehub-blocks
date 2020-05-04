@@ -1,14 +1,14 @@
 const {__} = wp.i18n;
 const {Component} = wp.element;
 const {
-	InspectorControls,
-} = wp.blockEditor || wp.editor;
+	      InspectorControls,
+      } = wp.blockEditor || wp.editor;
 
 const {
-	PanelBody,
-	SelectControl,
-	TextControl,
-} = wp.components;
+	      PanelBody,
+	      SelectControl,
+	      TextControl,
+      } = wp.components;
 
 import {ToggleControl} from "@wordpress/components";
 
@@ -18,17 +18,15 @@ import {ToggleControl} from "@wordpress/components";
 export default class Inspector extends Component {
 	render() {
 		const {
-			attributes: {
-				type,
-				title,
-				float,
-				textalign,
-				date,
-				takeDate,
-				label,
-			},
-			setAttributes
-		} = this.props;
+			      attributes: {
+				      type,
+				      float,
+				      textalign,
+				      takeDate,
+				      label,
+			      },
+			      setAttributes
+		      } = this.props;
 
 		return (
 			<InspectorControls>
@@ -55,12 +53,12 @@ export default class Inspector extends Component {
 						value={type}
 						onChange={(type) => setAttributes({type})}
 					/>
-                	<SelectControl
+					<SelectControl
 						label={__('Box float', 'rehub-theme-child')}
 						options={[
-							{value: 'none', label: __('None', 'rehub-theme-child') },
-							{value: 'left', label: __('Left', 'rehub-theme-child') },
-							{value: 'right', label: __('Right', 'rehub-theme-child') },
+							{value: 'none', label: __('None', 'rehub-theme-child')},
+							{value: 'left', label: __('Left', 'rehub-theme-child')},
+							{value: 'right', label: __('Right', 'rehub-theme-child')},
 						]}
 						value={float}
 						onChange={(float) => setAttributes({float})}
@@ -77,15 +75,15 @@ export default class Inspector extends Component {
 						onChange={(textalign) => setAttributes({textalign})}
 					/>
 					<ToggleControl
-						label={__('Take current date','rehub-theme-child')}
-						checked={ takeDate }
+						label={__('Take current date', 'rehub-theme-child')}
+						checked={takeDate}
 						onChange={(takeDate) => {
 							const date = new Date();
-							setAttributes({takeDate, date: date.getDate()+'.'+(date.getMonth()+1)})
+							setAttributes({takeDate, date: date.getDate() + '.' + (date.getMonth() + 1)})
 						}}
 					/>
 					{!!+takeDate && <TextControl
-						label={__('Label','rehub-theme-child')}
+						label={__('Label', 'rehub-theme-child')}
 						value={label}
 						onChange={(label) => setAttributes({label})}
 					/>}

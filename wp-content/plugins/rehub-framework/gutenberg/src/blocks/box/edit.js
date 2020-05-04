@@ -10,10 +10,6 @@ const {
 const {__} = wp.i18n;
 const {Component} = wp.element;
 
-const {
-	TextControl,
-} = wp.components;
-
 class EditBlock extends Component {
 	render() {
 		const {
@@ -39,7 +35,7 @@ class EditBlock extends Component {
 				textAlign: textalign,
 				}}>
 			<i></i>
-			{takeDate && <span class="label-info">{date} {label}</span>}
+			{takeDate && <span className="label-info">{date} {label}</span>}
 				<div>
 					<RichText
 						placeholder={__('Content', 'rehub-theme-child')}

@@ -15,16 +15,7 @@ import {Dashicon} from '@wordpress/components';
 import {MediaUpload} from '@wordpress/block-editor';
 
 const ImageUploadPlaceholder = props => {
-	const {
-		      imageID,
-		      imageURL,
-		      onRemove,
-		      className,
-		      allowedTypes,
-		      render,
-		      hasRemove,
-		      style: mainStyle,
-	      } = props;
+	const {imageID, imageURL, onRemove, className, allowedTypes, render, hasRemove, style: mainStyle} = props;
 
 	const imageClass = classnames([
 		className,
@@ -43,9 +34,7 @@ const ImageUploadPlaceholder = props => {
 		<MediaUpload
 			onSelect={image => {
 				// If imageSize is provided, return the URL of that size.
-				let {
-					    url, width, height,
-				    } = image;
+				let {url, width, height} = image;
 				const currentSelectedSize = props.imageSize || 'full';
 				if (image.sizes[currentSelectedSize]) {
 					url = image.sizes[currentSelectedSize].url;
@@ -119,7 +108,7 @@ ImageUploadPlaceholder.defaultProps = {
 	imageID: '',
 	imageURL: '',
 	imageSize: 'full', // If supplied, the imageURL that will be returned will be of this size.
-	onChange: ({url, id}) => {
+	onChange: () => {
 	}, // eslint-disable-line no-unused-vars
 	onRemove: null,
 	className: '',

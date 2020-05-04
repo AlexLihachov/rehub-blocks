@@ -1,24 +1,12 @@
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 
-import ReactSelect2Wrapper from 'react-select2-wrapper';
-
-const {
-	addQueryArgs
-} = wp.url;
+const {addQueryArgs} = wp.url;
 
 const {__} = wp.i18n;
-const {
-	Component,
-	Fragment
-} = wp.element;
+const {Component, Fragment} = wp.element;
 
-const {
-	SelectControl,
-	TextControl,
-	BaseControl,
-	ToggleControl,
-} = wp.components;
+const {SelectControl, TextControl, BaseControl} = wp.components;
+import Select2 from "./Select2";
 
 /**
  * Create a Block Controls wrapper Component
@@ -28,20 +16,9 @@ class QueryControl extends Component {
 	constructor() {
 		super(...arguments);
 
-		this.baseurl =  window.location.href.substring(0, window.location.href.indexOf('/wp-admin'));
+		this.baseurl = window.location.href.substring(0, window.location.href.indexOf('/wp-admin'));
 
-		const {
-			attributes,
-			query_field,
-
-			showCategory,
-			showTag,
-			showUser,
-
-			post_type,
-			post_taxonomy,
-			post_tag,
-		} = this.props;
+		const {attributes, query_field, showCategory} = this.props;
 
 		if (!showCategory) return;
 
@@ -88,12 +65,7 @@ class QueryControl extends Component {
 	getTaxonomyValue() {
 		const that = this;
 
-		const {
-			attributes,
-			query_field,
-			showCategory,
-			post_taxonomy,
-		} = this.props;
+		const {attributes, query_field, showCategory, post_taxonomy} = this.props;
 
 		if (!showCategory) return;
 
@@ -113,7 +85,6 @@ class QueryControl extends Component {
 				}
 			});
 		}).catch((error) => {
-			console.log('Error', error);
 			that.setState({
 				taxonomy: {error: true, errorMsg: error, data: []}
 			});
@@ -123,13 +94,7 @@ class QueryControl extends Component {
 	getTagValue() {
 		const that = this;
 
-		const {
-			attributes,
-			query_field,
-
-			showTag,
-			post_tag,
-		} = this.props;
+		const {attributes, query_field, showTag, post_tag} = this.props;
 
 		if (!showTag) return;
 
@@ -159,14 +124,7 @@ class QueryControl extends Component {
 	getUserValue() {
 		const that = this;
 
-		const {
-			attributes,
-			query_field,
-
-			showUser,
-
-			post_type,
-		} = this.props;
+		const {attributes, query_field, showUser, post_type} = this.props;
 
 		if (!showUser) return;
 
@@ -196,13 +154,7 @@ class QueryControl extends Component {
 	getPostValue() {
 		const that = this;
 
-		const {
-			attributes,
-			query_field,
-
-			showPost,
-			post_type,
-		} = this.props;
+		const {attributes, query_field, showPost, post_type} = this.props;
 
 		if (!showPost) return;
 
@@ -230,11 +182,7 @@ class QueryControl extends Component {
 	}
 
 	buildQuery() {
-		const {
-			post_type,
-			post_taxonomy,
-			post_tag
-		} = this.props;
+		const {post_type, post_taxonomy, post_tag} = this.props;
 
 		let key_name = this.props.query_field;
 		let attributes = Object.assign({}, this.query_object);
@@ -293,22 +241,8 @@ class QueryControl extends Component {
 
 
 	render() {
-		const {
-			attributes,
-			query_field,
-
-			showCategory,
-			showTag,
-			showUser,
-			showPost,
-
-			post_type,
-			post_taxonomy,
-			post_tag,
-		} = this.props;
-
+		const {attributes, query_field, showCategory, showTag, showUser, showPost, post_type, post_taxonomy, post_tag} = this.props;
 		const query = attributes[query_field];
-
 		const select_options = {
 			orderby: [
 				{value: '', label: ''},
@@ -353,7 +287,9 @@ class QueryControl extends Component {
 					onChange={(value) => this.onChangeValue('orderby', value)}
 					help={<Fragment>
 						{__('Select how to sort retrieved posts. More at', 'gt3pg_pro')} {' '}
-						<a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">
+						<a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters"
+						   without rel="noopener noreferrer"
+						   target="_blank">
 							{__('WordPress codex page', 'gt3pg_pro')}
 						</a>
 					</Fragment>}
@@ -410,13 +346,14 @@ class QueryControl extends Component {
 						/>
 					</BaseControl>
 				</Fragment>}
-				{!!query.post__in.length && <Fragment><div style={{
-					color: 'red',
-					textAlign: 'center',
-					padding: 10,
-					margin: '5px 0 15px',
-					border: '1px red solid'
-				}}>{__('Note: if selected Custom Posts - other settings will be disabled', 'gt3pg_pro')}</div>
+				{!!query.post__in.length && <Fragment>
+					<div style={{
+						color: 'red',
+						textAlign: 'center',
+						padding: 10,
+						margin: '5px 0 15px',
+						border: '1px red solid'
+					}}>{__('Note: if selected Custom Posts - other settings will be disabled', 'gt3pg_pro')}</div>
 				</Fragment>}
 
 

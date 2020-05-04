@@ -1,14 +1,10 @@
 const {__} = wp.i18n;
-const {Component, Fragment} = wp.element;
-const {
-	InspectorControls,
-	PanelColorSettings,
-} = wp.blockEditor || wp.editor;
+const {Component} = wp.element;
+const {InspectorControls} = wp.blockEditor || wp.editor;
 
 const {
 	PanelBody,
-	SelectControl,
-	TextControl,
+	SelectControl
 } = wp.components;
 
 /**
@@ -18,9 +14,7 @@ export default class Inspector extends Component {
 	render() {
 		const {
 			attributes: {
-				style,
-				title,
-				text,
+				style
 			},
 			setAttributes
 		} = this.props;

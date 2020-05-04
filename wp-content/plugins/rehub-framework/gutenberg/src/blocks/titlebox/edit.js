@@ -3,19 +3,12 @@ import Controls from './controls';
 import classnames from 'classnames';
 import {Fragment} from '@wordpress/element';
 
-const {withSelect} = wp.data;
-const {compose} = wp.compose;
-
 const {
 	RichText,
 } = wp.blockEditor || wp.editor;
 
 const {__} = wp.i18n;
 const {Component} = wp.element;
-
-const {
-	TextControl,
-} = wp.components;
 
 class EditBlock extends Component {
 	render() {
