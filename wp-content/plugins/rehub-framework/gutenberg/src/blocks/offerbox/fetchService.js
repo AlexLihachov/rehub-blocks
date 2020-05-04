@@ -29,6 +29,7 @@ export function updateOfferData(postId, setAttribute, attributes) {
 				button: buttonClone,
 				thumbnail: thumbnailClone,
 				rating: post.rating,
+				discount: post.discount,
 				loading: false
 			});
 		});

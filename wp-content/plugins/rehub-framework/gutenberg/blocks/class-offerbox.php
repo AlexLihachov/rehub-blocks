@@ -67,8 +67,7 @@ class Offerbox extends Basic {
 			'default' => '',
 		),
 		'discount_tag'     => array(
-			'type'    => 'string',
-			'default' => '',
+			'type' => 'number'
 		),
 		'rating'           => array(
 			'type'    => 'number',
@@ -98,6 +97,7 @@ class Offerbox extends Basic {
 			$offer_desc        = $settings['description'];
 			$disclaimer        = $settings['disclaimer'];
 			$rating            = $settings['rating'];
+			$percentageSaved   = $settings['discount_tag'];
 
 		}
 

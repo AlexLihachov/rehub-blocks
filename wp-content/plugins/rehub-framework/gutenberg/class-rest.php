@@ -125,6 +125,7 @@ class REST {
 		$offer_desc        = get_post_meta( $id, 'rehub_offer_product_desc', true );
 		$disclaimer        = get_post_meta( $id, 'rehub_offer_disclaimer', true );
 		$rating            = get_post_meta( $id, 'rehub_review_overall_score', true );
+		$discount          = get_post_meta( $id, 'rehub_offer_discount', true );
 
 		$data = array(
 			'name'             => $offer_title,
@@ -138,7 +139,8 @@ class REST {
 			'button_url'       => $offer_post_url,
 			'button_text'      => $offer_btn_text,
 			'thumbnail_url'    => $offer_thumb,
-			'rating'           => $rating
+			'rating'           => $rating,
+			'discount'         => $discount
 		);
 		return rest_ensure_response( $data );
 	}

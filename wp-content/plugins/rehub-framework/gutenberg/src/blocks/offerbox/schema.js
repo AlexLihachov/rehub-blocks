@@ -38,7 +38,7 @@ const schema = {
 	button: {
 		type: 'object',
 		default: {
-			text: '',
+			text: 'Buy this item',
 			url: '',
 			newTab: false,
 			noFollow: false
@@ -56,8 +56,10 @@ const schema = {
 		default: ''
 	},
 	discount_tag: {
-		type: 'string',
-		default: ''
+		type: 'number',
+	},
+	discount: {
+		type: 'string'
 	},
 	rating: {
 		type: 'number',

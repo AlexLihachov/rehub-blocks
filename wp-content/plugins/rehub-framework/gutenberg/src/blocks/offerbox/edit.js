@@ -62,6 +62,8 @@ class EditBlock extends Component {
 			      expiration_date,
 			      offer_is_expired,
 			      rating,
+			      discount_tag,
+			      discount,
 			      loading
 		      } = attributes;
 		const mainClasses = classnames([
@@ -97,6 +99,19 @@ class EditBlock extends Component {
 			expires_html = <div className="time_offer">Expired</div>;
 		}
 
+		// Process discount label render
+		let discount_html = null;
+
+		if (discount_tag && !discount) {
+			discount_html = (
+				<span className='c-offer-box__discount'>{discount_tag}%</span>
+			);
+		} else if (discount) {
+			discount_html = (
+				<span className='c-offer-box__discount'>{discount}</span>
+			);
+		}
+
 		return (
 			<Fragment>
 				{isSelected && <Fragment>
@@ -127,6 +142,7 @@ class EditBlock extends Component {
 									});
 								}}
 							/>
+							{discount_html}
 						</div>
 						<div className="c-offer-box__column">
 							<RichText
@@ -144,6 +160,9 @@ class EditBlock extends Component {
 							{+rating > 0 && (
 								<div className="c-offer-box__rating">
 									{[...Array(+rating).keys()].map((item) => {
+										return <span key={item}>&#x2605;</span>;
+									})}
+									{[...Array(5 - rating).keys()].map((item) => {
 										return <span key={item}>☆</span>;
 									})}
 								</div>
