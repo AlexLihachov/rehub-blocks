@@ -69,6 +69,10 @@ const schema = {
 		type: 'number',
 		default: 0
 	},
+	borderColor: {
+		type: 'string',
+		default: ''
+	},
 	postId: {
 		type: 'string',
 		default: '',

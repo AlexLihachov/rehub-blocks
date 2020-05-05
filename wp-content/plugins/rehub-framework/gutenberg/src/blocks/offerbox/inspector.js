@@ -9,7 +9,14 @@ import {cloneDeep} from 'lodash';
 import {__} from '@wordpress/i18n';
 import {Component} from '@wordpress/element'
 import {InspectorControls} from '@wordpress/block-editor';
-import {PanelBody, ToggleControl, TextControl, DateTimePicker, TextareaControl, Button} from '@wordpress/components';
+import {
+	PanelBody,
+	ToggleControl,
+	TextControl,
+	DateTimePicker,
+	TextareaControl,
+	Button
+} from '@wordpress/components';
 
 /**
  * Internal dependencies
@@ -18,6 +25,7 @@ import {updateOfferData} from "./fetchService";
 import populateOfferFields from './populate-offer-fields';
 import Select2 from "../../components/Select2";
 import ImageControl from "../../components/image-control";
+import ColorPaletteControl from '../../components/ColorPaletteControl';
 
 /**s
  * Create an Inspector Controls wrapper Component
@@ -39,7 +47,8 @@ export default class Inspector extends Component {
 			      mask_coupon_text,
 			      thumbnail,
 			      discount_tag,
-			      rating
+			      rating,
+			      borderColor
 		      } = attributes;
 
 		return (
@@ -233,6 +242,15 @@ export default class Inspector extends Component {
 					{/*		});*/}
 					{/*	}}*/}
 					{/*/>*/}
+					<ColorPaletteControl
+						label={__('Border color', 'rehub-theme-child')}
+						value={borderColor}
+						onChange={(value) => {
+							setAttributes({
+								borderColor: value
+							});
+						}}
+					/>
 					<div style={{marginTop: 20}}>
 						<Button isSecondary onClick={() => populateOfferFields(this.props)}>
 							{__('Autopopulate data to Post offer fields', 'rehub-theme-child')}

@@ -22,6 +22,7 @@ import Coupon from "./components/Coupon";
 import Discount from "./components/Discount";
 import ImageUploadPlaceholder from "../../components/image-upload-placeholder";
 import UrlInputPopover from "../../components/url-input-popover";
+import {withUniqueClass} from '../../higher-order';
 
 class EditBlock extends Component {
 	constructor() {
@@ -66,6 +67,7 @@ class EditBlock extends Component {
 			      rating,
 			      discount_tag,
 			      discount,
+			      borderColor,
 			      loading
 		      } = attributes;
 		const mainClasses = classnames([
@@ -74,13 +76,18 @@ class EditBlock extends Component {
 			{'c-offer-box--loading': loading}
 		]);
 
+		const styles = {
+			border: borderColor ? '2px solid' : '',
+			borderColor: borderColor
+		};
+
 		return (
 			<Fragment>
 				{isSelected && <Fragment>
 					<Inspector {...this.props} />
 					<Controls {...this.props} />
 				</Fragment>}
-				<div className={mainClasses}>
+				<div className={mainClasses} style={styles}>
 					<Spinner/>
 					<div className="c-offer-box__wrapper">
 						<div className="c-offer-box__column c-offer-box__image">
@@ -222,5 +229,6 @@ class EditBlock extends Component {
 }
 
 export default compose(
-	withFocusOutside
+	withUniqueClass,
+	withFocusOutside,
 )(EditBlock);

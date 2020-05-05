@@ -29,6 +29,7 @@ module.exports = {
         "react/react-in-jsx-scope": "off",
         "react/display-name": "off",
         "react/prop-types": "off",
+        "no-useless-escape": "off",
         "no-mixed-spaces-and-tabs": [2, "smart-tabs"]
     }
 };
