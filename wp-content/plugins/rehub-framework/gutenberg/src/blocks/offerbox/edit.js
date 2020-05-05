@@ -11,14 +11,15 @@ import {Fragment, Component} from '@wordpress/element';
 import {compose} from '@wordpress/compose';
 import {withFocusOutside, Spinner} from '@wordpress/components';
 import {RichText} from '@wordpress/block-editor';
-
-const {__} = wp.i18n;
+import {__} from '@wordpress/i18n';
 
 /**
  * Internal dependencies
  */
 import Inspector from './inspector';
 import Controls from './controls';
+import Coupon from "./components/Coupon";
+import Discount from "./components/Discount";
 import ImageUploadPlaceholder from "../../components/image-upload-placeholder";
 import UrlInputPopover from "../../components/url-input-popover";
 
@@ -58,6 +59,7 @@ class EditBlock extends Component {
 			      button,
 			      coupon_code,
 			      mask_coupon_code,
+			      mask_coupon_text,
 			      description,
 			      expiration_date,
 			      offer_is_expired,
@@ -71,46 +73,6 @@ class EditBlock extends Component {
 			'c-offer-box',
 			{'c-offer-box--loading': loading}
 		]);
-		const couponClasses = classnames([
-			'c-offer-box__coupon',
-			{'c-offer-box__coupon--masked': mask_coupon_code,}
-		]);
-
-		// Calculate expires days and process render html
-		let expires_html = null;
-
-		if (expiration_date) {
-			const currentTimestamp = Date.now();
-			const expiredTimestamp = Date.parse(expiration_date);
-			const difference = (expiredTimestamp - currentTimestamp);
-			const daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
-
-			if (daysDifference < 0) {
-				expires_html = <div className="time_offer">{__('Expired', 'rehub-theme-child')}</div>;
-			} else if (daysDifference === 0) {
-				expires_html = <div className="time_offer">{__('Last day', 'rehub-theme-child')}</div>;
-			} else if (daysDifference >= 1) {
-				expires_html =
-					<div className="time_offer">{daysDifference} {__('days left', 'rehub-theme-child')}</div>;
-			}
-		}
-
-		if (offer_is_expired) {
-			expires_html = <div className="time_offer">Expired</div>;
-		}
-
-		// Process discount label render
-		let discount_html = null;
-
-		if (discount_tag && !discount) {
-			discount_html = (
-				<span className='c-offer-box__discount'>{discount_tag}%</span>
-			);
-		} else if (discount) {
-			discount_html = (
-				<span className='c-offer-box__discount'>{discount}</span>
-			);
-		}
 
 		return (
 			<Fragment>
@@ -142,7 +104,9 @@ class EditBlock extends Component {
 									});
 								}}
 							/>
-							{discount_html}
+							<Discount
+								discount_tag={discount_tag}
+								discount={discount}/>
 						</div>
 						<div className="c-offer-box__column">
 							<RichText
@@ -189,8 +153,7 @@ class EditBlock extends Component {
 													old_price: value
 												});
 											}}
-											keepPlaceholderOnFocus
-										/>
+											keepPlaceholderOnFocus/>
 									</span>
 							</div>
 							<div className="c-offer-box__disclaimer">
@@ -203,8 +166,7 @@ class EditBlock extends Component {
 											disclaimer: value
 										});
 									}}
-									keepPlaceholderOnFocus
-								/>
+									keepPlaceholderOnFocus/>
 							</div>
 							<div onClick={() => this.setState({openUrlPopover: true})}>
 								<div className="c-offer-box__button">
@@ -219,8 +181,7 @@ class EditBlock extends Component {
 												button: buttonClone
 											});
 										}}
-										keepPlaceholderOnFocus
-									/>
+										keepPlaceholderOnFocus/>
 								</div>
 								{this.state.openUrlPopover && (
 									<UrlInputPopover
@@ -229,30 +190,16 @@ class EditBlock extends Component {
 										noFollow={button.noFollow}
 										onChange={value => this.handleButtonChange(value, 'url')}
 										onChangeNewTab={value => this.handleButtonChange(value, 'newTab')}
-										onChangeNoFollow={value => this.handleButtonChange(value, 'noFollow')}
-									/>
+										onChangeNoFollow={value => this.handleButtonChange(value, 'noFollow')}/>
 								)}
 							</div>
-							{coupon_code && (
-								<div>
-									<div className={couponClasses}>
-										<i className="fal fa-cut fa-rotate-180"/>
-										<RichText
-											placeholder={__('code_of_coupon', 'rehub-theme-child')}
-											tagName="span"
-											className="coupon_text"
-											value={coupon_code}
-											onChange={(value) => {
-												setAttributes({
-													coupon_code: value
-												});
-											}}
-											keepPlaceholderOnFocus
-										/>
-									</div>
-									{expires_html}
-								</div>
-							)}
+							<Coupon
+								coupon_code={coupon_code}
+								mask_coupon_code={mask_coupon_code}
+								mask_coupon_text={mask_coupon_text}
+								setAttributes={setAttributes}
+								expiration_date={expiration_date}
+								offer_is_expired={offer_is_expired}/>
 							<div className="c-offer-box__desc">
 								<RichText
 									placeholder={__('Description', 'rehub-theme-child')}

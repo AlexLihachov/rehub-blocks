@@ -36,6 +36,7 @@ export default class Inspector extends Component {
 			      coupon_code,
 			      expiration_date,
 			      mask_coupon_code,
+			      mask_coupon_text,
 			      thumbnail,
 			      discount_tag,
 			      rating
@@ -167,6 +168,15 @@ export default class Inspector extends Component {
 						onChange={() => {
 							setAttributes({
 								mask_coupon_code: !mask_coupon_code
+							});
+						}}
+					/>
+					<TextControl
+						label={__('Mask Text', 'rehub-theme-child')}
+						value={mask_coupon_text}
+						onChange={(value) => {
+							setAttributes({
+								mask_coupon_text: value
 							});
 						}}
 					/>

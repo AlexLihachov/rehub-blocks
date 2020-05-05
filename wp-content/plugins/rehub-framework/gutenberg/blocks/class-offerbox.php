@@ -41,11 +41,12 @@ class Offerbox extends Basic {
 			'default' => '',
 		),
 		'mask_coupon_code' => array(
-			'type'    => 'boolean',
 			'default' => false,
 		),
+		'mask_coupon_text' => array(
+			'default' => '',
+		),
 		'offer_is_expired' => array(
-			'type'    => 'boolean',
 			'default' => false,
 		),
 		'button'           => array(
@@ -84,21 +85,21 @@ class Offerbox extends Basic {
 		if ( ! empty( $settings['postId'] ) ) {
 
 		} else {
-			$offer_post_url    = $settings['button']['url'];
-			$offer_url         = $settings['button']['url'];
-			$offer_price       = $settings['sale_price'];
-			$offer_price_old   = $settings['old_price'];
-			$offer_title       = $settings['name'];
-			$offer_thumb       = $settings['thumbnail']['url'];
-			$offer_btn_text    = $settings['button']['text'];
-			$offer_coupon      = $settings['coupon_code'];
-			$offer_coupon_date = $settings['expiration_date'];
-			$offer_coupon_mask = $settings['mask_coupon_code'];
-			$offer_desc        = $settings['description'];
-			$disclaimer        = $settings['disclaimer'];
-			$rating            = $settings['rating'];
-			$percentageSaved   = $settings['discount_tag'];
-
+			$offer_post_url         = $settings['button']['url'];
+			$offer_url              = $settings['button']['url'];
+			$offer_price            = $settings['sale_price'];
+			$offer_price_old        = $settings['old_price'];
+			$offer_title            = $settings['name'];
+			$offer_thumb            = $settings['thumbnail']['url'];
+			$offer_btn_text         = $settings['button']['text'];
+			$offer_coupon           = $settings['coupon_code'];
+			$offer_coupon_date      = $settings['expiration_date'];
+			$offer_coupon_mask      = $settings['mask_coupon_code'];
+			$offer_desc             = $settings['description'];
+			$disclaimer             = $settings['disclaimer'];
+			$rating                 = $settings['rating'];
+			$percentageSaved        = $settings['discount_tag'];
+			$offer_coupon_mask_text = $settings['mask_coupon_text'];
 		}
 
 		require_once( rh_locate_template( 'inc/parts/offerbigpart.php' ) );

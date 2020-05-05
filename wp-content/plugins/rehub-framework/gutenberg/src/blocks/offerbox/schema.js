@@ -29,7 +29,11 @@ const schema = {
 	},
 	mask_coupon_code: {
 		type: 'boolean',
-		default: true
+		default: false
+	},
+	mask_coupon_text: {
+		type: 'string',
+		default: ''
 	},
 	offer_is_expired: {
 		type: 'boolean',
