@@ -8,31 +8,34 @@ class Select2 extends Component {
 		super(...arguments);
 		this.state = {
 			loaded: false,
-			selectedPost: null,
-			posts: []
+			posts: [],
+			initialSetup: true
 		};
+		this.defaultValue = this.props.selectedPost;
 		this.getOptions = this.getOptions.bind(this);
 		this.onChangeSelectPost = this.onChangeSelectPost.bind(this);
 	}
 
 	getOptions() {
-		wp.apiFetch({path: '/wp/v2/posts/?filter[post_type]=post'}).then((posts) => {
-			const selectData = posts.map((post) => {
-				return {
-					text: post.title.rendered,
-					id: post.id
-				};
-			});
+		if (this.state.posts.length === 0 && this.state.initialSetup) {
+			wp.apiFetch({path: '/wp/v2/posts/?filter[post_type]=post'}).then((posts) => {
+				const selectData = posts.map((post) => {
+					return {
+						text: post.title.rendered,
+						id: post.id
+					};
+				});
 
-			this.setState({
-				posts: selectData,
-				loaded: true
+				this.setState({
+					posts: selectData,
+					loaded: true
+				});
 			});
-		});
+		}
 	}
 
 	onChangeSelectPost(value) {
-		this.setState({selectedPost: parseInt(value)});
+		this.setState({currentPost: parseInt(value)});
 		this.props.onChange(value);
 	}
 
@@ -42,18 +45,24 @@ class Select2 extends Component {
 
 	render() {
 		const {label} = this.props;
-		const {posts, selectedPost} = this.state;
+		const {posts, currentPost} = this.state;
 
 		return (
 			<Fragment>
 				<BaseControl label={label}>
 					<ReactSelect2Wrapper
-						value={selectedPost}
+						defaultValue={this.defaultValue}
+						value={currentPost}
 						data={posts}
 						onChange={(event) => {
 							const value = jQuery(event.currentTarget).val();
+
 							if (value !== null && value.length) {
-								this.onChangeSelectPost(value);
+								if (this.state.initialSetup) {
+									this.setState({initialSetup: false})
+								} else {
+									this.onChangeSelectPost(value);
+								}
 							}
 						}}
 					/>

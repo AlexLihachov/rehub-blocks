@@ -2,17 +2,18 @@
  * BLOCK: Offerbox.
  */
 
+
 /**
- * External dependencies
+ * WordPress dependencies
  */
-const {__} = wp.i18n;
+import {__} from '@wordpress/i18n';
 
 /**
  * Internal dependencies
  */
-import schema from './schema';
+import schema from '../schema';
 import edit from './edit';
-import {OfferBoxIcon} from '../../icons';
+import {OfferBoxIcon} from '../../../icons';
 
 const blockProperty = {
 	title: __('OfferBox', 'rehub-theme-child'),

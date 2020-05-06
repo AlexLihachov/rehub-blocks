@@ -15,10 +15,10 @@ import {withFocusOutside, Spinner} from '@wordpress/components';
  * Internal dependencies
  */
 import Inspector from './inspector';
-import Controls from './controls';
-import {withUniqueClass} from '../../higher-order';
-import ImageColumn from "./components/ImageColumn";
-import ContentColumn from "./components/ContentColumn";
+import Controls from '../editor-components/controls';
+import ImageColumn from "../components/ImageColumn";
+import ContentColumn from "../components/ContentColumn";
+
 
 class EditBlock extends Component {
 	constructor() {
@@ -54,7 +54,7 @@ class EditBlock extends Component {
 		const {className, isSelected, attributes} = this.props;
 		const {
 			      borderColor,
-			      loading
+			      loading,
 		      } = attributes;
 		const mainClasses = classnames([
 			className,
@@ -69,19 +69,22 @@ class EditBlock extends Component {
 
 		return (
 			<Fragment>
-				{isSelected && <Fragment>
-					<Inspector {...this.props} />
-					<Controls {...this.props} />
-				</Fragment>}
+				{isSelected && (
+					<Fragment>
+						<Inspector {...this.props} writable/>
+						<Controls {...this.props} writable/>
+					</Fragment>
+				)}
 				<div className={mainClasses} style={styles}>
 					<Spinner/>
 					<div className="c-offer-box__wrapper">
-						<ImageColumn {...this.props}/>
+						<ImageColumn {...this.props} writable/>
 						<ContentColumn
 							{...this.props}
 							onButtonClick={this.handleButtonClick}
 							openUrlPopover={this.state.openUrlPopover}
 							onButtonChange={this.handleButtonChange}
+							writable
 						/>
 					</div>
 				</div>
@@ -91,6 +94,5 @@ class EditBlock extends Component {
 }
 
 export default compose(
-	withUniqueClass,
-	withFocusOutside,
+	withFocusOutside
 )(EditBlock);

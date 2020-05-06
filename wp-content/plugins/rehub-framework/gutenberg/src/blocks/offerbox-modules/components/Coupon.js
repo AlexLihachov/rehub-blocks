@@ -11,7 +11,8 @@ const Coupon = (props) => {
 		      mask_coupon_text,
 		      expiration_date,
 		      offer_is_expired,
-		      setAttributes
+		      setAttributes,
+		      writable
 	      } = props;
 
 	// Calculate expires days and process render html
@@ -42,18 +43,23 @@ const Coupon = (props) => {
 			return (
 				<div>
 					<div className='c-offer-box__coupon c-offer-box__coupon--masked'>
-						<RichText
-							placeholder={__('Reveal', 'rehub-theme-child')}
-							tagName="span"
-							className="coupon_text"
-							value={mask_coupon_text}
-							onChange={(value) => {
-								setAttributes({
-									mask_coupon_text: value
-								});
-							}}
-							keepPlaceholderOnFocus
-						/>
+						{writable && (
+							<RichText
+								placeholder={__('Reveal', 'rehub-theme-child')}
+								tagName="span"
+								className="coupon_text"
+								value={mask_coupon_text}
+								onChange={(value) => {
+									setAttributes({
+										mask_coupon_text: value
+									});
+								}}
+								keepPlaceholderOnFocus
+							/>
+						)}
+						{writable === false && (
+							<span className='coupon_text'>{mask_coupon_text}</span>
+						)}
 						<i className="far fa-external-link-square"/>
 					</div>
 					{expires_html}
@@ -64,18 +70,23 @@ const Coupon = (props) => {
 				<div>
 					<div className='c-offer-box__coupon'>
 						<i className="fal fa-cut fa-rotate-180"/>
-						<RichText
-							placeholder={__('code_of_coupon', 'rehub-theme-child')}
-							tagName="span"
-							className="coupon_text"
-							value={coupon_code}
-							onChange={(value) => {
-								setAttributes({
-									coupon_code: value
-								});
-							}}
-							keepPlaceholderOnFocus
-						/>
+						{writable && (
+							<RichText
+								placeholder={__('code_of_coupon', 'rehub-theme-child')}
+								tagName="span"
+								className="coupon_text"
+								value={coupon_code}
+								onChange={(value) => {
+									setAttributes({
+										coupon_code: value
+									});
+								}}
+								keepPlaceholderOnFocus
+							/>
+						)}
+						{writable === false && (
+							<span className='coupon_text'>{coupon_code}</span>
+						)}
 					</div>
 					{expires_html}
 				</div>

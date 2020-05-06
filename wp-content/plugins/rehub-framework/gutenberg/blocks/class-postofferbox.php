@@ -8,8 +8,8 @@ use Elementor\Widget_Wpsm_Box;
 use WP_REST_Request;
 use WP_REST_Server;
 
-class Offerbox extends Basic {
-	protected $name = 'offerbox';
+class PostOfferbox extends Basic {
+	protected $name = 'post-offerbox';
 
 	protected $attributes = array(
 		'name'             => array(
@@ -41,11 +41,11 @@ class Offerbox extends Basic {
 			'default' => '',
 		),
 		'mask_coupon_code' => array(
-			'type'    => 'string',
+			'type' => 'string',
 			'default' => false,
 		),
 		'mask_coupon_text' => array(
-			'type'    => 'string',
+			'type' => 'string',
 			'default' => '',
 		),
 		'offer_is_expired' => array(
@@ -85,21 +85,8 @@ class Offerbox extends Basic {
 			'type'    => 'string',
 			'default' => '',
 		),
-		'borderColor'      => array(
-			'type'    => 'string',
-			'default' => '',
-		),
 	);
 
-	protected function process_inline_styles( $color ) {
-		$css = '';
-
-		if ( ! empty( $color ) ) {
-			$css .= "border: 2px solid {$color};";
-		}
-
-		return $css;
-	}
 
 	protected function render( $settings = array() ) {
 		$offer_post_url         = $settings['button']['url'];
@@ -117,8 +104,6 @@ class Offerbox extends Basic {
 		$rating                 = $settings['rating'];
 		$percentageSaved        = $settings['discount_tag'];
 		$offer_coupon_mask_text = $settings['mask_coupon_text'];
-		$border_color           = $settings['borderColor'];
-		$inline_styles          = $this->process_inline_styles( $border_color );
 
 		require( rh_locate_template( 'inc/parts/offerbigpart.php' ) );
 	}

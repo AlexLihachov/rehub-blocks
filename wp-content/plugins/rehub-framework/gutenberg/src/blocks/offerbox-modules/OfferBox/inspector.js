@@ -21,13 +21,11 @@ import {
 /**
  * Internal dependencies
  */
-import {updateOfferData} from "./fetchService";
-import populateOfferFields from './populate-offer-fields';
-import Select2 from "../../components/Select2";
-import ImageControl from "../../components/image-control";
-import ColorPaletteControl from '../../components/ColorPaletteControl';
+import populateOfferFields from '../utils/populate-offer-fields';
+import ImageControl from "../../../components/image-control";
+import ColorPaletteControl from '../../../components/ColorPaletteControl';
 
-/**s
+/**
  * Create an Inspector Controls wrapper Component
  */
 export default class Inspector extends Component {
@@ -52,16 +50,7 @@ export default class Inspector extends Component {
 
 		return (
 			<InspectorControls>
-				<PanelBody title={__('Copy data from Posts', 'rehub-theme-child')} initialOpen={true}>
-					<Select2
-						label={__('Post name', 'rehub-theme-child')}
-						setAttributes={setAttributes}
-						onChange={(value) => {
-							updateOfferData(value, setAttributes, attributes);
-						}}
-					/>
-				</PanelBody>
-				<PanelBody title={__('Manual Fields', 'rehub-theme-child')} initialOpen={false}>
+				<PanelBody title={__('Manual Fields', 'rehub-theme-child')} initialOpen={true}>
 					<TextControl
 						label={__('Offer url', 'rehub-theme-child')}
 						value={button.url}
