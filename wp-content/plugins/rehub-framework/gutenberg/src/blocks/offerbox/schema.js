@@ -63,6 +63,7 @@ const schema = {
 	},
 	discount_tag: {
 		type: 'number',
+		default: 0
 	},
 	discount: {
 		type: 'string'

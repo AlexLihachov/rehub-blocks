@@ -50,6 +50,7 @@ class Offerbox extends Basic {
 			'default' => false,
 		),
 		'button'           => array(
+			'type' => 'object',
 			'default' => array(
 				'text'     => 'Buy this item',
 				'url'      => '',
@@ -58,6 +59,7 @@ class Offerbox extends Basic {
 			),
 		),
 		'thumbnail'        => array(
+			'type' => 'object',
 			'default' => array(
 				'id'  => '',
 				'url' => '',
@@ -68,7 +70,8 @@ class Offerbox extends Basic {
 			'default' => '',
 		),
 		'discount_tag'     => array(
-			'type' => 'number'
+			'type' => 'number',
+			'default' => 0
 		),
 		'rating'           => array(
 			'type'    => 'number',
