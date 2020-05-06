@@ -12,13 +12,12 @@ const {__} = wp.i18n;
  */
 import schema from './schema';
 import edit from './edit';
+import {OfferBoxIcon} from '../../icons';
 
 const blockProperty = {
-	title: __('OfferBox (dev)', 'rehub-theme-child'),
+	title: __('OfferBox', 'rehub-theme-child'),
 	description: __('Woo Box description', 'rehub-theme-child'),
-	icon: {
-		src: 'info',
-	},
+	icon: OfferBoxIcon,
 	category: 'helpler-modules',
 	keywords: [],
 	supports: {
@@ -26,6 +25,7 @@ const blockProperty = {
 		customClassName: false,
 		html: false,
 	},
+	example: {},
 	attributes: schema,
 	save: () => null,
 	edit
