@@ -4,6 +4,10 @@
 	&__wrapper {
 		display: flex;
 		padding: 10px;
+
+		@include breakpoints(s) {
+			align-items: flex-start;
+		}
 	}
 
 	&__column {
@@ -21,30 +25,29 @@
 			flex: 0 0 50%;
 			max-width: 50%;
 		}
+
+		&--image {
+			max-height: 500px;
+		}
 	}
 
 	&__image {
-		text-align: center;
 		position: relative;
-
-		img {
-			max-height: 500px;
-			width: auto;
-		}
+		padding-top: 75%;
 	}
 
 	.rehub-image-upload-placeholder {
 		position: absolute;
-		top: 0;
 		left: 0;
+		top: 0;
 		width: 100%;
-		height: auto;
-		padding-top: 75%;
+		height: 100%;
 		background: {
 			repeat: no-repeat;
-			size: cover;
-			position: center;
+			size: contain;
+			position: top center;
 		};
+		max-height: 500px;
 
 		svg {
 			position: absolute;

@@ -212,6 +212,8 @@ export default class Inspector extends Component {
 							const thumbnailClone = cloneDeep(thumbnail);
 							thumbnailClone.id = '';
 							thumbnailClone.url = '';
+							thumbnailClone.width = '';
+							thumbnailClone.height = '';
 							setAttributes({
 								thumbnail: thumbnailClone
 							});
@@ -220,6 +222,8 @@ export default class Inspector extends Component {
 							const thumbnailClone = cloneDeep(thumbnail);
 							thumbnailClone.id = media.id;
 							thumbnailClone.url = media.url;
+							thumbnailClone.width = media.width;
+							thumbnailClone.height = media.height;
 							setAttributes({
 								thumbnail: thumbnailClone
 							});

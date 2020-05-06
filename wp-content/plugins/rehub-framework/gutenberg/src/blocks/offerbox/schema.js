@@ -52,7 +52,9 @@ const schema = {
 		type: 'object',
 		default: {
 			id: '',
-			url: ''
+			url: '',
+			width: '',
+			height: ''
 		}
 	},
 	brand_logo_url: {
