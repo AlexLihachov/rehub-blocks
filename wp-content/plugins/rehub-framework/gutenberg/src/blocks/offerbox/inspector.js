@@ -53,7 +53,7 @@ export default class Inspector extends Component {
 
 		return (
 			<InspectorControls>
-				<PanelBody title={__('Data query', 'rehub-theme-child')} initialOpen={true}>
+				<PanelBody title={__('Copy data from Posts', 'rehub-theme-child')} initialOpen={true}>
 					<label className="components-base-control__label">
 						{__('Post name', 'rehub-theme-child')}
 					</label>
