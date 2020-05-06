@@ -73,7 +73,7 @@ const schema = {
 		type: 'string',
 		default: ''
 	},
-	postId: {
+	selectedPost: {
 		type: 'string',
 		default: '',
 	},

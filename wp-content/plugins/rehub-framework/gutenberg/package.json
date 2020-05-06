@@ -122,6 +122,7 @@
 	},
 	"devDependencies": {
 		"@wordpress/block-editor": "^3.10.0",
+		"@wordpress/blocks": "^6.15.0",
 		"babel-eslint": "^10.1.0",
 		"eslint": "^4.19.1",
 		"file-loader": "^5.0.2"

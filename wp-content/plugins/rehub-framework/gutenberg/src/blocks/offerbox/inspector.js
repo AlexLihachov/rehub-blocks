@@ -34,7 +34,6 @@ export default class Inspector extends Component {
 	render() {
 		const {attributes, setAttributes} = this.props;
 		const {
-			      postId,
 			      name,
 			      button,
 			      description,
@@ -54,14 +53,9 @@ export default class Inspector extends Component {
 		return (
 			<InspectorControls>
 				<PanelBody title={__('Copy data from Posts', 'rehub-theme-child')} initialOpen={true}>
-					<label className="components-base-control__label">
-						{__('Post name', 'rehub-theme-child')}
-					</label>
 					<Select2
-						rest={true}
-						restPath={'rehub/v2/posts/get'}
-						post_type={['product', 'post', 'blog']}
-						value={postId}
+						label={__('Post name', 'rehub-theme-child')}
+						setAttributes={setAttributes}
 						onChange={(value) => {
 							updateOfferData(value, setAttributes, attributes);
 						}}
