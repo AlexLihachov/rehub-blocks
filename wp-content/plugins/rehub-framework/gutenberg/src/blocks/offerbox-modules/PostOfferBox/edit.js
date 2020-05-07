@@ -17,8 +17,14 @@ import Inspector from "./inspector";
 import Controls from "../editor-components/controls";
 import ImageColumn from "../components/ImageColumn";
 import ContentColumn from "../components/ContentColumn";
+import {updateOfferData} from '../utils/fetchService';
 
 class EditBlock extends Component {
+	constructor() {
+		super(...arguments);
+
+		updateOfferData(this.props.attributes.selectedPost, this.props.setAttributes, this.props.attributes);
+	}
 	render() {
 		const {className, isSelected, attributes} = this.props;
 		const {borderColor, loading} = attributes;

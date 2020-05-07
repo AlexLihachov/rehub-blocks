@@ -1,37 +1,17 @@
 import ReactSelect2Wrapper from 'react-select2-wrapper';
 import {Component} from '@wordpress/element';
-import {BaseControl} from "@wordpress/components";
+import {BaseControl, Spinner} from "@wordpress/components";
 import {Fragment} from '@wordpress/element';
+import {withSelect} from '@wordpress/data';
 
 class Select2 extends Component {
 	constructor() {
 		super(...arguments);
 		this.state = {
-			loaded: false,
-			posts: [],
-			initialSetup: true
+			currentPost: null
 		};
 		this.defaultValue = this.props.selectedPost;
-		this.getOptions = this.getOptions.bind(this);
 		this.onChangeSelectPost = this.onChangeSelectPost.bind(this);
-	}
-
-	getOptions() {
-		if (this.state.posts.length === 0 && this.state.initialSetup) {
-			wp.apiFetch({path: '/wp/v2/posts/?filter[post_type]=post'}).then((posts) => {
-				const selectData = posts.map((post) => {
-					return {
-						text: post.title.rendered,
-						id: post.id
-					};
-				});
-
-				this.setState({
-					posts: selectData,
-					loaded: true
-				});
-			});
-		}
 	}
 
 	onChangeSelectPost(value) {
@@ -39,33 +19,39 @@ class Select2 extends Component {
 		this.props.onChange(value);
 	}
 
-	componentDidMount() {
-		this.getOptions();
-	}
-
 	render() {
-		const {label} = this.props;
-		const {posts, currentPost} = this.state;
+		const {label, posts} = this.props;
+		const {currentPost} = this.state;
+		let selectData = null;
+
+		if (posts && posts.length) {
+			selectData = posts.map((post) => {
+				return {
+					text: post.title.rendered,
+					id: post.id
+				};
+			});
+		}
 
 		return (
 			<Fragment>
 				<BaseControl label={label}>
-					<ReactSelect2Wrapper
-						defaultValue={this.defaultValue}
-						value={currentPost}
-						data={posts}
-						onChange={(event) => {
-							const value = jQuery(event.currentTarget).val();
+					{selectData && selectData.length > 0 ? (
+						<ReactSelect2Wrapper
+							defaultValue={this.defaultValue}
+							value={currentPost}
+							data={selectData}
+							onChange={(event) => {
+								const value = jQuery(event.currentTarget).val();
 
-							if (value !== null && value.length) {
-								if (this.state.initialSetup) {
-									this.setState({initialSetup: false})
-								} else {
+								if (value !== null && value.length) {
 									this.onChangeSelectPost(value);
 								}
-							}
-						}}
-					/>
+							}}
+						/>
+					) : (
+						<Spinner/>
+					)}
 				</BaseControl>
 			</Fragment>
 		);
@@ -73,4 +59,10 @@ class Select2 extends Component {
 
 }
 
-export default Select2;
+export default withSelect(
+	(select) => {
+		return {
+			posts: select('core').getEntityRecords('postType', 'post')
+		};
+	}
+)(Select2);

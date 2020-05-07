@@ -12,76 +12,7 @@ class PostOfferbox extends Basic {
 	protected $name = 'post-offerbox';
 
 	protected $attributes = array(
-		'name'             => array(
-			'type'    => 'string',
-			'default' => '',
-		),
-		'description'      => array(
-			'type'    => 'string',
-			'default' => '',
-		),
-		'disclaimer'       => array(
-			'type'    => 'string',
-			'default' => '',
-		),
-		'old_price'        => array(
-			'type'    => 'string',
-			'default' => '',
-		),
-		'sale_price'       => array(
-			'type'    => 'string',
-			'default' => '',
-		),
-		'coupon_code'      => array(
-			'type'    => 'string',
-			'default' => '',
-		),
-		'expiration_date'  => array(
-			'type'    => 'string',
-			'default' => '',
-		),
-		'mask_coupon_code' => array(
-			'type' => 'string',
-			'default' => false,
-		),
-		'mask_coupon_text' => array(
-			'type' => 'string',
-			'default' => '',
-		),
-		'offer_is_expired' => array(
-			'default' => false,
-		),
-		'button'           => array(
-			'type'    => 'object',
-			'default' => array(
-				'text'     => 'Buy this item',
-				'url'      => '',
-				'newTab'   => false,
-				'noFollow' => false,
-			),
-		),
-		'thumbnail'        => array(
-			'type'    => 'object',
-			'default' => array(
-				'id'     => '',
-				'url'    => '',
-				'width'  => '',
-				'height' => ''
-			),
-		),
-		'brand_logo_url'   => array(
-			'type'    => 'string',
-			'default' => '',
-		),
-		'discount_tag'     => array(
-			'type'    => 'number',
-			'default' => 0
-		),
-		'rating'           => array(
-			'type'    => 'number',
-			'default' => 0,
-		),
-		'selectedPost'     => array(
+		'selectedPost' => array(
 			'type'    => 'string',
 			'default' => '',
 		),
@@ -89,21 +20,31 @@ class PostOfferbox extends Basic {
 
 
 	protected function render( $settings = array() ) {
-		$offer_post_url         = $settings['button']['url'];
-		$offer_url              = $settings['button']['url'];
-		$offer_price            = $settings['sale_price'];
-		$offer_price_old        = $settings['old_price'];
-		$offer_title            = $settings['name'];
-		$offer_thumb            = $settings['thumbnail']['url'];
-		$offer_btn_text         = $settings['button']['text'];
-		$offer_coupon           = $settings['coupon_code'];
-		$offer_coupon_date      = $settings['expiration_date'];
-		$offer_coupon_mask      = $settings['mask_coupon_code'];
-		$offer_desc             = $settings['description'];
-		$disclaimer             = $settings['disclaimer'];
-		$rating                 = $settings['rating'];
-		$percentageSaved        = $settings['discount_tag'];
-		$offer_coupon_mask_text = $settings['mask_coupon_text'];
+		$id = $settings['selectedPost'];
+
+		if ( empty( $id ) ) {
+			return '';
+		}
+
+		$offer_post_url         = get_post_meta( $id, 'rehub_offer_product_url', true );
+		$offer_post_url         = apply_filters( 'rehub_create_btn_url', $offer_post_url );
+		$offer_url              = apply_filters( 'rh_post_offer_url_filter', $offer_post_url );
+		$offer_price            = get_post_meta( $id, 'rehub_offer_product_price', true );
+		$offer_price_old        = get_post_meta( $id, 'rehub_offer_product_price_old', true );
+		$offer_title            = get_post_meta( $id, 'rehub_offer_name', true );
+		$offer_thumb            = get_post_meta( $id, 'rehub_offer_product_thumb', true );
+		$offer_btn_text         = get_post_meta( $id, 'rehub_offer_btn_text', true );
+		$offer_coupon           = get_post_meta( $id, 'rehub_offer_product_coupon', true );
+		$offer_coupon_date      = get_post_meta( $id, 'rehub_offer_coupon_date', true );
+		$offer_coupon_mask      = get_post_meta( $id, 'rehub_offer_coupon_mask', true );
+		$offer_desc             = get_post_meta( $id, 'rehub_offer_product_desc', true );
+		$disclaimer             = get_post_meta( $id, 'rehub_offer_disclaimer', true );
+		$rating                 = get_post_meta( $id, 'rehub_review_overall_score', true );
+		$offer_coupon_mask_text = '';
+
+		if ( $rating ) {
+			$rating = $rating / 2;
+		}
 
 		require( rh_locate_template( 'inc/parts/offerbigpart.php' ) );
 	}
