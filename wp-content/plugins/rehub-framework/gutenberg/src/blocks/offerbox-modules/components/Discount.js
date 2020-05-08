@@ -3,7 +3,7 @@ const Discount = (props) => {
 
 	if (discount_tag > 0 && !discount) {
 		return (
-			<span className='c-offer-box__discount'>{discount_tag}%</span>
+			<span className='c-offer-box__discount'>-{discount_tag}%</span>
 		);
 	} else if (discount) {
 		return (

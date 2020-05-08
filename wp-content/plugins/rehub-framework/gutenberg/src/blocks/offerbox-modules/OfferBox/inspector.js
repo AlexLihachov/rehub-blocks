@@ -82,7 +82,7 @@ export default class Inspector extends Component {
 						}}
 					/>
 					<TextareaControl
-						label={__('Disclaimer', 'rehub-theme-child')}
+						label={__('Disclaimer or additional information', 'rehub-theme-child')}
 						value={disclaimer}
 						onChange={(value) => {
 							setAttributes({

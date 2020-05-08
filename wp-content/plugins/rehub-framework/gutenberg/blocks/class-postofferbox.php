@@ -46,6 +46,22 @@ class PostOfferbox extends Basic {
 			$rating = $rating / 2;
 		}
 
+		if ( empty( $offer_title ) ) {
+			$offer_title = get_the_title( $id );
+		}
+
+		if ( empty( $offer_thumb ) ) {
+			$offer_thumb = get_the_post_thumbnail_url( $id );
+		}
+
+		if ( empty( $offer_btn_text ) ) {
+			if ( ! empty( rehub_option( 'rehub_btn_text' ) ) ) {
+				$offer_btn_text = rehub_option( 'rehub_btn_text' );
+			} else {
+				$offer_btn_text = 'Buy this item';
+			}
+		}
+
 		require( rh_locate_template( 'inc/parts/offerbigpart.php' ) );
 	}
 }

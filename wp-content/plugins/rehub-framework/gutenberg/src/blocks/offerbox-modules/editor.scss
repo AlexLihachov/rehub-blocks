@@ -1,7 +1,9 @@
 @import "common";
 
-.c-offer-box {
-	&__wrapper {
+$b: '.c-offer-box';
+
+.wp-block .c-offer-box {
+	#{$b}__wrapper {
 		display: flex;
 		flex-wrap: wrap;
 		padding: 10px;
@@ -11,7 +13,7 @@
 		}
 	}
 
-	&__column {
+	#{$b}__column {
 		width: 100%;
 		flex: 0 0 100%;
 		max-width: 100%;
@@ -26,13 +28,13 @@
 			flex: 0 0 50%;
 			max-width: 50%;
 		}
-
-		&--image {
-			max-height: 500px;
-		}
 	}
 
-	&__image {
+	#{$b}__column--image {
+		max-height: 500px;
+	}
+
+	#{$b}__image {
 		position: relative;
 		padding-top: 75%;
 
@@ -84,14 +86,14 @@
 		display: none;
 	}
 
-	&__title.rich-text {
+	#{$b}__title.rich-text, #{$b}__title {
 		margin: 0 0 20px 0;
 		font-size: 24px;
 		font-weight: 700;
 		line-height: 30px;
 	}
 
-	&__price {
+	#{$b}__price {
 		font-size: 28px;
 		line-height: 40px;
 		font-weight: bold;
@@ -106,14 +108,14 @@
 		}
 	}
 
-	&__disclaimer {
+	#{$b}__disclaimer {
 		font-size: 70%;
 		line-height: 15px;
 		margin-bottom: 15px;
 		color: #009700;
 	}
 
-	&__button {
+	#{$b}__button {
 		display: inline-block;
 		padding: 12px 40px;
 		text-align: center;
@@ -137,7 +139,7 @@
 		}
 	}
 
-	&__coupon {
+	#{$b}__coupon {
 		display: inline-block;
 		margin-top: 15px;
 		padding: 0.65em 1.1em;
@@ -181,11 +183,16 @@
 		}
 	}
 
-	&__desc {
+	.time_offer {
+		font-size: 10px;
+		line-height: 20px;
+	}
+
+	#{$b}__desc {
 		margin-top: 25px;
 	}
 
-	&__discount {
+	#{$b}__discount {
 		z-index: 9;
 		width: 56px;
 		height: 56px;
@@ -201,7 +208,7 @@
 		left: 10px;
 	}
 
-	&__rating {
+	#{$b}__rating {
 		overflow: hidden;
 		margin-bottom: 10px;
 
@@ -213,7 +220,7 @@
 		}
 	}
 
-	&--loading {
+	#{$b}--loading {
 		position: relative;
 
 		&:before {
