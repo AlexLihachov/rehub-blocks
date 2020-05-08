@@ -46,7 +46,7 @@ const ContentColumn = (props) => {
 					keepPlaceholderOnFocus/>
 			)}
 			{writable === false && (
-				<h2 className='c-offer-box__title'>{name}</h2>
+				<h2 className='c-offer-box__title'>{name ? name : __('Product name', 'rehub-theme-child')}</h2>
 			)}
 			{+rating > 0 && (
 				<div className="c-offer-box__rating">
