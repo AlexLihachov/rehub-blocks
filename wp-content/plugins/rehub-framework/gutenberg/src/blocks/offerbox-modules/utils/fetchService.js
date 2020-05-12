@@ -30,7 +30,6 @@ export function updateOfferData(selectedPost, setAttribute, attributes) {
 				button: buttonClone,
 				thumbnail: thumbnailClone,
 				rating: post.rating,
-				discount: post.discount,
 				loading: false
 			});
 		});

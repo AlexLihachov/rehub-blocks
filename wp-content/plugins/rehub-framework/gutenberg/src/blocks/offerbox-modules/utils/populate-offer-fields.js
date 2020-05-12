@@ -14,7 +14,7 @@ const META_BOX_SELECTORS = {
 	button_text: '#rehub_offer_btn_text',
 	thumbnail_url: "[name='rehub_offer_product_thumb']",
 	// brand_logo_url: '#rehub_offer_logo_url',
-	discount: '#rehub_offer_discount'
+	// discount: '#rehub_offer_discount'
 };
 
 function isMetaBoxExist() {
@@ -25,7 +25,7 @@ function isMetaBoxExist() {
 
 export function populateOfferFields(props) {
 	const {attributes} = props;
-	const {discount, button, thumbnail, expiration_date, mask_coupon_code} = attributes;
+	const {button, thumbnail, expiration_date, mask_coupon_code} = attributes;
 
 	if (isMetaBoxExist() === false) {
 		return;
@@ -44,9 +44,6 @@ export function populateOfferFields(props) {
 				break;
 			case 'button_text':
 				document.querySelector(META_BOX_SELECTORS[key]).value = button.text;
-				break;
-			case 'discount':
-				document.querySelector(META_BOX_SELECTORS[key]).value = discount ? discount : '';
 				break;
 			case 'thumbnail_url':
 				document.querySelector(META_BOX_SELECTORS[key]).value = thumbnail.url;

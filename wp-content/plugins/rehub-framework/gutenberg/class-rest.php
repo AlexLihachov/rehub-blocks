@@ -5,7 +5,7 @@ namespace Rehub\Gutenberg;
 use WP_REST_Request;
 use WP_REST_Server;
 
-defined('ABSPATH') OR exit;
+defined( 'ABSPATH' ) OR exit;
 
 class REST {
 	private $rest_namespace = 'rehub/v2/';
@@ -14,29 +14,29 @@ class REST {
 	private static $instance = null;
 
 	/** @return Assets */
-	public static function instance(){
-		if(is_null(static::$instance)) {
+	public static function instance() {
+		if ( is_null( static::$instance ) ) {
 			static::$instance = new static();
 		}
 
 		return static::$instance;
 	}
 
-	private function __construct(){
-		add_action('rest_api_init', array( $this, 'action_rest_api_init_trait' ));
+	private function __construct() {
+		add_action( 'rest_api_init', array( $this, 'action_rest_api_init_trait' ) );
 	}
 
-	public function action_rest_api_init_trait(){
-//		if(!((is_user_logged_in() && is_admin()))) {
-//			return;
-//		}
+	public function action_rest_api_init_trait() {
+		//		if(!((is_user_logged_in() && is_admin()))) {
+		//			return;
+		//		}
 
-		register_rest_route($this->rest_namespace.'posts',
+		register_rest_route( $this->rest_namespace . 'posts',
 			'/get',
 			array(
 				array(
 					'methods'  => WP_REST_Server::CREATABLE,
-//					'permission_callback' => array( Settings::class, 'is_user_can' ),
+					//					'permission_callback' => array( Settings::class, 'is_user_can' ),
 					'callback' => array( $this, 'rest_get_posts' ),
 				)
 			)
@@ -52,7 +52,7 @@ class REST {
 		);
 	}
 
-	public function rest_get_posts(WP_REST_Request $request){
+	public function rest_get_posts( WP_REST_Request $request ) {
 		$params    = array_merge(
 			array(
 				's'         => '',
@@ -62,7 +62,7 @@ class REST {
 				'post_type' => 'post',
 			), $request->get_params()
 		);
-		$isSelect2 = ($request->get_param('typeQuery') === 'select2');
+		$isSelect2 = ( $request->get_param( 'typeQuery' ) === 'select2' );
 
 		$args = array(
 			'post_status'    => 'publish',
@@ -71,14 +71,14 @@ class REST {
 			'paged'          => $params['page'],
 		);
 
-		if(!empty($params['s'])) {
+		if ( ! empty( $params['s'] ) ) {
 			$args['s'] = $params['s'];
 		}
-		if(!empty($params['include'])) {
-			$args['post__in'] = is_array($params['include']) ? $params['include'] : array( $params['include'] );
+		if ( ! empty( $params['include'] ) ) {
+			$args['post__in'] = is_array( $params['include'] ) ? $params['include'] : array( $params['include'] );
 		}
-		if(!empty($params['exclude'])) {
-			$args['post__not_in'] = is_array($params['exclude']) ? $params['exclude'] : array( $params['exclude'] );
+		if ( ! empty( $params['exclude'] ) ) {
+			$args['post__not_in'] = is_array( $params['exclude'] ) ? $params['exclude'] : array( $params['exclude'] );
 		}
 
 		$response_array = array();
@@ -86,12 +86,12 @@ class REST {
 			[ 'label' => 'text', 'value' => 'id' ] :
 			[ 'label' => 'label', 'value' => 'value' ];
 
-		$posts = new \WP_Query($args);
-		if($posts->post_count > 0) {
+		$posts = new \WP_Query( $args );
+		if ( $posts->post_count > 0 ) {
 			/* @var \WP_Post $gallery */
-			foreach($posts->posts as $_post) {
+			foreach ( $posts->posts as $_post ) {
 				$response_array[] = array(
-					$keys['label'] => !empty($_post->post_title) ? $_post->post_title : __('No Title', ''),
+					$keys['label'] => ! empty( $_post->post_title ) ? $_post->post_title : __( 'No Title', '' ),
 					$keys['value'] => $_post->ID,
 				);
 			}
@@ -101,11 +101,11 @@ class REST {
 		$return = array(
 			'results'    => $response_array,
 			'pagination' => array(
-				'more' => $posts->max_num_pages >= ++$params['page'],
+				'more' => $posts->max_num_pages >= ++ $params['page'],
 			)
 		);
 
-		return rest_ensure_response($return);
+		return rest_ensure_response( $return );
 	}
 
 	public function rest_offer_data_handler( WP_REST_Request $request ) {
@@ -125,7 +125,7 @@ class REST {
 		$offer_desc        = get_post_meta( $id, 'rehub_offer_product_desc', true );
 		$disclaimer        = get_post_meta( $id, 'rehub_offer_disclaimer', true );
 		$rating            = get_post_meta( $id, 'rehub_review_overall_score', true );
-		$discount          = get_post_meta( $id, 'rehub_offer_discount', true );
+		//		$discount          = get_post_meta( $id, 'rehub_offer_discount', true );
 
 		if ( empty( $offer_title ) ) {
 			$offer_title = get_the_title( $id );
@@ -156,7 +156,6 @@ class REST {
 			'button_text'      => $offer_btn_text,
 			'thumbnail_url'    => $offer_thumb,
 			'rating'           => $rating,
-			'discount'         => $discount
 		);
 		return rest_ensure_response( $data );
 	}

@@ -220,7 +220,7 @@ $b: '.c-offer-box';
 		}
 	}
 
-	#{$b}--loading {
+	&--loading {
 		position: relative;
 
 		&:before {
