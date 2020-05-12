@@ -8,6 +8,7 @@
 !/wp-content/plugins/rehub-framework
 /wp-content/plugins/rehub-framework/*
 !/wp-content/plugins/rehub-framework/gutenberg
+.DS_Store
 
 # track .gitignore
 !.gitignore
