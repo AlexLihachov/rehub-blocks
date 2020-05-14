@@ -1,15 +1,17 @@
+import {__} from '@wordpress/i18n';
+
 const schema = {
 	title: {
 		type: 'string',
-		default: ''
+		default: __('Awesome', 'rehub-theme-child')
 	},
 	description: {
 		type: 'string',
-		default: ''
+		default: __('Place here Description for your reviewbox', 'rehub-theme-child')
 	},
 	score: {
 		type: 'number',
-		default: 1
+		default: 10
 	},
 	mainColor: {
 		type: 'string',
@@ -21,7 +23,7 @@ const schema = {
 	},
 	prosTitle: {
 		type: 'string',
-		default: ''
+		default: __('Positive', 'rehub-theme-child')
 	},
 	positives: {
 		type: 'array',
@@ -29,12 +31,16 @@ const schema = {
 	},
 	consTitle: {
 		type: 'string',
-		default: ''
+		default: __('Negatives', 'rehub-theme-child')
 	},
 	negatives: {
 		type: 'array',
 		default: []
 	},
+	uniqueClass: {
+		type: 'string',
+		default: ''
+	}
 };
 
 export default schema;

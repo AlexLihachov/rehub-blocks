@@ -85,8 +85,8 @@ export default class Inspector extends Component {
 						<Button isSecondary onClick={() => {
 							const criteriasClone = cloneDeep(criterias);
 							criteriasClone.push({
-								title: '',
-								value: 0
+								title: __('Criteria name', 'rehub-theme-child'),
+								value: 10
 							});
 							setAttributes({criterias: criteriasClone})
 						}}>
@@ -118,7 +118,7 @@ export default class Inspector extends Component {
 						<Button isSecondary onClick={() => {
 							const positivesClone = cloneDeep(positives);
 							positivesClone.push({
-								title: ''
+								title: 'Positive'
 							});
 							setAttributes({positives: positivesClone})
 						}}>
@@ -150,7 +150,7 @@ export default class Inspector extends Component {
 						<Button isSecondary onClick={() => {
 							const negativesClone = cloneDeep(negatives);
 							negativesClone.push({
-								title: ''
+								title: 'Negative'
 							});
 							setAttributes({negatives: negativesClone})
 						}}>

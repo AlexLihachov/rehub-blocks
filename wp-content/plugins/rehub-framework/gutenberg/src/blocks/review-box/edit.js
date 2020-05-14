@@ -19,16 +19,37 @@ import Inspector from "./Inspector";
 import Controls from './Controls';
 import Criteria from "./Criteria";
 import ConsPros from "./ConsProp";
+import {createUniqueClass} from "../../higher-order/with-unique-class";
 
 class EditBlock extends Component {
+	componentDidMount() {
+		const {attributes, setAttributes, clientId} = this.props;
+		const newUniqueClass = createUniqueClass(clientId);
+
+		if (typeof attributes.uniqueClass === 'undefined' || attributes.uniqueClass !== newUniqueClass) {
+			setAttributes({uniqueClass: newUniqueClass})
+		}
+	}
+
 	render() {
 		const {className, isSelected, attributes, setAttributes} = this.props;
 		const {title, description, score, mainColor, criterias, prosTitle, positives, consTitle, negatives} = attributes;
 		const mainClasses = classnames([className, 'c-review-box']);
+		let totalScore = 0;
 
 		const scoreStyles = {
 			backgroundColor: mainColor
 		};
+
+		// Recalculate score by criterias
+		if (criterias.length > 0) {
+			criterias.forEach((item) => {
+				totalScore += item.value;
+			});
+
+			totalScore = totalScore / criterias.length;
+			totalScore = +totalScore.toFixed(1);
+		}
 
 		return (
 			<Fragment>
@@ -42,7 +63,7 @@ class EditBlock extends Component {
 					<div className='c-review-box__wrapper'>
 						<div className="review-top">
 							<div className="overall-score" style={scoreStyles}>
-								<span className='overall'>{score}</span>
+								<span className='overall'>{score ? score : totalScore}</span>
 								<span className='overall-text'>{__('Expert Score', 'rehub-theme-child')}</span>
 							</div>
 							<div className="review-text">
