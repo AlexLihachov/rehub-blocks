@@ -1,5 +1,13 @@
 @import 'react-select2-wrapper/css/select2';
 
+$brandRed: #E43917;
+$lightRed: #f24f4f;
+$lightGreen: #58c649;
+$white: #fff;
+$black: #000;
+$grey: #d2d2d2;
+$greyD: #ddd;
+
 @mixin breakpoints($media) {
 	@if $media == xs {
 		@media only screen and (min-width: 480px) {
@@ -28,6 +36,10 @@
 	}
 }
 
+.editor-styles-wrapper .wp-block {
+	font-family: Roboto, Arial, sans-serif;
+}
+
 /*Helpers*/
 .rh-flex-center-align {
 	display: -webkit-flex;
@@ -38,6 +50,17 @@
 	-ms-flex-align: center;
 	-webkit-box-align: center;
 	flex-direction: row;
+}
+
+.clearfix {
+	&:before, &:after {
+		content: "";
+		display: table;
+	}
+
+	&:after {
+		clear: both;
+	}
 }
 
 .position-relative {
