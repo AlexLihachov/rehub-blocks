@@ -4,19 +4,13 @@
 import {__} from '@wordpress/i18n';
 import {Component} from '@wordpress/element'
 import {InspectorControls} from '@wordpress/block-editor';
-import {
-	PanelBody,
-	TextControl,
-	TextareaControl,
-	ColorPicker,
-	BaseControl,
-	Button
-} from '@wordpress/components';
+import {PanelBody, TextControl, TextareaControl, ColorPicker, BaseControl, Button} from '@wordpress/components';
 
 /**
  * Internal dependencies
  */
 import AdvancedRangeControl from '../../components/advanced-range-control';
+import ConsProsInspector from '../../components/cons-pros/inspector';
 import CardList from '../../components/card-list';
 
 /**
@@ -94,70 +88,13 @@ export default class Inspector extends Component {
 						</Button>
 					</BaseControl>
 				</PanelBody>
-				<PanelBody title={__('Positives', 'rehub-theme-child')} initialOpen={false}>
-					<TextControl
-						label={__('Pros Title', 'rehub-theme-child')}
-						value={prosTitle}
-						placeholder={__('Positive', 'rehub-theme-child')}
-						onChange={(value) => {
-							setAttributes({prosTitle: value})
-						}}
-					/>
-					<BaseControl
-						className='rri-advanced-range-control'
-						label={__('Positives', 'rehub-theme-child')}>
-						<CardList
-							items={positives}
-							propName='positives'
-							setAttributes={setAttributes}
-							titlePlaceholder={__('Positive', 'rehub-theme-child')}
-							includeValueField={false}
-						/>
-					</BaseControl>
-					<BaseControl className='rri-advanced-range-control text-center'>
-						<Button isSecondary onClick={() => {
-							const positivesClone = cloneDeep(positives);
-							positivesClone.push({
-								title: 'Positive'
-							});
-							setAttributes({positives: positivesClone})
-						}}>
-							{__('Add Item', 'rehub-theme-child')}
-						</Button>
-					</BaseControl>
-				</PanelBody>
-				<PanelBody title={__('Negatives', 'rehub-theme-child')} initialOpen={false}>
-					<TextControl
-						label={__('Cons Title', 'rehub-theme-child')}
-						value={consTitle}
-						placeholder={__('Negatives', 'rehub-theme-child')}
-						onChange={(value) => {
-							setAttributes({consTitle: value})
-						}}
-					/>
-					<BaseControl
-						className='rri-advanced-range-control'
-						label={__('Negatives', 'rehub-theme-child')}>
-						<CardList
-							items={negatives}
-							propName='negatives'
-							setAttributes={setAttributes}
-							titlePlaceholder={__('Negative', 'rehub-theme-child')}
-							includeValueField={false}
-						/>
-					</BaseControl>
-					<BaseControl className='rri-advanced-range-control text-center'>
-						<Button isSecondary onClick={() => {
-							const negativesClone = cloneDeep(negatives);
-							negativesClone.push({
-								title: 'Negative'
-							});
-							setAttributes({negatives: negativesClone})
-						}}>
-							{__('Add Item', 'rehub-theme-child')}
-						</Button>
-					</BaseControl>
-				</PanelBody>
+				<ConsProsInspector
+					setAttributes={setAttributes}
+					prosTitle={prosTitle}
+					positives={positives}
+					consTitle={consTitle}
+					negatives={negatives}
+				/>
 			</InspectorControls>
 		);
 	}

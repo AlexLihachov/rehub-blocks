@@ -18,7 +18,7 @@ import classnames from "classnames";
 import Inspector from "./Inspector";
 import Controls from './Controls';
 import Criteria from "./Criteria";
-import ConsPros from "./ConsProp";
+import ConsPros from "../../components/cons-pros";
 import {createUniqueClass} from "../../higher-order/with-unique-class";
 
 class EditBlock extends Component {
