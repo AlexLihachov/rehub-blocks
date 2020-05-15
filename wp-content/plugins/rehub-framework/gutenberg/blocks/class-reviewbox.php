@@ -76,9 +76,7 @@ class ReviewBox extends Basic {
 			foreach ( $settings['criterias'] as $item ) {
 				$criterias .= $item['title'] . ':' . (float) $item['value'] . ';';
 			}
-		}
 
-		if ( ! empty( $criterias ) ) {
 			$params['criterias'] = $criterias;
 		}
 
@@ -86,9 +84,7 @@ class ReviewBox extends Basic {
 			foreach ( $settings['positives'] as $item ) {
 				$positives .= $item['title'] . ';';
 			}
-		}
 
-		if ( ! empty( $positives ) ) {
 			$params['pros'] = $positives;
 		}
 
@@ -96,13 +92,13 @@ class ReviewBox extends Basic {
 			foreach ( $settings['negatives'] as $item ) {
 				$negatives .= $item['title'] . ';';
 			}
-		}
 
-		if ( ! empty( $negatives ) ) {
 			$params['cons'] = $negatives;
 		}
 
-		$this->inject_styles( $settings['uniqueClass'], $settings['mainColor'] );
+		if ( ! is_admin() ) {
+			$this->inject_styles( $settings['uniqueClass'], $settings['mainColor'] );
+		}
 		echo wpsm_reviewbox( $params );
 	}
 }

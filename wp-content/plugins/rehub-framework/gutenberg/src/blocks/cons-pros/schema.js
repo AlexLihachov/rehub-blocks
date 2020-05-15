@@ -7,7 +7,11 @@ const schema = {
 	},
 	positives: {
 		type: 'array',
-		default: []
+		default: [
+			{
+				title: __('Positive', 'rehub-theme-child')
+			}
+		]
 	},
 	consTitle: {
 		type: 'string',
@@ -15,7 +19,11 @@ const schema = {
 	},
 	negatives: {
 		type: 'array',
-		default: []
+		default: [
+			{
+				title: __('Negative', 'rehub-theme-child')
+			}
+		]
 	},
 };
 
