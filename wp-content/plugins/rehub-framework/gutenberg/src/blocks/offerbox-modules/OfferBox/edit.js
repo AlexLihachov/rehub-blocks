@@ -31,6 +31,14 @@ class EditBlock extends Component {
 		this.handleButtonClick = this.handleButtonClick.bind(this);
 	}
 
+	componentDidMount() {
+		const {setAttributes} = this.props;
+		setAttributes({
+			parseError: '',
+			parseSuccess: ''
+		});
+	}
+
 	handleFocusOutside() {
 		this.setState({
 			openUrlPopover: null,
@@ -42,7 +50,9 @@ class EditBlock extends Component {
 		const buttonClone = cloneDeep(attributes.button);
 		buttonClone[type] = value;
 		setAttributes({
-			button: buttonClone
+			button: buttonClone,
+			parseError: '',
+			parseSuccess: ''
 		});
 	}
 
