@@ -5,8 +5,12 @@ $lightRed: #f24f4f;
 $lightGreen: #58c649;
 $white: #fff;
 $black: #000;
+$dark: #111;
+$darkGrey: #333;
 $grey: #d2d2d2;
 $greyD: #ddd;
+$greyE: #eee;
+$greyf9: #f9f9f9;
 
 @mixin breakpoints($media) {
 	@if $media == xs {
