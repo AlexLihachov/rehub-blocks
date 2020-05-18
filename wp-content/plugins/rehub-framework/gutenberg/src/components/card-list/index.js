@@ -3,7 +3,7 @@
  */
 import {__} from '@wordpress/i18n';
 import {Component} from '@wordpress/element'
-import {Card, CardBody, CardHeader, TextControl} from '@wordpress/components';
+import {Card, CardBody, CardHeader, TextControl, TextareaControl} from '@wordpress/components';
 import {Icon, close} from '@wordpress/icons';
 
 
@@ -20,8 +20,8 @@ import AdvancedRangeControl from "../advanced-range-control";
 
 
 const SortableItem = SortableElement((props) => {
-	const {data, sortIndex, titlePlaceholder, includeValueField, onChange, onClose} = props;
-	const {title, value} = data;
+	const {data, sortIndex, titlePlaceholder, contentPlaceholder, includeContentField, includeValueField, onChange, onClose} = props;
+	const {title, content, value} = data;
 
 	return (
 		<li className='components-card-list__item'>
@@ -41,6 +41,14 @@ const SortableItem = SortableElement((props) => {
 						placeholder={titlePlaceholder}
 						onChange={(value) => onChange(value, 'title', sortIndex)}
 					/>
+					{includeContentField && (
+						<TextareaControl
+							label={__('Content', 'rehub-theme-child')}
+							value={content}
+							placeholder={contentPlaceholder}
+							onChange={(value) => onChange(value, 'content', sortIndex)}
+						/>
+					)}
 					{includeValueField && (
 						<AdvancedRangeControl
 							label={__('Value', 'rehub-theme-child')}
@@ -58,7 +66,7 @@ const SortableItem = SortableElement((props) => {
 });
 
 const SortableList = SortableContainer((props) => {
-	const {items, titlePlaceholder, includeValueField, onChange, onClose} = props;
+	const {items, titlePlaceholder, contentPlaceholder, includeContentField, includeValueField, onChange, onClose} = props;
 
 	return (
 		<ul className='components-card-list'>
@@ -69,6 +77,8 @@ const SortableList = SortableContainer((props) => {
 						index={index}
 						sortIndex={index}
 						titlePlaceholder={titlePlaceholder}
+						contentPlaceholder={contentPlaceholder}
+						includeContentField={includeContentField}
 						includeValueField={includeValueField}
 						data={value}
 						onChange={onChange}
@@ -123,6 +133,8 @@ export default class CardList extends Component {
 				distance={10}
 				items={this.props.items}
 				titlePlaceholder={this.props.titlePlaceholder}
+				contentPlaceholder={this.props.contentPlaceholder}
+				includeContentField={this.props.includeContentField}
 				includeValueField={this.props.includeValueField}
 				onSortEnd={this.onSortEnd}
 				onChange={this.onChange}
