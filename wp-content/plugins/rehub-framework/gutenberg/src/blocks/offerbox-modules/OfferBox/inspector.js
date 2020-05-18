@@ -15,13 +15,16 @@ import {
 	TextControl,
 	DateTimePicker,
 	TextareaControl,
-	Button
+	Button,
+	BaseControl,
+	Notice
 } from '@wordpress/components';
 
 /**
  * Internal dependencies
  */
 import populateOfferFields from '../utils/populate-offer-fields';
+import {parseOfferData} from '../utils/fetchService';
 import ImageControl from "../../../components/image-control";
 import ColorPaletteControl from '../../../components/ColorPaletteControl';
 
@@ -45,24 +48,45 @@ export default class Inspector extends Component {
 			      thumbnail,
 			      discount_tag,
 			      rating,
-			      borderColor
+			      borderColor,
+			      parseError,
+			      parseSuccess
 		      } = attributes;
 
 		return (
 			<InspectorControls>
 				<PanelBody title={__('Manual Fields', 'rehub-theme-child')} initialOpen={true}>
-					<TextControl
-						label={__('Offer url', 'rehub-theme-child')}
-						value={button.url}
-						placeholder={__('https://', 'rehub-theme-child')}
-						onChange={(value) => {
-							const buttonClone = cloneDeep(button);
-							buttonClone.url = value;
-							setAttributes({
-								button: buttonClone
-							});
-						}}
-					/>
+					<BaseControl className='rri-advanced-range-control'>
+						<TextControl
+							label={__('Offer url', 'rehub-theme-child')}
+							value={button.url}
+							placeholder={__('https://', 'rehub-theme-child')}
+							onChange={(value) => {
+								const buttonClone = cloneDeep(button);
+								buttonClone.url = value;
+								setAttributes({
+									button: buttonClone,
+									parseError: '',
+									parseSuccess: ''
+								});
+							}}
+						/>
+						<div className="text-center">
+							<Button isSecondary onClick={() => parseOfferData(button.url, setAttributes, attributes)}>
+								{__('Try to parse offer data', 'rehub-theme-child')}
+							</Button>
+						</div>
+						{parseError && (
+							<Notice status="error" onRemove={() => setAttributes({parseError: ''})}>
+								{parseError}
+							</Notice>
+						)}
+						{(parseSuccess && !parseError) && (
+							<Notice status="success" onRemove={() => setAttributes({parseSuccess: ''})}>
+								{parseSuccess}
+							</Notice>
+						)}
+					</BaseControl>
 					<TextControl
 						label={__('Title', 'rehub-theme-child')}
 						value={name}

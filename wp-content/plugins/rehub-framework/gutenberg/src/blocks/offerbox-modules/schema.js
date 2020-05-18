@@ -83,6 +83,14 @@ const schema = {
 	loading: {
 		type: 'boolean',
 		default: false
+	},
+	parseError: {
+		type: 'string',
+		default: ''
+	},
+	parseSuccess: {
+		type: 'string',
+		default: ''
 	}
 };
 

@@ -7,6 +7,12 @@ use WP_REST_Server;
 
 defined( 'ABSPATH' ) OR exit;
 
+require_once( 'microdata-parser-master/src/Microdata.php' );
+require_once( 'microdata-parser-master/src/MicrodataDOMDocument.php' );
+require_once( 'microdata-parser-master/src/MicrodataDOMElement.php' );
+require_once( 'microdata-parser-master/src/MicrodataParser.php' );
+use YusufKandemir\MicrodataParser\Microdata;
+
 class REST {
 	private $rest_namespace = 'rehub/v2/';
 
@@ -48,6 +54,15 @@ class REST {
 			array(
 				'methods'  => WP_REST_Server::READABLE,
 				'callback' => array( $this, 'rest_offer_data_handler' ),
+			)
+		);
+
+		register_rest_route(
+			$this->rest_namespace,
+			"/parse-offer/",
+			array(
+				'methods'  => WP_REST_Server::CREATABLE,
+				'callback' => array( $this, 'rest_parse_offer_handler' ),
 			)
 		);
 	}
@@ -158,5 +173,15 @@ class REST {
 			'rating'           => $rating,
 		);
 		return rest_ensure_response( $data );
+	}
+
+	public function rest_parse_offer_handler( WP_REST_Request $request ) {
+		$url = $request->get_params()['url'];
+
+		if ( empty( $url ) || filter_var( $url, FILTER_VALIDATE_URL ) === false ) {
+			return new \WP_Error( 'invalid_url', 'Not valid url', array( 'status' => 404 ) );
+		}
+
+		return Microdata::fromHTMLFile( $url )->toJSON();
 	}
 }
