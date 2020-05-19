@@ -27,6 +27,8 @@ final class Init {
         Blocks\ReviewBox::instance();
         Blocks\ConsPros::instance();
         Blocks\Accordion::instance();
+        Blocks\PostOfferListing::instance();
+        Blocks\OfferListing::instance();
 	    REST::instance();
     }
 
