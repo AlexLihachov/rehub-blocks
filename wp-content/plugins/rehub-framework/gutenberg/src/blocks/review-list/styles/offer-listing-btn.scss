@@ -1,0 +1,37 @@
+@import "common";
+
+.wp-block .c-offer-listing-btn {
+	position: relative;
+	display: block;
+
+	margin: 0 0 10px;
+	text-align: center;
+
+	span {
+		display: inline-block;
+		margin: 0 auto;
+		padding: 13px 20px;
+
+		font: {
+			size: 17px;
+			weight: bold;
+		};
+		line-height: 20px;
+		background: none $darkRedSecond;
+		color: $white;
+		fill: $white;
+		border: none;
+		text-transform: uppercase;
+		text-decoration: none;
+		text-align: center;
+		outline: 0;
+		box-shadow: -1px 6px 19px rgba(222, 20, 20, 0.2);
+		border-radius: 4px;
+		cursor: pointer;
+
+		&:hover {
+			background: none #de1414;
+			box-shadow: -1px 6px 13px rgba(222, 20, 20, 0.4);
+		}
+	}
+}

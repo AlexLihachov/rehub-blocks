@@ -1,0 +1,33 @@
+@import "common";
+
+.wp-block .c-offer-listing-image {
+	position: relative;
+	display: flex;
+	align-items: center;
+
+	width: 100%;
+	padding: 15px 20px;
+
+	text-align: center;
+
+	@include breakpoints(s) {
+		min-width: 160px;
+		max-width: 160px;
+		border-right: 1px solid $greyE;
+	}
+
+	figure {
+		position: relative;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin: 0 auto;
+	}
+
+	img {
+		max-height: 100%;
+		border-radius: 4px;
+		object-fit: scale-down;
+		flex: 0 0 auto;
+	}
+}

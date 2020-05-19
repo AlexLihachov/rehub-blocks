@@ -10,10 +10,22 @@ import {withFocusOutside} from "@wordpress/components";
  */
 import Inspector from "./Inspector";
 import Controls from "../components/Controls";
+import OfferItem from '../components/OfferItem';
+
+/**
+ * External dependencies
+ */
+import classnames from "classnames";
 
 class EditBlock extends Component {
 	render() {
-		const {isSelected} = this.props;
+		const {isSelected, className, attributes} = this.props;
+		const {loading} = attributes;
+		const mainClasses = classnames([
+			className,
+			'c-offer-listing',
+			{'c-offer-listing--loading': loading}
+		]);
 
 		return (
 			<Fragment>
@@ -23,8 +35,9 @@ class EditBlock extends Component {
 						<Controls {...this.props} />
 					</Fragment>
 				)}
-				<div>
-					Edit Post Offer Listing
+				<div className={mainClasses}>
+					<OfferItem {...this.props} index={0} writable={false}/>
+					<OfferItem {...this.props} index={1} writable={false}/>
 				</div>
 			</Fragment>
 		);
