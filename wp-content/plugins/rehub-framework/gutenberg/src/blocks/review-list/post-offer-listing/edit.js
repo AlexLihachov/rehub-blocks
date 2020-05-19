@@ -3,7 +3,7 @@
  */
 import {Component, Fragment} from "@wordpress/element";
 import {compose} from "@wordpress/compose";
-import {withFocusOutside} from "@wordpress/components";
+import {Spinner, withFocusOutside} from "@wordpress/components";
 
 /**
  * Internal dependencies
@@ -20,7 +20,7 @@ import classnames from "classnames";
 class EditBlock extends Component {
 	render() {
 		const {isSelected, className, attributes} = this.props;
-		const {loading} = attributes;
+		const {loading, offers} = attributes;
 		const mainClasses = classnames([
 			className,
 			'c-offer-listing',
@@ -36,8 +36,17 @@ class EditBlock extends Component {
 					</Fragment>
 				)}
 				<div className={mainClasses}>
-					<OfferItem {...this.props} index={0} writable={false}/>
-					<OfferItem {...this.props} index={1} writable={false}/>
+					<Spinner/>
+					{offers.map((offer, index) => {
+						return (
+							<OfferItem
+								{...this.props}
+								index={index}
+								key={index}
+								writable={false}
+							/>
+						);
+					})}
 				</div>
 			</Fragment>
 		);
