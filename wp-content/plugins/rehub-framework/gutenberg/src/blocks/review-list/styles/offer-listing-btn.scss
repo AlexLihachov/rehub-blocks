@@ -7,7 +7,7 @@
 	margin: 0 0 10px;
 	text-align: center;
 
-	span {
+	.c-offer-listing-btn__text {
 		position: relative;
 		display: inline-block;
 		margin: 0 auto;
@@ -37,7 +37,7 @@
 	}
 
 	&.c-offer-listing-btn--masked {
-		span:before {
+		.c-offer-listing-btn__text:before {
 			display: block;
 			content: "";
 			position: absolute;
@@ -53,7 +53,7 @@
 			background: linear-gradient(67deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0) 50%, rgb(166, 183, 157) 51%, rgb(233, 255, 221) 66%);
 		}
 
-		&:hover span:before {
+		&:hover .c-offer-listing-btn__text:before {
 			width: 25px;
 		}
 	}

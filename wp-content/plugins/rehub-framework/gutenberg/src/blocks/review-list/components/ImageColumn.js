@@ -1,26 +1,53 @@
 /**
- * WordPress dependencies
+ * Internal dependencies
  */
-import {Fragment} from "@wordpress/element";
+import ImageUploadPlaceholder from "../../../components/image-upload-placeholder";
+import {cloneDeep} from "lodash";
 
 const ImageColumn = (props) => {
-	const {offer, writable} = props;
-	const {score, thumbnail} = offer;
+	const {attributes, setAttributes, index, writable} = props;
+	const {offers} = attributes;
+	const {score, thumbnail} = offers[index];
 
 	return (
 		<div className='c-offer-listing-image'>
-			<div className="c-offer-listing-score">
-				{score && (
-					<Fragment>
-						{writable === false && (
-							<span className={`score--${Math.round(+score)}`}>{score}</span>
-						)}
-					</Fragment>
-				)}
-
-			</div>
+			{(score > 0) && (
+				<div className="c-offer-listing-score">
+					<span className={`score--${Math.round(+score)}`}>{score}</span>
+				</div>
+			)}
 			<figure>
-				<img src={thumbnail.url} alt=""/>
+				{writable && (
+					<ImageUploadPlaceholder
+						imageID={thumbnail.id}
+						imageURL={thumbnail.url}
+						onRemove={() => {
+							const offersClone = cloneDeep(offers);
+							offersClone[index].thumbnail.id = '';
+							offersClone[index].thumbnail.url = '';
+							offersClone[index].thumbnail.width = '';
+							offersClone[index].thumbnail.height = '';
+
+							setAttributes({
+								offers: offersClone
+							});
+						}}
+						onChange={image => {
+							const offersClone = cloneDeep(offers);
+							offersClone[index].thumbnail.id = image.id;
+							offersClone[index].thumbnail.url = image.url;
+							offersClone[index].thumbnail.width = image.width;
+							offersClone[index].thumbnail.height = image.height;
+
+							setAttributes({
+								offers: offersClone
+							});
+						}}
+					/>
+				)}
+				{writable === false && (
+					<img src={thumbnail.url} alt=""/>
+				)}
 			</figure>
 		</div>
 	);

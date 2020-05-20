@@ -6,8 +6,9 @@ import Button from "./Button";
 import Coupon from "./Coupon";
 
 const CtaColumn = (props) => {
-	const {offer, writable} = props;
-	const {readMore} = offer;
+	const {attributes, index, writable} = props;
+	const {offers} = attributes;
+	const {readMore} = offers[index];
 
 	return (
 		<div className='c-offer-listing-cta'>

@@ -10,10 +10,50 @@ import {withFocusOutside} from "@wordpress/components";
  */
 import Inspector from "./Inspector";
 import Controls from "../components/Controls";
+import OfferItem from '../components/OfferItem';
+
+/**
+ * External dependencies
+ */
+import classnames from "classnames";
+import {cloneDeep} from "lodash";
 
 class EditBlock extends Component {
+	constructor() {
+		super(...arguments);
+		this.state = {
+			openUrlPopover: false
+		};
+		this.handleFocusOutside = this.handleFocusOutside.bind(this);
+		this.handleButtonChange = this.handleButtonChange.bind(this);
+		this.handleButtonClick = this.handleButtonClick.bind(this);
+	}
+
+	handleFocusOutside() {
+		this.setState({
+			openUrlPopover: null,
+		});
+	}
+
+	handleButtonChange(value, type, index) {
+		const {attributes, setAttributes} = this.props;
+		const {offers} = attributes;
+		const offersClone = cloneDeep(offers);
+		offersClone[index].button[type] = value;
+
+		setAttributes({
+			offers: offersClone
+		});
+	}
+
+	handleButtonClick(index) {
+		this.setState({openUrlPopover: index});
+	}
+
 	render() {
-		const {isSelected} = this.props;
+		const {isSelected, className, attributes} = this.props;
+		const {offers} = attributes;
+		const mainClasses = classnames([className, 'c-offer-listing']);
 
 		return (
 			<Fragment>
@@ -23,8 +63,20 @@ class EditBlock extends Component {
 						<Controls {...this.props} />
 					</Fragment>
 				)}
-				<div>
-					Edit Offer Listing
+				<div className={mainClasses}>
+					{offers.map((offer, index) => {
+						return (
+							<OfferItem
+								{...this.props}
+								index={index}
+								key={index}
+								writable
+								handleButtonChange={this.handleButtonChange}
+								handleButtonClick={this.handleButtonClick}
+								openUrlPopover={this.state.openUrlPopover}
+							/>
+						);
+					})}
 				</div>
 			</Fragment>
 		);

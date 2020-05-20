@@ -4,6 +4,26 @@
 	&__item {
 		list-style: none;
 	}
+
+	.components-panel__body-title {
+		padding-left: 30px;
+		position: relative;
+
+		&:before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 25px;
+			height: 46px;
+			background: {
+				image: url("../../src/icons/drag-icon.png");
+				repeat: no-repeat;
+				position: center;
+				size: contain;
+			};
+		}
+	}
 }
 
 .components-card-header {

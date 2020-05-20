@@ -7,36 +7,39 @@ import CtaColumn from "./CtaColumn";
 import Disclaimer from "./Disclaimer";
 
 const OfferItem = (props) => {
-	const {attributes, setAttributes, index, writable} = props;
-	const {offers} = attributes;
+	const {attributes, setAttributes, index, writable, handleButtonChange, handleButtonClick, openUrlPopover} = props;
 
 	return (
 		<div className='c-offer-listing-item'>
 			<div className="c-offer-listing-item__wrapper">
 				<ImageColumn
-					offer={offers[index]}
+					attributes={attributes}
 					setAttributes={setAttributes}
 					index={index}
 					writable={writable}
 				/>
 				<ContentColumn
-					offer={offers[index]}
+					attributes={attributes}
 					setAttributes={setAttributes}
 					index={index}
 					writable={writable}
 				/>
 				<CtaColumn
-					offer={offers[index]}
+					attributes={attributes}
 					setAttributes={setAttributes}
 					index={index}
 					writable={writable}
+					handleButtonChange={handleButtonChange}
+					handleButtonClick={handleButtonClick}
+					openUrlPopover={openUrlPopover}
 				/>
 			</div>
 			<Disclaimer
-				offer={offers[index]}
+				attributes={attributes}
 				setAttributes={setAttributes}
 				index={index}
-				writable={writable}/>
+				writable={writable}
+			/>
 		</div>
 	);
 };
