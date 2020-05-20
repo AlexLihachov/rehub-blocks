@@ -6,6 +6,8 @@ import postofferbox from './offerbox-modules/PostOfferBox';
 import reviewbox from './review-box';
 import conspros from './cons-pros';
 import accordion from './accordion';
+import postofferlisting from './review-list/post-offer-listing';
+import offerlisting from './review-list/offer-listing';
 
 const Blocks = {
 	box,
@@ -15,7 +17,9 @@ const Blocks = {
 	postofferbox,
 	reviewbox,
 	conspros,
-	accordion
+	accordion,
+	postofferlisting,
+	offerlisting
 };
 
 export default Blocks;

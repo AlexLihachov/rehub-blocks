@@ -11,6 +11,7 @@ require_once( 'microdata-parser-master/src/Microdata.php' );
 require_once( 'microdata-parser-master/src/MicrodataDOMDocument.php' );
 require_once( 'microdata-parser-master/src/MicrodataDOMElement.php' );
 require_once( 'microdata-parser-master/src/MicrodataParser.php' );
+
 use YusufKandemir\MicrodataParser\Microdata;
 
 class REST {
@@ -54,6 +55,15 @@ class REST {
 			array(
 				'methods'  => WP_REST_Server::READABLE,
 				'callback' => array( $this, 'rest_offer_data_handler' ),
+			)
+		);
+
+		register_rest_route(
+			$this->rest_namespace,
+			"/offer-listing/",
+			array(
+				'methods'  => WP_REST_Server::CREATABLE,
+				'callback' => array( $this, 'rest_offer_listing_handler' ),
 			)
 		);
 
@@ -173,6 +183,59 @@ class REST {
 			'rating'           => $rating,
 		);
 		return rest_ensure_response( $data );
+	}
+
+	public function rest_offer_listing_handler( WP_REST_Request $request ) {
+		$posts_id = $request['posts_id'];
+		$data     = array();
+
+		if ( empty( $posts_id ) || count( $posts_id ) === 0 ) {
+			return new \WP_Error( 'empty_data', 'Pass empty data', array( 'status' => 404 ) );
+		}
+
+
+		foreach ( $posts_id as $id ) {
+			$button_text   = get_post_meta( (int) $id, 'rehub_offer_btn_text', true );
+			$thumbnail_url = get_the_post_thumbnail_url( (int) $id );
+			$coupon_mask   = get_post_meta( (int) $id, 'rehub_offer_coupon_mask', true );
+
+			if ( empty( $button_text ) ) {
+				if ( ! empty( rehub_option( 'rehub_btn_text' ) ) ) {
+					$button_text = rehub_option( 'rehub_btn_text' );
+				} elseif ( $coupon_mask ) {
+					$button_text = 'Reveal coupon';
+				} else {
+					$button_text = 'Buy this item';
+				}
+			}
+
+			if ( empty( $thumbnail_url ) ) {
+				$thumbnail_url = plugin_dir_url( __FILE__ ) . 'src/icons/noimage-placeholder.png';
+			}
+
+
+			$data[] = array(
+				'score'        => get_post_meta( (int) $id, 'rehub_review_overall_score', true ),
+				'thumbnail'    => array(
+					'url' => $thumbnail_url,
+				),
+				'title'        => get_the_title( (int) $id ),
+				'copy'         => get_the_excerpt( (int) $id ),
+				'currentPrice' => get_post_meta( (int) $id, 'rehub_offer_product_price', true ),
+				'oldPrice'     => get_post_meta( (int) $id, 'rehub_offer_product_price_old', true ),
+				'button'       => array(
+					'text' => $button_text,
+					'url'  => get_post_meta( (int) $id, 'rehub_offer_product_url', true ),
+				),
+				'coupon'       => get_post_meta( (int) $id, 'rehub_offer_product_coupon', true ),
+				'maskCoupon'   => $coupon_mask,
+				'readMore'     => 'Read full review',
+				'readMoreUrl'  => '',
+				'disclaimer'   => get_post_meta( (int) $id, 'rehub_offer_disclaimer', true ),
+			);
+		}
+
+		return json_encode( $data );
 	}
 
 	public function rest_parse_offer_handler( WP_REST_Request $request ) {

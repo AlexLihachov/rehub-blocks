@@ -1,5 +1,7 @@
 @import 'react-select2-wrapper/css/select2';
 
+$darkRed: #cc0000;
+$darkRedSecond: #de1414;
 $brandRed: #E43917;
 $lightRed: #f24f4f;
 $lightGreen: #58c649;
@@ -11,6 +13,8 @@ $grey: #d2d2d2;
 $greyD: #ddd;
 $greyE: #eee;
 $greyf9: #f9f9f9;
+$greyED: #ededed;
+$violet: #8035be;
 
 @mixin breakpoints($media) {
 	@if $media == xs {
