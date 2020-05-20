@@ -1,3 +1,8 @@
+/**
+ * WordPress dependencies
+ */
+import {Fragment} from "@wordpress/element";
+
 const ImageColumn = (props) => {
 	const {offer, writable} = props;
 	const {score, thumbnail} = offer;
@@ -5,9 +10,14 @@ const ImageColumn = (props) => {
 	return (
 		<div className='c-offer-listing-image'>
 			<div className="c-offer-listing-score">
-				{writable === false && (
-					<span>{score}</span>
+				{score && (
+					<Fragment>
+						{writable === false && (
+							<span className={`score--${Math.round(+score)}`}>{score}</span>
+						)}
+					</Fragment>
 				)}
+
 			</div>
 			<figure>
 				<img src={thumbnail.url} alt=""/>

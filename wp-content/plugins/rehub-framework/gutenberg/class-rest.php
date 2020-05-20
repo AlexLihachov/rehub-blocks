@@ -195,20 +195,29 @@ class REST {
 
 
 		foreach ( $posts_id as $id ) {
-			$button_text = get_post_meta( (int) $id, 'rehub_offer_btn_text', true );
+			$button_text   = get_post_meta( (int) $id, 'rehub_offer_btn_text', true );
+			$thumbnail_url = get_the_post_thumbnail_url( (int) $id );
+			$coupon_mask    = get_post_meta( (int) $id, 'rehub_offer_coupon_mask', true );
 
 			if ( empty( $button_text ) ) {
 				if ( ! empty( rehub_option( 'rehub_btn_text' ) ) ) {
 					$button_text = rehub_option( 'rehub_btn_text' );
+				} elseif ($coupon_mask) {
+					$button_text = 'Reveal coupon';
 				} else {
 					$button_text = 'Buy this item';
 				}
 			}
 
+			if ( empty( $thumbnail_url ) ) {
+				$thumbnail_url = plugin_dir_url( __FILE__ ) . 'src/icons/noimage-placeholder.png';
+			}
+
+
 			$data[] = array(
 				'score'        => get_post_meta( (int) $id, 'rehub_review_overall_score', true ),
 				'thumbnail'    => array(
-					'url' => get_the_post_thumbnail_url( (int) $id ),
+					'url' => $thumbnail_url,
 				),
 				'title'        => get_the_title( (int) $id ),
 				'copy'         => get_the_excerpt( (int) $id ),
@@ -220,7 +229,7 @@ class REST {
 				),
 				'coupon'       => get_post_meta( (int) $id, 'rehub_offer_product_coupon', true ),
 				'maskCoupon'   => get_post_meta( (int) $id, 'rehub_offer_coupon_mask', true ),
-				'readMore'     => '',
+				'readMore'     => 'Read full review',
 				'readMoreUrl'  => '',
 				'disclaimer'   => get_post_meta( (int) $id, 'rehub_offer_disclaimer', true ),
 			);

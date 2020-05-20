@@ -10,7 +10,9 @@ export function fetchReviewData(value, setAttributes) {
 
 	setAttributes({
 		loading: true,
-		selectedPosts: value
+		selectedPosts: value,
+		parseError: '',
+		parseSuccess: ''
 	});
 
 	wp.apiFetch({

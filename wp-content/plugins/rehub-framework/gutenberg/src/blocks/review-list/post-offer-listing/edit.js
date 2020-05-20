@@ -11,6 +11,7 @@ import {Spinner, withFocusOutside} from "@wordpress/components";
 import Inspector from "./Inspector";
 import Controls from "../components/Controls";
 import OfferItem from '../components/OfferItem';
+import {fetchReviewData} from '../utils/fetchReviewData';
 
 /**
  * External dependencies
@@ -18,6 +19,11 @@ import OfferItem from '../components/OfferItem';
 import classnames from "classnames";
 
 class EditBlock extends Component {
+	constructor() {
+		super(...arguments);
+		fetchReviewData(this.props.attributes.selectedPosts, this.props.setAttributes);
+	}
+
 	render() {
 		const {isSelected, className, attributes} = this.props;
 		const {loading, offers} = attributes;

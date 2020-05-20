@@ -102,6 +102,7 @@ final class Assets {
 		wp_localize_script('rehub-blocks-editor','RehubGutenberg', array(
 			'blocks' => array(),
 			'attributes' => $default_attributes,
+			'pluginDirUrl' => plugin_dir_url( __DIR__ ),
 		));
 
 		wp_enqueue_style(

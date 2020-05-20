@@ -1,3 +1,8 @@
+/**
+ * WordPress dependencies
+ */
+import {__} from '@wordpress/i18n';
+
 const schema = {
 	selectedPosts: {
 		type: 'array',
@@ -19,28 +24,28 @@ const schema = {
 		type: 'array',
 		default: [
 			{
-				score: 3.5,
+				score: 10,
 				thumbnail: {
 					id: '',
-					url: 'https://local.rehub.com/wp-content/uploads/thumbs_dir/photo-1503023345310-bd7c1de61c7d-1wlraslscv999jwn0b09fbus8jzbrg7w5hh5ld15fdt8.jpeg',
+					url: `${window.RehubGutenberg.pluginDirUrl}/gutenberg/src/icons/noimage-placeholder.png`,
 					width: '',
 					height: ''
 				},
-				title: 'Post name',
-				copy: 'Post content excerpt',
+				title: __('Post name', 'rehub-theme-child'),
+				copy: __('Content', 'rehub-theme-child'),
 				currentPrice: 100,
 				oldPrice: 200,
 				button: {
-					text: 'Buy this item',
+					text: __('Buy this item', 'rehub-theme-child'),
 					url: '',
 					newTab: false,
 					noFollow: false
 				},
 				coupon: 'coupon_code',
 				maskCoupon: false,
-				readMore: 'Read full review',
-				readMoreUrl: 'local.com',
-				disclaimer: 'disclaimer text....'
+				readMore: __('Read full review', 'rehub-theme-child'),
+				readMoreUrl: '',
+				disclaimer: __('Disclaimer text....', 'rehub-theme-child')
 			}
 		]
 	}

@@ -1,6 +1,14 @@
 const Coupon = (props) => {
 	const {offer, writable} = props;
-	const {coupon} = offer;
+	const {coupon, maskCoupon} = offer;
+
+	if (writable === false && coupon === '') {
+		return null;
+	}
+
+	if (maskCoupon) {
+		return null;
+	}
 
 	return (
 		<div className='c-offer-listing-coupon'>
