@@ -20,7 +20,7 @@ const SortableItem = SortableElement((props) => {
 	const {attributes, setAttributes, sortIndex} = props;
 	const {offers} = attributes;
 	const cloneItems = cloneDeep(offers);
-	const {title, button, copy, score, currentPrice, oldPrice, coupon, maskCoupon, disclaimer} = offers[sortIndex];
+	const {title, button, copy, score, currentPrice, oldPrice, coupon, maskCoupon, disclaimer, readMore, readMoreUrl} = offers[sortIndex];
 
 	const handleClose = (index) => {
 		cloneItems.splice(index, 1);
@@ -130,6 +130,26 @@ const SortableItem = SortableElement((props) => {
 					value={disclaimer}
 					onChange={(value) => {
 						cloneItems[sortIndex].disclaimer = value;
+						setAttributes({
+							offers: cloneItems
+						});
+					}}
+				/>
+				<TextControl
+					label={__('Read More custom text', 'rehub-theme-child')}
+					value={readMore}
+					onChange={(value) => {
+						cloneItems[sortIndex].readMore = value;
+						setAttributes({
+							offers: cloneItems
+						});
+					}}
+				/>
+				<TextControl
+					label={__('Read More Url', 'rehub-theme-child')}
+					value={readMoreUrl}
+					onChange={(value) => {
+						cloneItems[sortIndex].readMoreUrl = value;
 						setAttributes({
 							offers: cloneItems
 						});

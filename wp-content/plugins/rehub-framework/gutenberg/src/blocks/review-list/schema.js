@@ -45,7 +45,7 @@ const schema = {
 				maskCoupon: false,
 				readMore: __('Read full review', 'rehub-theme-child'),
 				readMoreUrl: '',
-				disclaimer: __('Disclaimer text....', 'rehub-theme-child')
+				disclaimer: __('Disclaimer text...', 'rehub-theme-child')
 			}
 		]
 	}
