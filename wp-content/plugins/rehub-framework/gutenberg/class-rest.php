@@ -197,12 +197,12 @@ class REST {
 		foreach ( $posts_id as $id ) {
 			$button_text   = get_post_meta( (int) $id, 'rehub_offer_btn_text', true );
 			$thumbnail_url = get_the_post_thumbnail_url( (int) $id );
-			$coupon_mask    = get_post_meta( (int) $id, 'rehub_offer_coupon_mask', true );
+			$coupon_mask   = get_post_meta( (int) $id, 'rehub_offer_coupon_mask', true );
 
 			if ( empty( $button_text ) ) {
 				if ( ! empty( rehub_option( 'rehub_btn_text' ) ) ) {
 					$button_text = rehub_option( 'rehub_btn_text' );
-				} elseif ($coupon_mask) {
+				} elseif ( $coupon_mask ) {
 					$button_text = 'Reveal coupon';
 				} else {
 					$button_text = 'Buy this item';
@@ -228,7 +228,7 @@ class REST {
 					'url'  => get_post_meta( (int) $id, 'rehub_offer_product_url', true ),
 				),
 				'coupon'       => get_post_meta( (int) $id, 'rehub_offer_product_coupon', true ),
-				'maskCoupon'   => get_post_meta( (int) $id, 'rehub_offer_coupon_mask', true ),
+				'maskCoupon'   => $coupon_mask,
 				'readMore'     => 'Read full review',
 				'readMoreUrl'  => '',
 				'disclaimer'   => get_post_meta( (int) $id, 'rehub_offer_disclaimer', true ),
