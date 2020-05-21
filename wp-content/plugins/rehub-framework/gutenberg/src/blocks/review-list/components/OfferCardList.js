@@ -3,7 +3,7 @@
  */
 import {__} from '@wordpress/i18n';
 import {Component} from '@wordpress/element'
-import {TextControl, TextareaControl, PanelBody, ToggleControl, Button, BaseControl} from '@wordpress/components';
+import {TextControl, TextareaControl, PanelBody, Button, BaseControl} from '@wordpress/components';
 
 /**
  * External dependencies
@@ -20,7 +20,7 @@ const SortableItem = SortableElement((props) => {
 	const {attributes, setAttributes, sortIndex} = props;
 	const {offers} = attributes;
 	const cloneItems = cloneDeep(offers);
-	const {title, button, copy, score, currentPrice, oldPrice, coupon, maskCoupon, disclaimer, readMore, readMoreUrl} = offers[sortIndex];
+	const {title, button, copy, score, currentPrice, oldPrice, disclaimer, readMore, readMoreUrl} = offers[sortIndex];
 
 	const handleClose = (index) => {
 		cloneItems.splice(index, 1);
@@ -105,26 +105,26 @@ const SortableItem = SortableElement((props) => {
 						});
 					}}
 				/>
-				<TextControl
-					label={__('Set coupon code', 'rehub-theme-child')}
-					value={coupon}
-					onChange={(value) => {
-						cloneItems[sortIndex].coupon = value;
-						setAttributes({
-							offers: cloneItems
-						});
-					}}
-				/>
-				<ToggleControl
-					label={__('Mask coupon code?', 'rehub-theme-child')}
-					checked={maskCoupon}
-					onChange={() => {
-						cloneItems[sortIndex].maskCoupon = !maskCoupon;
-						setAttributes({
-							offers: cloneItems
-						});
-					}}
-				/>
+				{/*<TextControl*/}
+				{/*	label={__('Set coupon code', 'rehub-theme-child')}*/}
+				{/*	value={coupon}*/}
+				{/*	onChange={(value) => {*/}
+				{/*		cloneItems[sortIndex].coupon = value;*/}
+				{/*		setAttributes({*/}
+				{/*			offers: cloneItems*/}
+				{/*		});*/}
+				{/*	}}*/}
+				{/*/>*/}
+				{/*<ToggleControl*/}
+				{/*	label={__('Mask coupon code?', 'rehub-theme-child')}*/}
+				{/*	checked={maskCoupon}*/}
+				{/*	onChange={() => {*/}
+				{/*		cloneItems[sortIndex].maskCoupon = !maskCoupon;*/}
+				{/*		setAttributes({*/}
+				{/*			offers: cloneItems*/}
+				{/*		});*/}
+				{/*	}}*/}
+				{/*/>*/}
 				<TextareaControl
 					label={__('Disclaimer', 'rehub-theme-child')}
 					value={disclaimer}

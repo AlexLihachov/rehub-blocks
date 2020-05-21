@@ -33,8 +33,8 @@ const schema = {
 				},
 				title: __('Post name', 'rehub-theme-child'),
 				copy: __('Content', 'rehub-theme-child'),
-				currentPrice: 100,
-				oldPrice: 200,
+				currentPrice: '',
+				oldPrice: '',
 				button: {
 					text: __('Buy this item', 'rehub-theme-child'),
 					url: '',
