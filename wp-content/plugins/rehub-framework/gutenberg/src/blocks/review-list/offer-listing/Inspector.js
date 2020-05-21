@@ -48,7 +48,7 @@ export default class Inspector extends Component {
 				newTab: false,
 				noFollow: false
 			},
-			coupon: 'coupon_code',
+			coupon: '',
 			maskCoupon: false,
 			readMore: __('Read full review', 'rehub-theme-child'),
 			readMoreUrl: '',
