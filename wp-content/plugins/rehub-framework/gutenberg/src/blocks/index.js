@@ -8,6 +8,7 @@ import conspros from './cons-pros';
 import accordion from './accordion';
 import postofferlisting from './review-list/post-offer-listing';
 import offerlisting from './review-list/offer-listing';
+import versustable from './versus-table';
 
 const Blocks = {
 	box,
@@ -19,7 +20,8 @@ const Blocks = {
 	conspros,
 	accordion,
 	postofferlisting,
-	offerlisting
+	offerlisting,
+	versustable
 };
 
 export default Blocks;
