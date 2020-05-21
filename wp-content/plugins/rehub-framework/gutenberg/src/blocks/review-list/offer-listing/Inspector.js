@@ -40,15 +40,15 @@ export default class Inspector extends Component {
 			},
 			title: __('Post name', 'rehub-theme-child'),
 			copy: __('Content', 'rehub-theme-child'),
-			currentPrice: 100,
-			oldPrice: 200,
+			currentPrice: '',
+			oldPrice: '',
 			button: {
 				text: __('Buy this item', 'rehub-theme-child'),
 				url: '',
 				newTab: false,
 				noFollow: false
 			},
-			coupon: 'coupon_code',
+			coupon: '',
 			maskCoupon: false,
 			readMore: __('Read full review', 'rehub-theme-child'),
 			readMoreUrl: '',
