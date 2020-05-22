@@ -3,6 +3,7 @@ import SVGreviewBox from './reviewBox.svg';
 import SVGprosAndCons from './pros-and-cons.svg';
 import SVGaccordion from './accordion.svg';
 import SVGreviewList from './review-list-icon.svg';
+import SVGtableIcon from './table-icon.svg';
 
 export const OfferBoxIcon = () => {
 	return <SVGofferBox width="20" height="20"/>
@@ -22,4 +23,8 @@ export const AccordionIcon = () => {
 
 export const ReviewListIcon = () => {
 	return <SVGreviewList width="20" height="20" />
+};
+
+export const TableIcon = () => {
+	return <SVGtableIcon width="20" height="20" />
 };

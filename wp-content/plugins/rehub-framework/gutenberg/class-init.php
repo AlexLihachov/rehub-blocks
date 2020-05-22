@@ -29,6 +29,7 @@ final class Init {
         Blocks\Accordion::instance();
         Blocks\PostOfferListing::instance();
         Blocks\OfferListing::instance();
+        Blocks\VersusTable::instance();
 	    REST::instance();
     }
 
