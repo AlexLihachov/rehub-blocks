@@ -205,6 +205,7 @@ class REST {
 		$code_zone            = '';
 		$price_label          = '';
 		$mask_text            = '';
+		$video_thumbnails     = array();
 		$gallery_images       = array();
 		$is_coupon_expired    = false;
 		$is_item_sync_enabled = false;
@@ -223,6 +224,7 @@ class REST {
 		$product_in_stock     = $product->is_in_stock();
 		$add_to_cart_text     = $product->add_to_cart_text();
 		$attributes           = $product->get_attributes();
+		$product_videos       = get_post_meta( $id, 'rh_product_video', true );
 		$coupon_expired_date  = get_post_meta( $id, 'rehub_woo_coupon_date', true );
 		$is_expired           = get_post_meta( $id, 're_post_expired', true ) === '1';
 		$coupon               = get_post_meta( $id, 'rehub_woo_coupon_code', true );
@@ -296,6 +298,13 @@ class REST {
 			}
 		}
 
+		if ( ! empty( $product_videos ) ) {
+			$product_videos = array_map( 'trim', explode( PHP_EOL, $product_videos ) );
+			foreach ( $product_videos as $video ) {
+				$video_thumbnails[] = parse_video_url( esc_url( $video ), "hqthumb" );
+			}
+		}
+
 		$data['productUrl']        = $product_url;
 		$data['productType']       = $product_type;
 		$data['imageUrl']          = $image_url;
@@ -313,6 +322,7 @@ class REST {
 		$data['brandList']         = $term_list;
 		$data['productAttributes'] = $attributes;
 		$data['galleryImages']     = $gallery_images;
+		$data['videoThumbnails']   = $video_thumbnails;
 		$data['isExpired']         = $is_expired;
 		$data['couponMasked']      = $is_coupon_masked;
 		$data['isCouponExpired']   = $is_coupon_expired;

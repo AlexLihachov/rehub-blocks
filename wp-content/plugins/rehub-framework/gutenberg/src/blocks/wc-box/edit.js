@@ -19,6 +19,7 @@ import Controls from './Controls';
 import ContentColumn from "./components/ContentColumn";
 import CtaColumn from "./components/CtaColumn";
 import Gallery from "./components/Gallery";
+import Videos from "./components/Videos";
 import updateProductData from "./util/updateProductData";
 
 class EditBlock extends Component {
@@ -46,6 +47,7 @@ class EditBlock extends Component {
 			      description,
 			      productAttributes,
 			      galleryImages,
+			      videoThumbnails,
 			      isCouponExpired
 		      } = attributes;
 		const mainClasses = classnames([
@@ -55,7 +57,7 @@ class EditBlock extends Component {
 				'c-ws-box--expired': isCouponExpired
 			}
 		]);
-		const showTabs = (productAttributes !== '' || galleryImages.length > 0);
+		const showTabs = (productAttributes !== '' || galleryImages.length > 0 || videoThumbnails.length > 0);
 
 		return (
 			<Fragment>
@@ -83,6 +85,11 @@ class EditBlock extends Component {
 										{__('Photos', 'rehub-theme-child')}
 									</li>
 								)}
+								{videoThumbnails.length > 0 && (
+									<li>
+										{__('Videos', 'rehub-theme-child')}
+									</li>
+								)}
 							</Fragment>
 						)}
 					</ul>
@@ -108,6 +115,11 @@ class EditBlock extends Component {
 						{galleryImages.length > 0 && (
 							<div className="c-ws-box-tab d-none">
 								<Gallery items={galleryImages} />
+							</div>
+						)}
+						{videoThumbnails.length > 0 && (
+							<div className="c-ws-box-tab d-none">
+								<Videos items={videoThumbnails} />
 							</div>
 						)}
 					</div>

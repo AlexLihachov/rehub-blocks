@@ -87,6 +87,10 @@ const schema = {
 		type: 'array',
 		default: []
 	},
+	videoThumbnails: {
+		type: 'array',
+		default: []
+	},
 
 	isExpired: {
 		type: 'boolean',
