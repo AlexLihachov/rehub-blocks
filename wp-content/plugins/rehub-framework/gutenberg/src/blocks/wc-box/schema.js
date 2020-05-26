@@ -83,6 +83,10 @@ const schema = {
 		type: 'string',
 		default: ''
 	},
+	galleryImages: {
+		type: 'array',
+		default: []
+	},
 
 	isExpired: {
 		type: 'boolean',

@@ -16,8 +16,9 @@ import classnames from "classnames";
  */
 import Inspector from "./Inspector";
 import Controls from './Controls';
-import ContentColumn from "./ContentColumn";
-import CtaColumn from "./CtaColumn";
+import ContentColumn from "./components/ContentColumn";
+import CtaColumn from "./components/CtaColumn";
+import Gallery from "./components/Gallery";
 import updateProductData from "./util/updateProductData";
 
 class EditBlock extends Component {
@@ -44,6 +45,7 @@ class EditBlock extends Component {
 			      imageUrl,
 			      description,
 			      productAttributes,
+			      galleryImages,
 			      isCouponExpired
 		      } = attributes;
 		const mainClasses = classnames([
@@ -53,7 +55,7 @@ class EditBlock extends Component {
 				'c-ws-box--expired': isCouponExpired
 			}
 		]);
-		const showTabs = (productAttributes !== '');
+		const showTabs = (productAttributes !== '' || galleryImages.length > 0);
 
 		return (
 			<Fragment>
@@ -76,6 +78,11 @@ class EditBlock extends Component {
 										{__('Specification', 'rehub-theme-child')}
 									</li>
 								)}
+								{galleryImages.length > 0 && (
+									<li>
+										{__('Photos', 'rehub-theme-child')}
+									</li>
+								)}
 							</Fragment>
 						)}
 					</ul>
@@ -96,6 +103,11 @@ class EditBlock extends Component {
 						{productAttributes !== '' && (
 							<div className="c-ws-box-tab d-none">
 								<RawHTML>{productAttributes}</RawHTML>
+							</div>
+						)}
+						{galleryImages.length > 0 && (
+							<div className="c-ws-box-tab d-none">
+								<Gallery items={galleryImages} />
 							</div>
 						)}
 					</div>

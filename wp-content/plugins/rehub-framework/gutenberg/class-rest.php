@@ -205,6 +205,7 @@ class REST {
 		$code_zone            = '';
 		$price_label          = '';
 		$mask_text            = '';
+		$gallery_images       = array();
 		$is_coupon_expired    = false;
 		$is_item_sync_enabled = false;
 		$product              = wc_get_product( $id );
@@ -214,6 +215,7 @@ class REST {
 		$product_desc         = $product->get_description();
 		$image_id             = $product->get_image_id();
 		$image_url            = wp_get_attachment_image_url( $image_id, 'full' );
+		$gallery_ids          = $product->get_gallery_image_ids();
 		$regular_price        = (float) $product->get_regular_price();
 		$sale_price           = (float) $product->get_sale_price();
 		$product_type         = $product->get_type();
@@ -288,6 +290,12 @@ class REST {
 			ob_end_clean();
 		}
 
+		if ( ! empty( $gallery_ids ) ) {
+			foreach ( $gallery_ids as $key => $value ) {
+				$gallery_images[] = wp_get_attachment_url( $value );
+			}
+		}
+
 		$data['productUrl']        = $product_url;
 		$data['productType']       = $product_type;
 		$data['imageUrl']          = $image_url;
@@ -304,6 +312,7 @@ class REST {
 		$data['couponExpiredDate'] = $coupon_expired_date;
 		$data['brandList']         = $term_list;
 		$data['productAttributes'] = $attributes;
+		$data['galleryImages']     = $gallery_images;
 		$data['isExpired']         = $is_expired;
 		$data['couponMasked']      = $is_coupon_masked;
 		$data['isCouponExpired']   = $is_coupon_expired;
