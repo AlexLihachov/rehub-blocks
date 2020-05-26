@@ -79,6 +79,10 @@ const schema = {
 		type: 'string',
 		default: ''
 	},
+	productAttributes: {
+		type: 'string',
+		default: ''
+	},
 
 	isExpired: {
 		type: 'boolean',

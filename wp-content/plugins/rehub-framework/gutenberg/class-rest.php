@@ -220,6 +220,7 @@ class REST {
 		$product_on_sale      = $product->is_on_sale();
 		$product_in_stock     = $product->is_in_stock();
 		$add_to_cart_text     = $product->add_to_cart_text();
+		$attributes           = $product->get_attributes();
 		$coupon_expired_date  = get_post_meta( $id, 'rehub_woo_coupon_date', true );
 		$is_expired           = get_post_meta( $id, 're_post_expired', true ) === '1';
 		$coupon               = get_post_meta( $id, 'rehub_woo_coupon_code', true );
@@ -279,7 +280,14 @@ class REST {
 				$is_item_sync_enabled = true;
 			}
 		}
-		
+
+		if ( ! empty( $attributes ) ) {
+			ob_start();
+			wc_display_product_attributes( $product );
+			$attributes = ob_get_contents();
+			ob_end_clean();
+		}
+
 		$data['productUrl']        = $product_url;
 		$data['productType']       = $product_type;
 		$data['imageUrl']          = $image_url;
@@ -295,6 +303,7 @@ class REST {
 		$data['maskText']          = $mask_text;
 		$data['couponExpiredDate'] = $coupon_expired_date;
 		$data['brandList']         = $term_list;
+		$data['productAttributes'] = $attributes;
 		$data['isExpired']         = $is_expired;
 		$data['couponMasked']      = $is_coupon_masked;
 		$data['isCouponExpired']   = $is_coupon_expired;

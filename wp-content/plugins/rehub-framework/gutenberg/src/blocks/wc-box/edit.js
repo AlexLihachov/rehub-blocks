@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import {Component, Fragment, RawHTML} from '@wordpress/element';
+import {Component, Fragment, RawHTML, createRef} from '@wordpress/element';
 import {compose} from "@wordpress/compose";
 import {withFocusOutside, Spinner} from "@wordpress/components";
 import {__} from '@wordpress/i18n';
@@ -16,13 +16,25 @@ import classnames from "classnames";
  */
 import Inspector from "./Inspector";
 import Controls from './Controls';
+import ContentColumn from "./ContentColumn";
 import CtaColumn from "./CtaColumn";
 import updateProductData from "./util/updateProductData";
 
 class EditBlock extends Component {
 	constructor() {
 		super(...arguments);
+		this.blockRef = createRef();
 		updateProductData(this.props.attributes.productId, this.props.setAttributes);
+	}
+
+	componentDidMount() {
+		const block = this.blockRef.current;
+		const tabs = jQuery(block).find('.c-ws-box-tabs');
+
+		tabs.on('click', 'li:not(.current)', function () {
+			jQuery(this).addClass('current').siblings().removeClass('current');
+			jQuery(block).find('.c-ws-box-tab').hide().eq(jQuery(this).index()).fadeIn(700);
+		});
 	}
 
 	render() {
@@ -30,24 +42,18 @@ class EditBlock extends Component {
 		const {
 			      loading,
 			      imageUrl,
-			      productName,
 			      description,
-			      codeZone,
-			      currencySymbol,
-			      regularPrice,
-			      salePrice,
-			      priceLabel,
-			      isExpired,
+			      productAttributes,
 			      isCouponExpired
 		      } = attributes;
 		const mainClasses = classnames([
-			className,
 			'c-ws-box',
 			{
 				'c-ws-box--loading': loading,
 				'c-ws-box--expired': isCouponExpired
 			}
 		]);
+		const showTabs = (productAttributes !== '');
 
 		return (
 			<Fragment>
@@ -57,48 +63,41 @@ class EditBlock extends Component {
 						<Controls {...this.props} />
 					</Fragment>
 				)}
-				<div className={mainClasses}>
-					<Spinner/>
-					<div className="c-ws-box__wrapper">
-						<div className="c-ws-box-image">
-							<img src={imageUrl} alt=""/>
-						</div>
-						<div className="c-ws-box-content">
-							<h3 className='c-ws-box-title'>
-								{isExpired && (
-									<span className="rh-expired-notice">{__('Expired', 'rehub-theme-child')}</span>
+
+				<div className={className} ref={this.blockRef}>
+					<ul className='c-ws-box-tabs'>
+						{showTabs && (
+							<Fragment>
+								<li className='current'>
+									{__('Product', 'rehub-theme-child')}
+								</li>
+								{attributes !== '' && (
+									<li>
+										{__('Specification', 'rehub-theme-child')}
+									</li>
 								)}
-								{productName}
-							</h3>
-							{codeZone !== '' && (
-								<div className='c-ws-box-content__code-zone'>
-									<RawHTML>{codeZone}</RawHTML>
+							</Fragment>
+						)}
+					</ul>
+					<div className={mainClasses}>
+						<Spinner/>
+						<div className='c-ws-box-tab'>
+							<div className="c-ws-box__wrapper">
+								<div className="c-ws-box-image">
+									<img src={imageUrl} alt=""/>
 								</div>
-							)}
-							{+regularPrice > 0 && (
-								<Fragment>
-									<span className='c-ws-box-price'>
-										{+salePrice > 0 && (
-											<Fragment>
-												<del><RawHTML>{currencySymbol}</RawHTML>{regularPrice}</del>
-												<ins><RawHTML>{currencySymbol}</RawHTML>{salePrice}</ins>
-											</Fragment>
-										)}
-										{+salePrice === 0 && (
-											<ins><RawHTML>{currencySymbol}</RawHTML>{regularPrice}</ins>
-										)}
-									</span>
-								</Fragment>
-							)}
-							{priceLabel && (
-								<span className='c-ws-box-price__label'>{priceLabel}</span>
-							)}
-							<div className="clearfix"/>
+								<ContentColumn {...this.props} />
+								<div className="c-ws-box-content-desc">
+									<RawHTML>{description}</RawHTML>
+								</div>
+								<CtaColumn {...this.props} />
+							</div>
 						</div>
-						<div className="c-ws-box-content-desc">
-							<RawHTML>{description}</RawHTML>
-						</div>
-						<CtaColumn {...this.props} />
+						{productAttributes !== '' && (
+							<div className="c-ws-box-tab d-none">
+								<RawHTML>{productAttributes}</RawHTML>
+							</div>
+						)}
 					</div>
 				</div>
 			</Fragment>
