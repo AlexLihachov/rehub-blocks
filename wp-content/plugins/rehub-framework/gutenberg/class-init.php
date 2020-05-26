@@ -30,6 +30,7 @@ final class Init {
         Blocks\PostOfferListing::instance();
         Blocks\OfferListing::instance();
         Blocks\VersusTable::instance();
+        Blocks\WCBox::instance();
 	    REST::instance();
     }
 
