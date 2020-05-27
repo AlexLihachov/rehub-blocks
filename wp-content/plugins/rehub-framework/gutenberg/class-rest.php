@@ -75,6 +75,15 @@ class REST {
 				'callback' => array( $this, 'rest_parse_offer_handler' ),
 			)
 		);
+
+		register_rest_route(
+			$this->rest_namespace,
+			"/product/(?P<id>\d+)",
+			array(
+				'methods'  => WP_REST_Server::READABLE,
+				'callback' => array( $this, 'rest_product_handler' ),
+			)
+		);
 	}
 
 	public function rest_get_posts( WP_REST_Request $request ) {
@@ -183,6 +192,148 @@ class REST {
 			'rating'           => $rating,
 		);
 		return rest_ensure_response( $data );
+	}
+
+	public function rest_product_handler( WP_REST_Request $request ) {
+		$id   = $request->get_params()['id'];
+		$data = array();
+
+		if ( empty( $id ) ) {
+			return new \WP_Error( 'empty_data', 'Pass empty data', array( 'status' => 404 ) );
+		}
+
+		$code_zone            = '';
+		$price_label          = '';
+		$mask_text            = '';
+		$sync_items           = '';
+		$video_thumbnails     = array();
+		$gallery_images       = array();
+		$is_coupon_expired    = false;
+		$is_item_sync_enabled = false;
+		$product              = wc_get_product( $id );
+		$currency_symbol      = get_woocommerce_currency_symbol();
+		$product_url          = $product->add_to_cart_url();
+		$product_name         = $product->get_title();
+		$product_desc         = $product->get_description();
+		$image_id             = $product->get_image_id();
+		$image_url            = wp_get_attachment_image_url( $image_id, 'full' );
+		$gallery_ids          = $product->get_gallery_image_ids();
+		$regular_price        = (float) $product->get_regular_price();
+		$sale_price           = (float) $product->get_sale_price();
+		$product_type         = $product->get_type();
+		$product_on_sale      = $product->is_on_sale();
+		$product_in_stock     = $product->is_in_stock();
+		$add_to_cart_text     = $product->add_to_cart_text();
+		$attributes           = $product->get_attributes();
+		$product_videos       = get_post_meta( $id, 'rh_product_video', true );
+		$coupon_expired_date  = get_post_meta( $id, 'rehub_woo_coupon_date', true );
+		$is_expired           = get_post_meta( $id, 're_post_expired', true ) === '1';
+		$coupon               = get_post_meta( $id, 'rehub_woo_coupon_code', true );
+		$is_coupon_masked     = get_post_meta( $id, 'rehub_woo_coupon_mask', true ) === 'on' && ! empty( $coupon );
+		$is_compare_enabled   = rehub_option( 'compare_page' ) || rehub_option( 'compare_multicats_textarea' );
+		$loop_code_zone       = rehub_option( 'woo_code_zone_loop' );
+		$term_list            = strip_tags( get_the_term_list( $id, 'store', '', ', ', '' ) );
+
+		if ( empty( $image_url ) ) {
+			$image_url = rehub_woocommerce_placeholder_img_src( '' );
+		}
+
+		if ( ! empty( $product_desc ) ) {
+			ob_start();
+			kama_excerpt( 'maxchar=150&text=' . $product_desc . '' );
+			$product_desc = ob_get_contents();
+			ob_end_clean();
+		}
+
+		if ( $product_on_sale && $regular_price && $sale_price > 0 && $product_type !== 'variable' ) {
+			$sale_proc   = 0 - ( 100 - ( $sale_price / $regular_price ) * 100 );
+			$sale_proc   = round( $sale_proc );
+			$price_label = $sale_proc . '%';
+		}
+
+		if ( $loop_code_zone ) {
+			$code_zone = do_shortcode( $loop_code_zone );
+		}
+
+		if ( rehub_option( 'rehub_mask_text' ) != '' ) {
+			$mask_text = rehub_option( 'rehub_mask_text' );
+		} else {
+			$mask_text = esc_html__( 'Reveal coupon', 'rehub-theme' );
+		}
+
+		if ( $coupon_expired_date ) {
+			$timestamp1 = strtotime( $coupon_expired_date ) + 86399;
+			$seconds    = $timestamp1 - (int) current_time( 'timestamp', 0 );
+			$days       = floor( $seconds / 86400 );
+			$seconds    %= 86400;
+
+			if ( $days > 0 ) {
+				$coupon_expired_date = $days . ' ' . __( 'days left', 'rehub-theme' );
+				$is_coupon_expired   = false;
+			} elseif ( $days == 0 ) {
+				$coupon_expired_date = esc_html__( 'Last day', 'rehub-theme' );
+				$is_coupon_expired   = false;
+			} else {
+				$coupon_expired_date = esc_html__( 'Expired', 'rehub-theme' );
+				$is_coupon_expired   = true;
+			}
+		}
+
+		if ( defined( '\ContentEgg\PLUGIN_PATH' ) ) {
+			$itemsync = \ContentEgg\application\WooIntegrator::getSyncItem( $id );
+			if ( ! empty( $itemsync ) ) {
+				$is_item_sync_enabled = true;
+				$sync_items           = do_shortcode( '[content-egg-block template=custom/all_offers_logo post_id="' . $id . '"]' );
+			}
+		}
+
+		if ( ! empty( $attributes ) ) {
+			ob_start();
+			wc_display_product_attributes( $product );
+			$attributes = ob_get_contents();
+			ob_end_clean();
+		}
+
+		if ( ! empty( $gallery_ids ) ) {
+			foreach ( $gallery_ids as $key => $value ) {
+				$gallery_images[] = wp_get_attachment_url( $value );
+			}
+		}
+
+		if ( ! empty( $product_videos ) ) {
+			$product_videos = array_map( 'trim', explode( PHP_EOL, $product_videos ) );
+			foreach ( $product_videos as $video ) {
+				$video_thumbnails[] = parse_video_url( esc_url( $video ), "hqthumb" );
+			}
+		}
+
+		$data['productUrl']        = $product_url;
+		$data['productType']       = $product_type;
+		$data['imageUrl']          = $image_url;
+		$data['productName']       = $product_name;
+		$data['description']       = $product_desc;
+		$data['codeZone']          = $code_zone;
+		$data['currencySymbol']    = $currency_symbol;
+		$data['regularPrice']      = $regular_price;
+		$data['salePrice']         = $sale_price;
+		$data['priceLabel']        = $price_label;
+		$data['coupon']            = $coupon;
+		$data['addToCartText']     = $add_to_cart_text;
+		$data['maskText']          = $mask_text;
+		$data['couponExpiredDate'] = $coupon_expired_date;
+		$data['brandList']         = $term_list;
+		$data['productAttributes'] = $attributes;
+		$data['galleryImages']     = $gallery_images;
+		$data['videoThumbnails']   = $video_thumbnails;
+		$data['syncItems']         = $sync_items;
+		$data['isExpired']         = $is_expired;
+		$data['couponMasked']      = $is_coupon_masked;
+		$data['isCouponExpired']   = $is_coupon_expired;
+		$data['isCompareEnabled']  = $is_compare_enabled;
+		$data['isItemSyncEnabled'] = $is_item_sync_enabled;
+		$data['productInStock']    = $product_in_stock;
+
+		return json_encode( $data );
 	}
 
 	public function rest_offer_listing_handler( WP_REST_Request $request ) {

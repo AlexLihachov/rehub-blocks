@@ -4,6 +4,7 @@ import SVGprosAndCons from './pros-and-cons.svg';
 import SVGaccordion from './accordion.svg';
 import SVGreviewList from './review-list-icon.svg';
 import SVGtableIcon from './table-icon.svg';
+import SVGproductIcon from './product-icon.svg';
 
 export const OfferBoxIcon = () => {
 	return <SVGofferBox width="20" height="20"/>
@@ -27,4 +28,8 @@ export const ReviewListIcon = () => {
 
 export const TableIcon = () => {
 	return <SVGtableIcon width="20" height="20" />
+};
+
+export const ProductIcon = () => {
+	return <SVGproductIcon width="20" height="20" />;
 };

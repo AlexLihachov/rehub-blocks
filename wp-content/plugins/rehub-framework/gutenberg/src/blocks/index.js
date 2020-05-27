@@ -9,6 +9,7 @@ import accordion from './accordion';
 import postofferlisting from './review-list/post-offer-listing';
 import offerlisting from './review-list/offer-listing';
 import versustable from './versus-table';
+import wcbox from './wc-box';
 
 const Blocks = {
 	box,
@@ -21,7 +22,8 @@ const Blocks = {
 	accordion,
 	postofferlisting,
 	offerlisting,
-	versustable
+	versustable,
+	wcbox
 };
 
 export default Blocks;
