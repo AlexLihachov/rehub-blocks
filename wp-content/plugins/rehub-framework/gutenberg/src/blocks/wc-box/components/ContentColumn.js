@@ -34,12 +34,12 @@ const ContentColumn = (props) => {
 					<span className='c-ws-box-price'>
 						{+salePrice > 0 && (
 							<Fragment>
-								<del><RawHTML>{currencySymbol}</RawHTML>{regularPrice}</del>
-								<ins><RawHTML>{currencySymbol}</RawHTML>{salePrice}</ins>
+								<del><RawHTML>{currencySymbol}</RawHTML>{Math.ceil(regularPrice * 100) / 100}</del>
+								<ins><RawHTML>{currencySymbol}</RawHTML>{Math.ceil(salePrice * 100) / 100}</ins>
 							</Fragment>
 						)}
 						{+salePrice === 0 && (
-							<ins><RawHTML>{currencySymbol}</RawHTML>{regularPrice}</ins>
+							<ins><RawHTML>{currencySymbol}</RawHTML>{Math.ceil(regularPrice * 100) / 100}</ins>
 						)}
 					</span>
 				</Fragment>

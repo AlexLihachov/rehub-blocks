@@ -205,6 +205,7 @@ class REST {
 		$code_zone            = '';
 		$price_label          = '';
 		$mask_text            = '';
+		$sync_items           = '';
 		$video_thumbnails     = array();
 		$gallery_images       = array();
 		$is_coupon_expired    = false;
@@ -282,6 +283,7 @@ class REST {
 			$itemsync = \ContentEgg\application\WooIntegrator::getSyncItem( $id );
 			if ( ! empty( $itemsync ) ) {
 				$is_item_sync_enabled = true;
+				$sync_items           = do_shortcode( '[content-egg-block template=custom/all_offers_logo post_id="' . $id . '"]' );
 			}
 		}
 
@@ -323,6 +325,7 @@ class REST {
 		$data['productAttributes'] = $attributes;
 		$data['galleryImages']     = $gallery_images;
 		$data['videoThumbnails']   = $video_thumbnails;
+		$data['syncItems']         = $sync_items;
 		$data['isExpired']         = $is_expired;
 		$data['couponMasked']      = $is_coupon_masked;
 		$data['isCouponExpired']   = $is_coupon_expired;

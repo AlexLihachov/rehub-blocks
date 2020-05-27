@@ -91,6 +91,10 @@ const schema = {
 		type: 'array',
 		default: []
 	},
+	syncItems: {
+		type: 'string',
+		default: ''
+	},
 
 	isExpired: {
 		type: 'boolean',

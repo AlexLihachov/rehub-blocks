@@ -48,6 +48,7 @@ class EditBlock extends Component {
 			      productAttributes,
 			      galleryImages,
 			      videoThumbnails,
+			      syncItems,
 			      isCouponExpired
 		      } = attributes;
 		const mainClasses = classnames([
@@ -57,7 +58,10 @@ class EditBlock extends Component {
 				'c-ws-box--expired': isCouponExpired
 			}
 		]);
-		const showTabs = (productAttributes !== '' || galleryImages.length > 0 || videoThumbnails.length > 0);
+
+		const showTabs = (
+			productAttributes.length > 0 || galleryImages.length > 0 || videoThumbnails.length > 0 || syncItems !== ''
+		);
 
 		return (
 			<Fragment>
@@ -75,7 +79,7 @@ class EditBlock extends Component {
 								<li className='current'>
 									{__('Product', 'rehub-theme-child')}
 								</li>
-								{attributes !== '' && (
+								{productAttributes.length > 0 && (
 									<li>
 										{__('Specification', 'rehub-theme-child')}
 									</li>
@@ -88,6 +92,11 @@ class EditBlock extends Component {
 								{videoThumbnails.length > 0 && (
 									<li>
 										{__('Videos', 'rehub-theme-child')}
+									</li>
+								)}
+								{syncItems !== '' && (
+									<li>
+										{__('Deals', 'rehub-theme-child')}
 									</li>
 								)}
 							</Fragment>
@@ -107,19 +116,24 @@ class EditBlock extends Component {
 								<CtaColumn {...this.props} />
 							</div>
 						</div>
-						{productAttributes !== '' && (
+						{productAttributes.length > 0 && (
 							<div className="c-ws-box-tab d-none">
 								<RawHTML>{productAttributes}</RawHTML>
 							</div>
 						)}
 						{galleryImages.length > 0 && (
 							<div className="c-ws-box-tab d-none">
-								<Gallery items={galleryImages} />
+								<Gallery items={galleryImages}/>
 							</div>
 						)}
 						{videoThumbnails.length > 0 && (
 							<div className="c-ws-box-tab d-none">
-								<Videos items={videoThumbnails} />
+								<Videos items={videoThumbnails}/>
+							</div>
+						)}
+						{syncItems !== '' && (
+							<div className="c-ws-box-tab d-none">
+								<RawHTML>{syncItems}</RawHTML>
 							</div>
 						)}
 					</div>
