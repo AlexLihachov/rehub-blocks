@@ -14,7 +14,7 @@ class WCBox extends Basic {
 		),
 	);
 
-	protected function render( $settings = array() ) {
+	protected function render( $settings = array(), $inner_content = '' ) {
 		$id = $settings['productId'];
 
 		if ( empty( $id ) ) {

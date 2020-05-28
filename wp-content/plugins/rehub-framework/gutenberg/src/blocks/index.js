@@ -10,6 +10,7 @@ import postofferlisting from './review-list/post-offer-listing';
 import offerlisting from './review-list/offer-listing';
 import versustable from './versus-table';
 import wcbox from './wc-box';
+import itinerary from './itinerary';
 
 const Blocks = {
 	box,
@@ -23,7 +24,8 @@ const Blocks = {
 	postofferlisting,
 	offerlisting,
 	versustable,
-	wcbox
+	wcbox,
+	itinerary
 };
 
 export default Blocks;

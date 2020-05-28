@@ -15,7 +15,7 @@ class ConsPros extends Basic {
 		'positives' => array(
 			'type'    => 'object',
 			'default' => array(
-				array('title' => 'Positive')
+				array( 'title' => 'Positive' )
 			),
 		),
 		'consTitle' => array(
@@ -25,7 +25,7 @@ class ConsPros extends Basic {
 		'negatives' => array(
 			'type'    => 'object',
 			'default' => array(
-				array('title' => 'Negative')
+				array( 'title' => 'Negative' )
 			),
 		),
 	);
@@ -43,7 +43,7 @@ class ConsPros extends Basic {
 	}
 
 
-	protected function render( $settings = array() ) {
+	protected function render( $settings = array(), $inner_content = '' ) {
 		$html           = '';
 		$pros_content   = '';
 		$cons_content   = '';

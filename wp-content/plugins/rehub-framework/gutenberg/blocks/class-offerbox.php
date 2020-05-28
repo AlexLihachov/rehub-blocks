@@ -101,7 +101,7 @@ class Offerbox extends Basic {
 		return $css;
 	}
 
-	protected function render( $settings = array() ) {
+	protected function render( $settings = array(), $inner_content = '' ) {
 		$offer_post_url         = $settings['button']['url'];
 		$offer_url              = $settings['button']['url'];
 		$offer_price            = $settings['sale_price'];

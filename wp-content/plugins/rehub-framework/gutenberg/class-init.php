@@ -31,6 +31,7 @@ final class Init {
         Blocks\OfferListing::instance();
         Blocks\VersusTable::instance();
         Blocks\WCBox::instance();
+        Blocks\Itinerary::instance();
 	    REST::instance();
     }
 

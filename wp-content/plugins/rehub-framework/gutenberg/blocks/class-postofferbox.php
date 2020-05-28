@@ -19,7 +19,7 @@ class PostOfferbox extends Basic {
 	);
 
 
-	protected function render( $settings = array() ) {
+	protected function render( $settings = array(), $inner_content = '' ) {
 		$id = $settings['selectedPost'];
 
 		if ( empty( $id ) ) {
