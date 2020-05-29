@@ -1,23 +1,21 @@
 /**
  * WordPress dependencies
  */
-import {__} from '@wordpress/i18n';
 import {Component, Fragment} from '@wordpress/element';
 import {compose} from "@wordpress/compose";
 import {withFocusOutside} from "@wordpress/components";
-import {RichText} from '@wordpress/block-editor';
 
 /**
  * External dependencies
  */
 import classnames from "classnames";
-import {cloneDeep} from "lodash";
 
 /**
  * Internal dependencies
  */
 import Inspector from "./Inspector";
 import Controls from './Controls';
+import ItineraryItem from "./ItineraryItem";
 
 class EditBlock extends Component {
 	render() {
@@ -35,30 +33,13 @@ class EditBlock extends Component {
 				)}
 				<div className={mainClasses}>
 					{items.map((item, index) => {
-						const {color, icon, content} = item;
-						const iconStyles = {backgroundColor: color};
-
 						return (
-							<div className="wpsm-itinerary-item" key={index}>
-								<div className="wpsm-itinerary-icon">
-										<span style={iconStyles}>
-											<i className={icon}/>
-										</span>
-								</div>
-								<div className="wpsm-itinerary-content">
-									<RichText
-										placeholder={__('Box Content', 'rehub-theme-child')}
-										tagName="div"
-										value={content}
-										onChange={(value) => {
-											const itemsClone = cloneDeep(items);
-											itemsClone[index].content = value;
-											setAttributes({items: itemsClone});
-										}}
-										keepPlaceholderOnFocus
-									/>
-								</div>
-							</div>
+							<ItineraryItem
+								setAttributes={setAttributes}
+								items={items}
+								index={index}
+								key={index}
+							/>
 						)
 					})}
 				</div>
