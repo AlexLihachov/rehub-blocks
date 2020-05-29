@@ -3,7 +3,7 @@
  */
 import {__} from '@wordpress/i18n';
 import {Component} from '@wordpress/element'
-import {PanelBody, Button, BaseControl, ColorPicker} from '@wordpress/components';
+import {PanelBody, Button, BaseControl, ColorPicker, TextareaControl} from '@wordpress/components';
 
 /**
  * External dependencies
@@ -20,7 +20,7 @@ const SortableItem = SortableElement((props) => {
 	const {attributes, setAttributes, sortIndex} = props;
 	const {items} = attributes;
 	const cloneItems = cloneDeep(items);
-	const {color, icon} = items[sortIndex];
+	const {color, icon, content} = items[sortIndex];
 
 	const handleClose = (index) => {
 		cloneItems.splice(index, 1);
@@ -49,7 +49,7 @@ const SortableItem = SortableElement((props) => {
 					/>
 				</BaseControl>
 				<BaseControl className='rri-advanced-range-control'
-					label={__('Set background color', 'rehub-theme-child')}>
+				             label={__('Set background color', 'rehub-theme-child')}>
 					<ColorPicker
 						color={color}
 						onChangeComplete={(value) => {
@@ -59,6 +59,14 @@ const SortableItem = SortableElement((props) => {
 						disableAlpha
 					/>
 				</BaseControl>
+				<TextareaControl
+					label={__('Content', 'rehub-theme-child')}
+					value={content}
+					onChange={(value) => {
+						cloneItems[sortIndex].content = value;
+						setAttributes({items: cloneItems});
+					}}
+				/>
 				<BaseControl className='text-center'>
 					<Button isSecondary onClick={() => handleClose(sortIndex)}>
 						{__('Remove item', 'rehub-theme-child')}

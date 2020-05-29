@@ -6,7 +6,6 @@
  * WordPress dependencies
  */
 import {__} from '@wordpress/i18n';
-import {InnerBlocks} from "@wordpress/block-editor";
 
 /**
  * Internal dependencies
@@ -33,9 +32,7 @@ const blockProperty = {
 	},
 	example: {},
 	attributes: schema,
-	save: function () {
-		return <InnerBlocks.Content/>;
-	},
+	save: () => null,
 	edit
 };
 

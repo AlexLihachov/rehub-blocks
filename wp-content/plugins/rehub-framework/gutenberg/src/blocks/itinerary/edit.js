@@ -1,15 +1,17 @@
 /**
  * WordPress dependencies
  */
+import {__} from '@wordpress/i18n';
 import {Component, Fragment} from '@wordpress/element';
 import {compose} from "@wordpress/compose";
 import {withFocusOutside} from "@wordpress/components";
-import {InnerBlocks} from "@wordpress/block-editor";
+import {RichText} from '@wordpress/block-editor';
 
 /**
  * External dependencies
  */
 import classnames from "classnames";
+import {cloneDeep} from "lodash";
 
 /**
  * Internal dependencies
@@ -19,7 +21,7 @@ import Controls from './Controls';
 
 class EditBlock extends Component {
 	render() {
-		const {className, isSelected, attributes} = this.props;
+		const {className, isSelected, attributes, setAttributes} = this.props;
 		const mainClasses = classnames([className, 'wpsm-itinerary']);
 		const {items} = attributes;
 
@@ -44,12 +46,21 @@ class EditBlock extends Component {
 										</span>
 								</div>
 								<div className="wpsm-itinerary-content">
-									<div>{content}</div>
+									<RichText
+										placeholder={__('Box Content', 'rehub-theme-child')}
+										tagName="div"
+										value={content}
+										onChange={(value) => {
+											const itemsClone = cloneDeep(items);
+											itemsClone[index].content = value;
+											setAttributes({items: itemsClone});
+										}}
+										keepPlaceholderOnFocus
+									/>
 								</div>
 							</div>
 						)
 					})}
-					<InnerBlocks/>
 				</div>
 			</Fragment>
 		);
