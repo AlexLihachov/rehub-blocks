@@ -25,7 +25,7 @@ class TitleBox extends Basic {
 		),
 	);
 
-	protected function render($settings = array()){
+	protected function render($settings = array(), $inner_content = ''){
 		// Remove all instances of "<p>&nbsp;</p><br>" to avoid extra lines.
 		$content = do_shortcode($settings['text']);
 		$content = preg_replace('%<p>&nbsp;\s*</p>%', '', $content);

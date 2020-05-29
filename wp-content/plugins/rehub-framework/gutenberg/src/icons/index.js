@@ -5,6 +5,7 @@ import SVGaccordion from './accordion.svg';
 import SVGreviewList from './review-list-icon.svg';
 import SVGtableIcon from './table-icon.svg';
 import SVGproductIcon from './product-icon.svg';
+import SVGitineraryIcon from './itinerary-icon.svg';
 
 export const OfferBoxIcon = () => {
 	return <SVGofferBox width="20" height="20"/>
@@ -19,17 +20,21 @@ export const ProsAndCons = () => {
 };
 
 export const AccordionIcon = () => {
-	return <SVGaccordion width="20" height="20" />;
+	return <SVGaccordion width="20" height="20"/>;
 };
 
 export const ReviewListIcon = () => {
-	return <SVGreviewList width="20" height="20" />
+	return <SVGreviewList width="20" height="20"/>
 };
 
 export const TableIcon = () => {
-	return <SVGtableIcon width="20" height="20" />
+	return <SVGtableIcon width="20" height="20"/>
 };
 
 export const ProductIcon = () => {
-	return <SVGproductIcon width="20" height="20" />;
+	return <SVGproductIcon width="20" height="20"/>;
+};
+
+export const ItineraryIcon = () => {
+	return <SVGitineraryIcon width="20" height="20"/>
 };

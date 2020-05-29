@@ -14,7 +14,7 @@ class PostOfferListing extends Basic {
 		),
 	);
 
-	protected function render( $settings = array() ) {
+	protected function render( $settings = array(), $inner_content = '' ) {
 		$selected_posts = $settings['selectedPosts'];
 
 		if ( empty( $selected_posts ) || count( $selected_posts ) === 0 ) {
@@ -22,7 +22,7 @@ class PostOfferListing extends Basic {
 			return;
 		}
 
-		echo wpsm_toprating_shortcode(array('postid' => join(' ,', $selected_posts)));
+		echo wpsm_toprating_shortcode( array( 'postid' => join( ' ,', $selected_posts ) ) );
 
 	}
 }

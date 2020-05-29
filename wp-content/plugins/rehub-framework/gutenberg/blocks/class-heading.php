@@ -30,7 +30,7 @@ class Heading extends Basic {
 		),
 	);
 
-	protected function render($settings = array()){
+	protected function render($settings = array(), $inner_content = ''){
 
 		$level = $settings['level'];
 		if(!is_numeric($level) || $level < 1 || $level > 6) {

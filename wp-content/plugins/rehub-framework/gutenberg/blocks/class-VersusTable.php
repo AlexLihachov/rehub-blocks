@@ -60,7 +60,7 @@ class VersusTable extends Basic {
 		),
 	);
 
-	protected function render( $settings = array() ) {
+	protected function render( $settings = array(), $inner_content = '' ) {
 		$attrs = array(
 			'heading'          => $settings['heading'],
 			'subheading'       => $settings['subheading'],

@@ -94,17 +94,17 @@ abstract class Basic {
 	}
 
 
-	protected function render($settings){
+	protected function render($settings, $inner_content){
 		return '';
 	}
 
-	public function render_block($settings){
+	public function render_block($settings, $inner_content){
 		$settings = array_merge(
 			$this->array_column_ext($this->attributes, 'default', -1),
 			is_array($settings) ? $settings : array()
 		);
 		ob_start();
-		$content = $this->render($settings);
+		$content = $this->render($settings, $inner_content);
 
 		return strlen($content) ? $content : ob_get_clean();
 	}

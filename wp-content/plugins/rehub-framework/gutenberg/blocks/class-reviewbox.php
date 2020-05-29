@@ -60,7 +60,7 @@ class ReviewBox extends Basic {
 		wp_add_inline_style( 'reviewbox-inline-style', $css );
 	}
 
-	protected function render( $settings = array() ) {
+	protected function render( $settings = array(), $inner_content = '' ) {
 		$params                     = array();
 		$criterias                  = '';
 		$positives                  = '';
