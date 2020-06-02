@@ -26,25 +26,25 @@ class EditBlock extends Component {
 	}
 
 	componentDidMount() {
-		const items = this.accordionRef.current.getElementsByClassName('c-accordion-item');
-		const triggers = this.accordionRef.current.getElementsByClassName('c-accordion-item__title');
+		const accordionNode = this.accordionRef.current;
 
-		for (let i = 0; i < triggers.length; i++) {
+		accordionNode.addEventListener('click', function (ev) {
+			const targetClass = ev.target.className;
 
-			triggers[i].addEventListener('click', function () {
-				let itemClass = this.parentNode.className;
+			if (targetClass.indexOf('c-accordion-item__title') >= 0) {
+				const items = accordionNode.getElementsByClassName('c-accordion-item');
+				const currentItemClass = ev.target.parentNode.className;
 
-				for (let k = 0; k < items.length; k++) {
-					items[k].className = 'c-accordion-item close';
+				for (let i = 0; i < items.length; i++) {
+					items[i].className = 'c-accordion-item close';
 				}
 
-				if (itemClass === 'c-accordion-item close') {
-					this.parentNode.className = 'c-accordion-item open';
-					this.nextSibling.classList.add('stuckMoveDownOpacity');
+				if (currentItemClass === 'c-accordion-item close') {
+					ev.target.parentNode.className = 'c-accordion-item open';
+					ev.target.nextSibling.classList.add('stuckMoveDownOpacity');
 				}
-
-			}, false);
-		}
+			}
+		}, false);
 	}
 
 	render() {
