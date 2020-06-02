@@ -155,7 +155,7 @@ export default class Inspector extends Component {
 						/>
 					)}
 					<ToggleControl
-						label={__('Make first column unhighlighted?', 'rehub-theme-child')}
+						label={__('Make column unhighlighted?', 'rehub-theme-child')}
 						checked={firstColumn.isGrey}
 						onChange={() => {
 							const firstColumnClone = cloneDeep(firstColumn);
