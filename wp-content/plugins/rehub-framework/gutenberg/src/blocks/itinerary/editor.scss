@@ -1,12 +1,12 @@
 @import "common";
 
+.wpsm-itinerary .wpsm-itinerary-item:last-of-type .wpsm-itinerary-icon:after {
+	display: none;
+}
+
 .wpsm-itinerary-item {
 	display: table;
 	position: relative;
-
-	&:last-child .wpsm-itinerary-icon:after {
-		display: none;
-	}
 }
 
 .wpsm-itinerary-icon {

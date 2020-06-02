@@ -12,6 +12,7 @@ import {RichText} from '@wordpress/block-editor';
  */
 import Inspector from "./Inspector";
 import Controls from "./Controls";
+import AddItemButton from "../../components/add-item-button";
 
 /**
  * External dependencies
@@ -99,6 +100,18 @@ class EditBlock extends Component {
 							</div>
 						);
 					})}
+					<AddItemButton
+						className='pt15'
+						handleClick={() => {
+							const tabsClone = cloneDeep(tabs);
+							tabsClone.push({
+								title: __('Sample title', 'rehub-theme-child'),
+								content: __('Sample content', 'rehub-theme-child')
+							});
+
+							setAttributes({tabs: tabsClone});
+						}}
+					/>
 				</div>
 			</Fragment>
 		);

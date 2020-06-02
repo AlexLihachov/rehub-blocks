@@ -1,6 +1,7 @@
 /**
  * WordPress dependencies
  */
+import {__} from '@wordpress/i18n';
 import {Component, Fragment} from "@wordpress/element";
 import {compose} from "@wordpress/compose";
 import {withFocusOutside} from "@wordpress/components";
@@ -11,6 +12,7 @@ import {withFocusOutside} from "@wordpress/components";
 import Inspector from "./Inspector";
 import Controls from "../components/Controls";
 import OfferItem from '../components/OfferItem';
+import AddItemButton from "../../../components/add-item-button";
 
 /**
  * External dependencies
@@ -27,6 +29,7 @@ class EditBlock extends Component {
 		this.handleFocusOutside = this.handleFocusOutside.bind(this);
 		this.handleButtonChange = this.handleButtonChange.bind(this);
 		this.handleButtonClick = this.handleButtonClick.bind(this);
+		this.handleAddItem = this.handleAddItem.bind(this);
 	}
 
 	handleFocusOutside() {
@@ -48,6 +51,39 @@ class EditBlock extends Component {
 
 	handleButtonClick(index) {
 		this.setState({openUrlPopover: index});
+	}
+
+	handleAddItem() {
+		const {setAttributes, attributes} = this.props;
+		const {offers} = attributes;
+		const offersClone = cloneDeep(offers);
+
+		offersClone.push({
+			score: 10,
+			thumbnail: {
+				id: '',
+				url: `${window.RehubGutenberg.pluginDirUrl}/gutenberg/src/icons/noimage-placeholder.png`,
+				width: '',
+				height: ''
+			},
+			title: __('Post name', 'rehub-theme-child'),
+			copy: __('Content', 'rehub-theme-child'),
+			currentPrice: '',
+			oldPrice: '',
+			button: {
+				text: __('Buy this item', 'rehub-theme-child'),
+				url: '',
+				newTab: false,
+				noFollow: false
+			},
+			coupon: '',
+			maskCoupon: false,
+			readMore: __('Read full review', 'rehub-theme-child'),
+			readMoreUrl: '',
+			disclaimer: __('Disclaimer text....', 'rehub-theme-child')
+		});
+
+		setAttributes({offers: offersClone});
 	}
 
 	render() {
@@ -77,6 +113,7 @@ class EditBlock extends Component {
 							/>
 						);
 					})}
+					<AddItemButton handleClick={this.handleAddItem} className='pt15'/>
 				</div>
 			</Fragment>
 		);
