@@ -10,6 +10,11 @@ import {Component} from '@wordpress/element';
  */
 import {cloneDeep} from "lodash";
 
+/**
+ * Internal dependencies
+ */
+import AddItemButton from "../../components/add-item-button";
+
 export default class Criteria extends Component {
 	render() {
 		const {setAttributes, criterias, mainColor} = this.props;
@@ -50,6 +55,16 @@ export default class Criteria extends Component {
 						</div>
 					);
 				})}
+				<AddItemButton
+					handleClick={() => {
+						const criteriasClone = cloneDeep(criterias);
+						criteriasClone.push({
+							title: __('Criteria name', 'rehub-theme-child'),
+							value: 10
+						});
+						setAttributes({criterias: criteriasClone})
+					}}
+				/>
 			</div>
 		);
 	}

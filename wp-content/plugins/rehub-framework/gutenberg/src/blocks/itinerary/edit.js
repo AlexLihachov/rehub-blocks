@@ -1,6 +1,7 @@
 /**
  * WordPress dependencies
  */
+import {__} from '@wordpress/i18n';
 import {Component, Fragment} from '@wordpress/element';
 import {compose} from "@wordpress/compose";
 import {withFocusOutside} from "@wordpress/components";
@@ -9,6 +10,7 @@ import {withFocusOutside} from "@wordpress/components";
  * External dependencies
  */
 import classnames from "classnames";
+import {cloneDeep} from "lodash";
 
 /**
  * Internal dependencies
@@ -16,6 +18,7 @@ import classnames from "classnames";
 import Inspector from "./Inspector";
 import Controls from './Controls';
 import ItineraryItem from "./ItineraryItem";
+import AddItemButton from "../../components/add-item-button";
 
 class EditBlock extends Component {
 	render() {
@@ -43,6 +46,15 @@ class EditBlock extends Component {
 						)
 					})}
 				</div>
+				<AddItemButton handleClick={() => {
+					const cloneItems = cloneDeep(items);
+					cloneItems.push({
+						icon: 'fa fa-circle',
+						color: '#409cd1',
+						content: __('Box Content', 'rehub-theme-child')
+					});
+					setAttributes({items: cloneItems})
+				}}/>
 			</Fragment>
 		);
 	}

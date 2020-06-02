@@ -11,6 +11,11 @@ import {Component} from '@wordpress/element';
 import {cloneDeep} from 'lodash';
 import classnames from "classnames";
 
+/**
+ * Internal dependencies
+ */
+import AddItemButton from "../add-item-button";
+
 export default class ConsPros extends Component {
 	render() {
 		const {setAttributes, prosTitle, positives, consTitle, negatives} = this.props;
@@ -56,6 +61,14 @@ export default class ConsPros extends Component {
 							</li>
 						);
 					})}
+					<AddItemButton handleClick={() => {
+						const positivesClone = cloneDeep(positives);
+						positivesClone.push({
+							title: 'Positive'
+						});
+						setAttributes({positives: positivesClone})
+					}}
+					/>
 				</ul>
 			</div>
 		);
@@ -96,6 +109,14 @@ export default class ConsPros extends Component {
 							</li>
 						);
 					})}
+					<AddItemButton handleClick={() => {
+						const negativesClone = cloneDeep(negatives);
+						negativesClone.push({
+							title: 'Negative'
+						});
+						setAttributes({negatives: negativesClone})
+					}}
+					/>
 				</ul>
 			</div>
 		);
