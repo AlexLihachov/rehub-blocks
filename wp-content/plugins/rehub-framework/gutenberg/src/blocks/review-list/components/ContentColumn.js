@@ -3,7 +3,7 @@
  */
 import {RichText} from '@wordpress/block-editor';
 import {__} from '@wordpress/i18n';
-import {Fragment} from "@wordpress/element";
+import {Fragment, RawHTML} from "@wordpress/element";
 
 /**
  * External dependencies
@@ -13,7 +13,7 @@ import {cloneDeep} from "lodash";
 const ContentColumn = (props) => {
 	const {attributes, setAttributes, index, writable} = props;
 	const {offers} = attributes;
-	const {title, copy} = offers[index];
+	const {title, copy, badge} = offers[index];
 
 	return (
 		<div className="c-offer-listing-content">
@@ -52,7 +52,12 @@ const ContentColumn = (props) => {
 			)}
 			{writable === false && (
 				<Fragment>
-					<h3 className='c-offer-listing__title'>{title}</h3>
+					<h3 className='c-offer-listing__title'>
+						{title}
+						{badge !== '' && (
+							<RawHTML>{badge}</RawHTML>
+						)}
+					</h3>
 					<div className='c-offer-listing__copy'>{copy}</div>
 				</Fragment>
 			)}

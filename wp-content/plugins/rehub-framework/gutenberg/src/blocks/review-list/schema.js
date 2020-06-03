@@ -33,6 +33,7 @@ const schema = {
 				},
 				title: __('Post name', 'rehub-theme-child'),
 				copy: __('Content', 'rehub-theme-child'),
+				badge: '',
 				currentPrice: '',
 				oldPrice: '',
 				button: {
@@ -43,6 +44,7 @@ const schema = {
 				},
 				coupon: '',
 				maskCoupon: false,
+				offerExpired: false,
 				readMore: __('Read full review', 'rehub-theme-child'),
 				readMoreUrl: '',
 				disclaimer: __('Disclaimer text...', 'rehub-theme-child')

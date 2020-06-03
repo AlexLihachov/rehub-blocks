@@ -46,4 +46,14 @@
 		color: $dark;
 		filter: none;
 	}
+
+	&.c-offer-listing-coupon--expired {
+		span {
+			text-decoration: line-through;
+		}
+
+		i {
+			display: none;
+		}
+	}
 }
