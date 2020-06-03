@@ -346,9 +346,19 @@ class REST {
 
 
 		foreach ( $posts_id as $id ) {
-			$button_text   = get_post_meta( (int) $id, 'rehub_offer_btn_text', true );
-			$thumbnail_url = get_the_post_thumbnail_url( (int) $id );
-			$coupon_mask   = get_post_meta( (int) $id, 'rehub_offer_coupon_mask', true );
+			$button_text       = get_post_meta( (int) $id, 'rehub_offer_btn_text', true );
+			$thumbnail_url     = get_the_post_thumbnail_url( (int) $id );
+			$coupon_mask       = get_post_meta( (int) $id, 'rehub_offer_coupon_mask', true );
+			$offer_coupon_date = get_post_meta( (int) $id, 'rehub_offer_coupon_date', true );
+			$is_coupon_expired = false;
+			$copy              = get_the_excerpt( (int) $id );
+
+			if ( ! empty( $copy ) ) {
+				ob_start();
+				kama_excerpt( 'maxchar=120&text=' . $copy . '' );
+				$copy = ob_get_contents();
+				ob_end_clean();
+			}
 
 			if ( empty( $button_text ) ) {
 				if ( ! empty( rehub_option( 'rehub_btn_text' ) ) ) {
@@ -364,6 +374,20 @@ class REST {
 				$thumbnail_url = plugin_dir_url( __FILE__ ) . 'src/icons/noimage-placeholder.png';
 			}
 
+			if ( ! empty( $offer_coupon_date ) ) {
+				$timestamp = strtotime( $offer_coupon_date ) + 86399;
+				$seconds   = $timestamp - (int) current_time( 'timestamp', 0 );
+				$days      = floor( $seconds / 86400 );
+
+				if ( $days > 0 ) {
+					$is_coupon_expired = false;
+				} elseif ( $days == 0 ) {
+					$is_coupon_expired = false;
+				} else {
+					$is_coupon_expired = true;
+				}
+			}
+
 
 			$data[] = array(
 				'score'        => get_post_meta( (int) $id, 'rehub_review_overall_score', true ),
@@ -371,7 +395,8 @@ class REST {
 					'url' => $thumbnail_url,
 				),
 				'title'        => get_the_title( (int) $id ),
-				'copy'         => get_the_excerpt( (int) $id ),
+				'copy'         => $copy,
+				'badge'        => re_badge_create( 'labelsmall', (int) $id ),
 				'currentPrice' => get_post_meta( (int) $id, 'rehub_offer_product_price', true ),
 				'oldPrice'     => get_post_meta( (int) $id, 'rehub_offer_product_price_old', true ),
 				'button'       => array(
@@ -380,6 +405,7 @@ class REST {
 				),
 				'coupon'       => get_post_meta( (int) $id, 'rehub_offer_product_coupon', true ),
 				'maskCoupon'   => $coupon_mask,
+				'offerExpired' => $is_coupon_expired,
 				'readMore'     => 'Read full review',
 				'readMoreUrl'  => '',
 				'disclaimer'   => get_post_meta( (int) $id, 'rehub_offer_disclaimer', true ),

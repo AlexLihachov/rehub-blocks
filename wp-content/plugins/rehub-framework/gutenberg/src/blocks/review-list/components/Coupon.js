@@ -1,14 +1,24 @@
+/**
+ * External dependencies
+ */
+import classnames from "classnames";
+
 const Coupon = (props) => {
 	const {attributes, index, writable} = props;
 	const {offers} = attributes;
-	const {coupon, maskCoupon} = offers[index];
+	const {coupon, maskCoupon, offerExpired} = offers[index];
 
-	if (writable === true || coupon === '' || maskCoupon ) {
+	const classes = classnames([
+		'c-offer-listing-coupon',
+		{'c-offer-listing-coupon--expired': offerExpired}
+	]);
+
+	if (writable === true || coupon === '' || maskCoupon) {
 		return null;
 	}
 
 	return (
-		<div className='c-offer-listing-coupon'>
+		<div className={classes}>
 			{/*{writable && (*/}
 			{/*	<RichText*/}
 			{/*		placeholder={__('coupon', 'rehub-theme-child')}*/}
