@@ -11,6 +11,7 @@ import offerlisting from './review-list/offer-listing';
 import versustable from './versus-table';
 import wcbox from './wc-box';
 import itinerary from './itinerary';
+import slider from './slider';
 
 const Blocks = {
 	box,
@@ -25,7 +26,8 @@ const Blocks = {
 	offerlisting,
 	versustable,
 	wcbox,
-	itinerary
+	itinerary,
+	slider
 };
 
 export default Blocks;

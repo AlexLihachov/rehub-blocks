@@ -6,6 +6,7 @@ import SVGreviewList from './review-list-icon.svg';
 import SVGtableIcon from './table-icon.svg';
 import SVGproductIcon from './product-icon.svg';
 import SVGitineraryIcon from './itinerary-icon.svg';
+import SVGsliderIcon from './slider-icon.svg';
 
 export const OfferBoxIcon = () => {
 	return <SVGofferBox width="20" height="20"/>
@@ -37,4 +38,8 @@ export const ProductIcon = () => {
 
 export const ItineraryIcon = () => {
 	return <SVGitineraryIcon width="20" height="20"/>
+};
+
+export const SliderIcon = () => {
+	return <SVGsliderIcon width="20" height="20"/>
 };
