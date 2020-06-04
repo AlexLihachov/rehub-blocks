@@ -15,6 +15,7 @@ window.rehubSlider = class {
 		this.$nextArrow = jQuery(this.sliderNode).find('.rh-slider-arrow--next');
 		this.$items = jQuery(this.sliderNode).find('.rh-slider-item');
 		this.$thumbs = jQuery(this.sliderNode).find('.rh-slider-thumbs-item');
+		this.$dots = jQuery(this.sliderNode).find('.rh-slider-dots__item');
 	}
 
 	getSlideIndex(type) {
@@ -45,12 +46,17 @@ window.rehubSlider = class {
 		this.$thumbs.each(function (i, slide) {
 			jQuery(slide).removeClass('rh-slider-thumbs-item--active');
 		});
+
+		this.$dots.each(function (i, slide) {
+			jQuery(slide).removeClass('rh-slider-dots__item--active');
+		});
 	}
 
 	moveSlide(index) {
 		this.removeActiveClasses();
 		this.$items.eq(index).addClass('rh-slider-item--visible');
 		this.$thumbs.eq(index).addClass('rh-slider-thumbs-item--active');
+		this.$dots.eq(index).addClass('rh-slider-dots__item--active');
 	}
 
 	addListeners() {
@@ -73,12 +79,23 @@ window.rehubSlider = class {
 				self.moveSlide(i);
 			})
 		});
+
+		this.$dots.each(function (i, item) {
+			jQuery(item).on('click.bind', function (ev) {
+				ev.preventDefault();
+				self.currentSlideIndex = i;
+				self.moveSlide(i);
+			});
+		});
 	}
 
 	removeListeners() {
 		this.$prevArrow.off('click.bind');
 		this.$nextArrow.off('click.bind');
 		this.$thumbs.each(function (i, item) {
+			jQuery(item).off('click.bind');
+		});
+		this.$dots.each(function (i, item) {
 			jQuery(item).off('click.bind');
 		});
 	}
@@ -130,6 +147,7 @@ window.rehubSlider = class {
 	init(fromIndex = 0) {
 		this.$items.eq(fromIndex).addClass('rh-slider-item--visible');
 		this.$thumbs.eq(fromIndex).addClass('rh-slider-thumbs-item--active');
+		this.$dots.eq(fromIndex).addClass('rh-slider-dots__item--active');
 		this.addListeners();
 		this.swipeDetect();
 	}

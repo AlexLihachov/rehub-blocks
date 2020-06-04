@@ -25,15 +25,19 @@ class Slider extends Basic {
 	);
 
 	protected function render( $settings = array(), $inner_content = '' ) {
-		$html   = '';
-		$slides = $settings['slides'];
+		$html       = '';
+		$slides     = $settings['slides'];
+		$random_key = rand( 0, 100 );
 
 		if ( empty( $slides ) ) {
 			return;
 		}
 
+		wp_enqueue_script( 'modulobox' );
+		wp_enqueue_style( 'modulobox' );
+
 		$html .= '<div class="rh-slider js-hook__slider">';
-		$html .= '	<div class="rh-slider__inner">';
+		$html .= '	<div class="rh-slider__inner modulo-lightbox">';
 
 
 		foreach ( $slides as $slide ) {
@@ -44,13 +48,20 @@ class Slider extends Basic {
 				$url = plugin_dir_url( __DIR__ ) . '/src/icons/noimage-placeholder.png';
 			}
 
-			$html .= '<div class="rh-slider-item">';
+			$html .= '<a class="rh-slider-item" data-rel="slider_' . $random_key . '" href="' . esc_attr( $url ) . '" data-thumb="' . esc_attr( $url ) . '" target="_blank" ">';
 			$html .= '  <img src="' . esc_attr( $url ) . '" alt="' . esc_attr( $alt ) . '" />';
-			$html .= '</div>';
+			$html .= '</a>';
 		}
 
-		$html .= '	<div class="rh-slider-arrow rh-slider-arrow--prev"><i class="fas fa-chevron-left"></i></div>';
-		$html .= '	<div class="rh-slider-arrow rh-slider-arrow--next"><i class="fas fa-chevron-right"></i></div>';
+		$html .= '		<div class="rh-slider-arrow rh-slider-arrow--prev"><i class="fas fa-chevron-left"></i></div>';
+		$html .= '		<div class="rh-slider-arrow rh-slider-arrow--next"><i class="fas fa-chevron-right"></i></div>';
+		$html .= '		<div class="rh-slider-dots">';
+
+		for ( $i = 0; $i < count( $slides ); $i ++ ) {
+			$html .= '		<div class="rh-slider-dots__item"></div>';
+		}
+		$html .= '		</div>';
+
 		$html .= '	</div>';
 		$html .= '	<div class="rh-slider-thumbs">';
 		$html .= '		<div class="rh-slider-thumbs__row">';

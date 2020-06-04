@@ -88,12 +88,11 @@ export default class CardList extends Component {
 	}
 
 	onSortEnd({oldIndex, newIndex}) {
-		const {items, sliderObject} = this.props;
+		const {items} = this.props;
 		const cloneItems = cloneDeep(items);
 
 		cloneItems.splice(newIndex, 0, cloneItems.splice(oldIndex, 1)[0]);
 		this.props.setAttributes({[this.props.propName]: cloneItems});
-		sliderObject.update();
 	}
 
 	onClose(itemIndex) {

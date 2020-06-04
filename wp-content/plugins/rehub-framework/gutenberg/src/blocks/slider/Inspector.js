@@ -21,7 +21,7 @@ import {cloneDeep} from "lodash";
  */
 export default class Inspector extends Component {
 	render() {
-		const {attributes, setAttributes, sliderObject} = this.props;
+		const {attributes, setAttributes} = this.props;
 		const {slides} = attributes;
 		const slidesClone = cloneDeep(slides);
 
@@ -31,7 +31,6 @@ export default class Inspector extends Component {
 					<SlidesSettings
 						items={slides}
 						setAttributes={setAttributes}
-						sliderObject={sliderObject}
 						propName='slides'
 					/>
 					<BaseControl className='text-center'>

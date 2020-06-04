@@ -17,6 +17,7 @@ import {cloneDeep} from "lodash";
 import Inspector from "./Inspector";
 import Controls from './Controls';
 import ImageUploadPlaceholder from "../../components/image-upload-placeholder";
+import AddItemButton from "../../components/add-item-button";
 
 class EditBlock extends Component {
 	constructor(props) {
@@ -24,6 +25,7 @@ class EditBlock extends Component {
 		this.sliderRef = createRef();
 		this.sliderObject = null;
 	}
+
 	componentDidMount() {
 		const sliderNode = this.sliderRef.current;
 
@@ -35,13 +37,8 @@ class EditBlock extends Component {
 		this.sliderObject.init();
 	}
 
-	componentDidUpdate(prevProps) {
-		const prevSlides = prevProps.attributes.slides;
-		const currentSlides = this.props.attributes.slides;
-
-		if (prevSlides.length !== currentSlides.length) {
-			this.sliderObject.update();
-		}
+	componentDidUpdate() {
+		this.sliderObject.update();
 	}
 
 	componentWillUnmount() {
@@ -58,7 +55,7 @@ class EditBlock extends Component {
 			<Fragment>
 				{isSelected && (
 					<Fragment>
-						<Inspector {...this.props} sliderObject={this.sliderObject} />
+						<Inspector {...this.props} />
 						<Controls {...this.props} />
 					</Fragment>
 				)}
@@ -99,6 +96,13 @@ class EditBlock extends Component {
 						<div className='rh-slider-arrow rh-slider-arrow--next'>
 							<i className="fas fa-chevron-right"/>
 						</div>
+						<div className='rh-slider-dots'>
+							{slides.map((item) => {
+								return (
+									<div className='rh-slider-dots__item' key={item.id}/>
+								)
+							})}
+						</div>
 					</div>
 					<div className='rh-slider-thumbs'>
 						<div className="rh-slider-thumbs__row">
@@ -114,6 +118,19 @@ class EditBlock extends Component {
 							})}
 						</div>
 					</div>
+					<AddItemButton handleClick={() => {
+						slidesClone.push({
+							image: {
+								id: 0,
+								url: `${window.RehubGutenberg.pluginDirUrl}/gutenberg/src/icons/noimage-placeholder.png`,
+								width: '',
+								height: '',
+								alt: ''
+							},
+						});
+						setAttributes({slides: slidesClone});
+					}}
+					/>
 				</div>
 			</Fragment>
 		);
