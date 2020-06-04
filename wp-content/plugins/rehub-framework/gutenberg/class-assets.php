@@ -47,6 +47,7 @@ final class Assets {
 		$this->is_rest             = defined('REST_REQUEST');
 		$this->is_elementor_editor = class_exists('\Elementor\Plugin') && \Elementor\Plugin::$instance->editor->is_edit_mode();
 		$this->is_editor           = $this->is_rest || $this->is_elementor_editor;
+		$this->frontend_assets();
 	}
 
 	public function admin_enqueue_scripts(){
@@ -113,6 +114,23 @@ final class Assets {
 		);
 
 //		wp_enqueue_style('rhstyle', get_stylesheet_directory_uri().'/style.css', array(), RH_MAIN_THEME_VERSION);
+	}
+
+	private function frontend_assets() {
+		wp_enqueue_script(
+			'rehub-block-script',
+			$this->assets->url_js . 'frontend.js',
+			array( 'wp-blocks', 'wp-i18n', 'wp-editor', 'wp-components' ),
+			null,
+			true
+		);
+
+		wp_enqueue_style(
+			'rehub-block-styles',
+			$this->assets->url_css . 'frontend.css',
+			array( 'wp-edit-blocks' ),
+			null
+		);
 	}
 }
 

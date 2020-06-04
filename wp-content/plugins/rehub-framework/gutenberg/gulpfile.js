@@ -65,7 +65,7 @@ gulp.task('style-editor', function () {
 });
 
 gulp.task('style', function () {
-	return gulp.src([path.resolve(__dirname, './src/common.scss'), path.resolve(__dirname, './src/**/style.scss')])
+	return gulp.src([path.resolve(__dirname, './src/general.scss'), path.resolve(__dirname, './src/**/style.scss')])
 		.pipe(sass(sassOptions).on('error', sass.logError))
 		.pipe(concat('frontend.css'))
 		.pipe(postcss(postCSSOptions))

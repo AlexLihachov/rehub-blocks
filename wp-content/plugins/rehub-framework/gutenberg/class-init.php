@@ -32,6 +32,7 @@ final class Init {
         Blocks\VersusTable::instance();
         Blocks\WCBox::instance();
         Blocks\Itinerary::instance();
+        Blocks\Slider::instance();
 	    REST::instance();
     }
 
