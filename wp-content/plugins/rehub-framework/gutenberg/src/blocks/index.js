@@ -12,6 +12,7 @@ import versustable from './versus-table';
 import wcbox from './wc-box';
 import itinerary from './itinerary';
 import slider from './slider';
+import prettyList from './pretty-list';
 
 const Blocks = {
 	box,
@@ -27,7 +28,8 @@ const Blocks = {
 	versustable,
 	wcbox,
 	itinerary,
-	slider
+	slider,
+	prettyList
 };
 
 export default Blocks;
