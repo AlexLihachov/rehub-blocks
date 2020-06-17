@@ -33,6 +33,7 @@ final class Init {
         Blocks\WCBox::instance();
         Blocks\Itinerary::instance();
         Blocks\Slider::instance();
+        Blocks\PrettyList::instance();
 	    REST::instance();
     }
 
