@@ -34,6 +34,7 @@ final class Init {
         Blocks\Itinerary::instance();
         Blocks\Slider::instance();
         Blocks\PrettyList::instance();
+        Blocks\PromoBox::instance();
 	    REST::instance();
     }
 

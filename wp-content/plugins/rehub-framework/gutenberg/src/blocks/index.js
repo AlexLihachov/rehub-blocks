@@ -13,6 +13,7 @@ import wcbox from './wc-box';
 import itinerary from './itinerary';
 import slider from './slider';
 import prettyList from './pretty-list';
+import promoBox from './promo-box';
 
 const Blocks = {
 	box,
@@ -29,7 +30,8 @@ const Blocks = {
 	wcbox,
 	itinerary,
 	slider,
-	prettyList
+	prettyList,
+	promoBox
 };
 
 export default Blocks;
