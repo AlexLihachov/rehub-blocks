@@ -9,6 +9,7 @@ import SVGitineraryIcon from './itinerary-icon.svg';
 import SVGsliderIcon from './slider-icon.svg';
 import SVGlistIcon from './list-icon.svg';
 import SVGpromoBoxIcon from './promo-box-icon.svg';
+import SVGreviewHeadingIcon from './review-heading-icon.svg';
 
 export const OfferBoxIcon = () => {
 	return <SVGofferBox width="20" height="20"/>
@@ -52,4 +53,8 @@ export const ListIcon = () => {
 
 export const PromoBoxIcon = () => {
 	return <SVGpromoBoxIcon width="20" height="20"/>
+};
+
+export const ReviewHeadingIcon = () => {
+	return <SVGreviewHeadingIcon width="20" height="20"/>
 };
