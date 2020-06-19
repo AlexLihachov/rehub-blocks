@@ -36,6 +36,7 @@ final class Init {
         Blocks\PrettyList::instance();
         Blocks\PromoBox::instance();
         Blocks\ReviewHeading::instance();
+        Blocks\ColorHeading::instance();
 	    REST::instance();
     }
 

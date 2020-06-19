@@ -29,3 +29,18 @@
 .rh-flex-right-align {
 	margin-left: auto;
 }
+
+.rh-flex-columns {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	flex-direction: row;
+}
+
+.rh-flex-column {
+	flex-direction: column;
+}
+
+.flex-3col-2 {
+	order: 2;
+}
