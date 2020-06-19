@@ -14,6 +14,8 @@ import itinerary from './itinerary';
 import slider from './slider';
 import prettyList from './pretty-list';
 import promoBox from './promo-box';
+import reviewHeading from './review-heading';
+import colorHeading from './color-heading';
 
 const Blocks = {
 	box,
@@ -31,7 +33,9 @@ const Blocks = {
 	itinerary,
 	slider,
 	prettyList,
-	promoBox
+	promoBox,
+	reviewHeading,
+	colorHeading
 };
 
 export default Blocks;
