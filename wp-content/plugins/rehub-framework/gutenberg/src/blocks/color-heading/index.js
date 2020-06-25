@@ -32,7 +32,10 @@ const blockProperty = {
 	example: {},
 	attributes: schema,
 	save: () => null,
-	edit
+	edit,
+	getEditWrapperProps({align}) {
+		return {'data-align': align};
+	}
 };
 
 
