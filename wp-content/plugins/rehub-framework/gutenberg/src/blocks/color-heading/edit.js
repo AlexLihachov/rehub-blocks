@@ -21,11 +21,19 @@ import Controls from './Controls';
 class EditBlock extends Component {
 	render() {
 		const {className, isSelected, attributes, setAttributes} = this.props;
-		const {title, subtitle, backgroundColor} = attributes;
-		const mainClasses = classnames([className, 'rh-color-heading', 'alignfull', 'pt30', 'pb30', 'blackcolor', 'pl15', 'pr15']);
+		const {title, subtitle, backgroundColor, titleColor, subtitleColor} = attributes;
+		const mainClasses = classnames([className, 'rh-color-heading', 'pt30', 'pb30', 'blackcolor', 'pl15', 'pr15']);
 
 		const styles = {
 			backgroundColor
+		};
+
+		const titleStyles = {
+			color: titleColor
+		};
+
+		const subtitleStyles = {
+			color: subtitleColor
 		};
 
 		return (
@@ -48,6 +56,7 @@ class EditBlock extends Component {
 									setAttributes({title: value});
 								}}
 								keepPlaceholderOnFocus
+								style={titleStyles}
 							/>
 							<RichText
 								placeholder={__('Subtitle', 'rehub-theme-child')}
@@ -58,6 +67,7 @@ class EditBlock extends Component {
 									setAttributes({subtitle: value});
 								}}
 								keepPlaceholderOnFocus
+								style={subtitleStyles}
 							/>
 						</div>
 					</div>

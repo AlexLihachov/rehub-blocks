@@ -12,7 +12,7 @@ import {BaseControl, ColorPicker, PanelBody, TextareaControl} from '@wordpress/c
 export default class Inspector extends Component {
 	render() {
 		const {attributes, setAttributes} = this.props;
-		const {title, subtitle, backgroundColor} = attributes;
+		const {title, subtitle, backgroundColor, titleColor, subtitleColor} = attributes;
 
 		return (
 			<InspectorControls>
@@ -31,6 +31,24 @@ export default class Inspector extends Component {
 							setAttributes({subtitle: value});
 						}}
 					/>
+					<BaseControl label={__('Title color :', 'rehub-theme-child')}>
+						<ColorPicker
+							color={titleColor}
+							onChangeComplete={(value) => {
+								setAttributes({titleColor: value.hex})
+							}}
+							disableAlpha
+						/>
+					</BaseControl>
+					<BaseControl label={__('Subtitle color :', 'rehub-theme-child')}>
+						<ColorPicker
+							color={subtitleColor}
+							onChangeComplete={(value) => {
+								setAttributes({subtitleColor: value.hex})
+							}}
+							disableAlpha
+						/>
+					</BaseControl>
 					<BaseControl label={__('Background-color :', 'rehub-theme-child')}>
 						<ColorPicker
 							color={backgroundColor}
