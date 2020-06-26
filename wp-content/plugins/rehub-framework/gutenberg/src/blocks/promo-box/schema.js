@@ -17,6 +17,10 @@ const schema = {
 		type: 'string',
 		default: '#f8f8f8'
 	},
+	textColor: {
+		type: 'string',
+		default: '#333'
+	},
 
 	showBorder: {
 		type: 'boolean',

@@ -8,6 +8,7 @@
 	overflow: auto;
 	padding: 15px 25px 70px 25px;
 	position: relative;
+	border: 1px solid transparent;
 
 	@include breakpoints(xs) {
 		padding: 15px 25px;

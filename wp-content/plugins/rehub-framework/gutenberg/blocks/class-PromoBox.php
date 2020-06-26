@@ -20,6 +20,10 @@ class PromoBox extends Basic {
 			'type'    => 'string',
 			'default' => '#f8f8f8',
 		),
+		'textColor'           => array(
+			'type'    => 'string',
+			'default' => '#333',
+		),
 		'showBorder'          => array(
 			'type'    => 'boolean',
 			'default' => false,
@@ -67,6 +71,7 @@ class PromoBox extends Basic {
 			'background'  => $settings['backgroundColor'],
 			'title'       => $settings['title'],
 			'description' => $settings['content'],
+			'text_color'  => $settings['textColor'],
 		);
 
 		if ( $settings['showBorder'] ) {
