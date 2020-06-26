@@ -19,6 +19,8 @@ import Inspector from "./Inspector";
 import Controls from './Controls';
 import UrlInputPopover from "../../components/url-input-popover";
 
+const BORDER_ALIGN = ['Top', 'Right', 'Bottom', 'Left'];
+
 class EditBlock extends Component {
 	constructor(props) {
 		super(props);
@@ -44,6 +46,7 @@ class EditBlock extends Component {
 		const mainClasses = classnames([className, 'wpsm_promobox']);
 		const {
 			      backgroundColor,
+			      textColor,
 			      showBorder,
 			      borderSize,
 			      borderColor,
@@ -59,15 +62,22 @@ class EditBlock extends Component {
 
 
 		const styles = {
-			backgroundColor: backgroundColor
+			backgroundColor: backgroundColor,
+			color: textColor
 		};
 
 		if (showBorder) {
-			styles.border = `${borderSize}px solid ${borderColor}`;
+			BORDER_ALIGN.forEach((align) => {
+				if (align === highlightPosition) {
+					return;
+				}
+
+				styles[`border${align}Color`] = borderColor;
+				styles[`border${align}Width`] = `${borderSize}px`;
+			});
 		}
 
 		if (showHighlightBorder) {
-			styles[`border${highlightPosition}Style`] = 'solid';
 			styles[`border${highlightPosition}Width`] = '3px';
 			styles[`border${highlightPosition}Color`] = highlightColor;
 		}

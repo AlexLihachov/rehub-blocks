@@ -22,6 +22,7 @@ export default class Inspector extends Component {
 		const {attributes, setAttributes} = this.props;
 		const {
 			      backgroundColor,
+			      textColor,
 			      showBorder,
 			      borderSize,
 			      borderColor,
@@ -43,6 +44,15 @@ export default class Inspector extends Component {
 							color={backgroundColor}
 							onChangeComplete={(value) => {
 								setAttributes({backgroundColor: value.hex})
+							}}
+							disableAlpha
+						/>
+					</BaseControl>
+					<BaseControl label={__('Text color :', 'rehub-theme-child')}>
+						<ColorPicker
+							color={textColor}
+							onChangeComplete={(value) => {
+								setAttributes({textColor: value.hex})
 							}}
 							disableAlpha
 						/>
