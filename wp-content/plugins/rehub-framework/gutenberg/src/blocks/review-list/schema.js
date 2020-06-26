@@ -25,6 +25,7 @@ const schema = {
 		default: [
 			{
 				score: 10,
+				enableBadge: true,
 				thumbnail: {
 					id: '',
 					url: `${window.RehubGutenberg.pluginDirUrl}/gutenberg/src/icons/noimage-placeholder.png`,
@@ -34,6 +35,11 @@ const schema = {
 				title: __('Post name', 'rehub-theme-child'),
 				copy: __('Content', 'rehub-theme-child'),
 				badge: '',
+				customBadge: {
+					text: __('Best Values', 'rehub-theme-child'),
+					textColor: '#fff',
+					backgroundColor: '#77B21D'
+				},
 				currentPrice: '',
 				oldPrice: '',
 				button: {

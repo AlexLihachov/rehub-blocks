@@ -2,8 +2,16 @@
  * WordPress dependencies
  */
 import {__} from '@wordpress/i18n';
-import {Component} from '@wordpress/element'
-import {TextControl, TextareaControl, PanelBody, Button, BaseControl} from '@wordpress/components';
+import {Component, Fragment} from '@wordpress/element'
+import {
+	TextControl,
+	TextareaControl,
+	PanelBody,
+	Button,
+	BaseControl,
+	ToggleControl,
+	ColorPicker
+} from '@wordpress/components';
 
 /**
  * External dependencies
@@ -20,7 +28,19 @@ const SortableItem = SortableElement((props) => {
 	const {attributes, setAttributes, sortIndex} = props;
 	const {offers} = attributes;
 	const cloneItems = cloneDeep(offers);
-	const {title, button, copy, score, currentPrice, oldPrice, disclaimer, readMore, readMoreUrl} = offers[sortIndex];
+	const {
+		      title,
+		      button,
+		      copy,
+		      score,
+		      currentPrice,
+		      oldPrice,
+		      disclaimer,
+		      readMore,
+		      readMoreUrl,
+		      enableBadge,
+		      customBadge
+	      } = offers[sortIndex];
 
 	const handleClose = (index) => {
 		cloneItems.splice(index, 1);
@@ -75,6 +95,46 @@ const SortableItem = SortableElement((props) => {
 						});
 					}}
 				/>
+				<ToggleControl
+					label={__('Include Badge?', 'rehub-theme-child')}
+					checked={enableBadge}
+					onChange={() => {
+						cloneItems[sortIndex].enableBadge = !enableBadge;
+						setAttributes({offers: cloneItems});
+					}}
+				/>
+				{enableBadge && (
+					<Fragment>
+						<TextControl
+							label={__('Badge Label', 'rehub-theme-child')}
+							value={customBadge.text}
+							onChange={(value) => {
+								cloneItems[sortIndex].customBadge.text = value;
+								setAttributes({offers: cloneItems});
+							}}
+						/>
+						<BaseControl label={__('Badge Label color:', 'rehub-theme-child')}>
+							<ColorPicker
+								color={customBadge.textColor}
+								onChangeComplete={(value) => {
+									cloneItems[sortIndex].customBadge.textColor = value.hex;
+									setAttributes({offers: cloneItems});
+								}}
+								disableAlpha
+							/>
+						</BaseControl>
+						<BaseControl label={__('Badge Background-color:', 'rehub-theme-child')}>
+							<ColorPicker
+								color={customBadge.backgroundColor}
+								onChangeComplete={(value) => {
+									cloneItems[sortIndex].customBadge.backgroundColor = value.hex;
+									setAttributes({offers: cloneItems});
+								}}
+								disableAlpha
+							/>
+						</BaseControl>
+					</Fragment>
+				)}
 				<TextControl
 					label={__('Offer sale price', 'rehub-theme-child')}
 					value={currentPrice}
@@ -190,6 +250,7 @@ export default class OfferCardList extends Component {
 	constructor(props) {
 		super(props);
 		this.onSortEnd = this.onSortEnd.bind(this);
+		this.shouldCancelStart = this.shouldCancelStart.bind(this);
 	}
 
 	onSortEnd({oldIndex, newIndex}) {
@@ -202,6 +263,12 @@ export default class OfferCardList extends Component {
 		});
 	}
 
+	shouldCancelStart(ev) {
+		if (ev.target.className !== 'components-panel__body-title') {
+			return true;
+		}
+	}
+
 	render() {
 		return (
 			<SortableList
@@ -210,6 +277,7 @@ export default class OfferCardList extends Component {
 				attributes={this.props.attributes}
 				setAttributes={this.props.setAttributes}
 				onSortEnd={this.onSortEnd}
+				shouldCancelStart={this.shouldCancelStart}
 			/>
 		);
 	}

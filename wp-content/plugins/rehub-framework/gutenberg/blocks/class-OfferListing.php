@@ -13,11 +13,17 @@ class OfferListing extends Basic {
 			'default' => array(
 				array(
 					'score'        => 10,
+					'enableBadge'  => true,
 					'thumbnail'    => array(
 						'url' => '',
 					),
 					'title'        => 'Post name',
 					'copy'         => 'Content',
+					'customBadge'  => array(
+						'text'            => 'Best Values',
+						'textColor'       => '#fff',
+						'backgroundColor' => '#77B21D'
+					),
 					'currentPrice' => '',
 					'oldPrice'     => '',
 					'button'       => array(
@@ -54,6 +60,9 @@ class OfferListing extends Basic {
 			$read_more_text = $offer['readMore'];
 			$read_more_url  = $offer['readMoreUrl'];
 			$disclaimer     = $offer['disclaimer'];
+			$enable_badge   = $offer['enableBadge'];
+			$badge          = $offer['customBadge'];
+			$badge_styles   = 'background-color:' . $badge['backgroundColor'] . '; color:' . $badge['textColor'] . ';';
 
 			if ( empty( $image_url ) ) {
 				$image_url = plugin_dir_url( __DIR__ ) . '/src/icons/noimage-placeholder.png';
@@ -80,6 +89,15 @@ class OfferListing extends Basic {
 			$html .= '            <a href="' . esc_url( $offer_url ) . '" class="rehub-main-color">';
 			$html .= '              ' . esc_html( trim( $title ) ) . '';
 			$html .= '            </a>';
+
+			if ( $enable_badge ) {
+				$html .= '<span class="blockstyle">';
+				$html .= '	<span class="re-line-badge re-line-small-label" style="' . esc_attr( $badge_styles ) . '">';
+				$html .= '      <span>' . esc_html( $badge['text'] ) . '</span>';
+				$html .= '	</span>';
+				$html .= '</span>';
+			}
+
 			$html .= '          </h3>';
 			$html .= '          <div class="lineheight20">' . esc_html( trim( $copy ) ) . '</div>';
 			$html .= '		</div>';

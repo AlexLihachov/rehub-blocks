@@ -13,26 +13,48 @@ import {cloneDeep} from "lodash";
 const ContentColumn = (props) => {
 	const {attributes, setAttributes, index, writable} = props;
 	const {offers} = attributes;
-	const {title, copy, badge} = offers[index];
+	const {title, copy, badge, enableBadge, customBadge} = offers[index];
 
 	return (
 		<div className="c-offer-listing-content">
 			{writable && (
 				<Fragment>
-					<RichText
-						placeholder={__('Post name', 'rehub-theme-child')}
-						tagName="h3"
-						className="c-offer-listing__title"
-						value={title}
-						onChange={(value) => {
-							const offersClone = cloneDeep(offers);
-							offersClone[index].title = value;
-							setAttributes({
-								offers: offersClone
-							});
-						}}
-						keepPlaceholderOnFocus
-					/>
+					<h3 className="c-offer-listing__title">
+						<RichText
+							placeholder={__('Post name', 'rehub-theme-child')}
+							tagName="span"
+							value={title}
+							onChange={(value) => {
+								const offersClone = cloneDeep(offers);
+								offersClone[index].title = value;
+								setAttributes({
+									offers: offersClone
+								});
+							}}
+							keepPlaceholderOnFocus
+						/>
+						{enableBadge && (
+							<span className='blockstyle'>
+								<span className='re-line-badge re-line-small-label'
+								      style={{
+									      backgroundColor: customBadge.backgroundColor,
+									      color: customBadge.textColor
+								      }}>
+									<RichText
+										placeholder={__('Best values', 'rehub-theme-child')}
+										tagName='span'
+										value={customBadge.text}
+										onChange={(value) => {
+											const offersClone = cloneDeep(offers);
+											offersClone[index].customBadge.text = value;
+											setAttributes({offers: offersClone});
+										}}
+										keepPlaceholderOnFocus
+									/>
+								</span>
+							</span>
+						)}
+					</h3>
 					<div className='c-offer-listing__copy'>
 						<RichText
 							placeholder={__('Content', 'rehub-theme-child')}
@@ -55,7 +77,9 @@ const ContentColumn = (props) => {
 					<h3 className='c-offer-listing__title'>
 						{title}
 						{badge !== '' && (
-							<RawHTML>{badge}</RawHTML>
+							<span className='blockstyle'>
+								<RawHTML>{badge}</RawHTML>
+							</span>
 						)}
 					</h3>
 					<div className='c-offer-listing__copy'>{copy}</div>
