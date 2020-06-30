@@ -1,0 +1,45 @@
+@import "general";
+
+$b: '.c-cons-pros';
+
+.rtl .wp-block .c-cons-pros {
+	#{$b}__col {
+		@include breakpoints(s) {
+			float: right;
+			margin: 0 0 5px 4%;
+		}
+
+		&:last-of-type {
+			@include breakpoints(s) {
+				margin-left: 0;
+				clear: left;
+			}
+		}
+	}
+
+	#{$b}__item {
+		&:before {
+			display: none;
+		}
+
+		&:after {
+			font-family: 'Font Awesome\ 5 Pro';
+			padding-left: 8px;
+			font-size: 18px;
+			font-weight: 900;
+			vertical-align: top;
+		}
+	}
+
+	#{$b}__list {
+		&--pros #{$b}__item:after  {
+			content: '\f058';
+			color: $lightGreen;
+		}
+
+		&--cons #{$b}__item:after  {
+			content: '\f056';
+			color: $lightRed;
+		}
+	}
+}

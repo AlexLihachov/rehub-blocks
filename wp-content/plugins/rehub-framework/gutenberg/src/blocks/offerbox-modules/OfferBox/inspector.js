@@ -139,7 +139,7 @@ export default class Inspector extends Component {
 						onChange={(value) => {
 							if (value > 100) return;
 							setAttributes({
-								discount_tag: value,
+								discount_tag: +value,
 								discount: ''
 							});
 						}}
@@ -151,7 +151,7 @@ export default class Inspector extends Component {
 						onChange={(value) => {
 							if (value > 5) return;
 							setAttributes({
-								rating: value
+								rating: +value
 							});
 						}}
 					/>

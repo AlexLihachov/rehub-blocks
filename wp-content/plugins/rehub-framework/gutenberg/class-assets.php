@@ -58,6 +58,8 @@ final class Assets {
 			array( 'wp-edit-blocks' ),
 			filemtime($this->assets->path_css.'editor.css')
 		);
+
+		wp_style_add_data( 'rehub-blocks-editor', 'rtl', true );
 	}
 
 
@@ -104,6 +106,7 @@ final class Assets {
 			'blocks' => array(),
 			'attributes' => $default_attributes,
 			'pluginDirUrl' => plugin_dir_url( __DIR__ ),
+			'isRtl' => is_rtl()
 		));
 
 		wp_enqueue_style(
