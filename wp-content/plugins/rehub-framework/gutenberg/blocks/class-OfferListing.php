@@ -92,7 +92,7 @@ class OfferListing extends Basic {
 
 			if ( $enable_badge ) {
 				$html .= '<span class="blockstyle">';
-				$html .= '	<span class="re-line-badge re-line-small-label" style="' . esc_attr( $badge_styles ) . '">';
+				$html .= '	<span class="re-line-badge re-line-badge--default" style="' . esc_attr( $badge_styles ) . '">';
 				$html .= '      <span>' . esc_html( $badge['text'] ) . '</span>';
 				$html .= '	</span>';
 				$html .= '</span>';

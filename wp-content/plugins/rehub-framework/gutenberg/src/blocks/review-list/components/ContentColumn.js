@@ -35,7 +35,7 @@ const ContentColumn = (props) => {
 						/>
 						{enableBadge && (
 							<span className='blockstyle'>
-								<span className='re-line-badge re-line-small-label'
+								<span className='re-line-badge re-line-badge--default'
 								      style={{
 									      backgroundColor: customBadge.backgroundColor,
 									      color: customBadge.textColor
