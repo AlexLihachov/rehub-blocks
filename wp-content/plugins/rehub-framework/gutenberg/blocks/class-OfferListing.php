@@ -46,7 +46,7 @@ class OfferListing extends Basic {
 			return;
 		}
 
-		$html .= '<div class="rh_list_builder rh-shadow4 disablemobileshadow">';
+		$html .= '<div class="rh_list_builder rh-shadow4 disablemobileshadow mb25">';
 
 		foreach ( $offers as $offer ) {
 			$score          = $offer['score'];

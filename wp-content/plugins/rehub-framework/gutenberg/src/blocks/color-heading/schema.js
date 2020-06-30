@@ -18,15 +18,15 @@ const schema = {
 	},
 	backgroundColor: {
 		type: 'string',
-		default: '#8035be'
+		default: '#ebf2fc'
 	},
 	titleColor: {
 		type: 'string',
-		default: '#f2f2f2'
+		default: '#111'
 	},
 	subtitleColor: {
 		type: 'string',
-		default: '#f2f2f2'
+		default: '#111'
 	}
 };
 export default schema;
