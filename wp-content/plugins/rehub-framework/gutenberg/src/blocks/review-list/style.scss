@@ -1,0 +1,12 @@
+@import "general";
+
+.re-line-badge.re-line-badge--default {
+	font-size: 11px;
+	line-height: 1;
+
+	span {
+		&:before, &:after {
+			display: none;
+		}
+	}
+}
