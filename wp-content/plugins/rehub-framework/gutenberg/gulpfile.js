@@ -4,15 +4,15 @@
  */
 
 const autoprefixer = require('autoprefixer'),
-	concat = require('gulp-concat'),
-	cssnano = require('cssnano'),
-	gulp = require('gulp'),
-	mqpacker = require('css-mqpacker'),
-	path = require('path'),
-	postcss = require('gulp-postcss'),
-	rename = require('gulp-rename'),
-	sass = require('gulp-sass'),
-	zip = require('gulp-zip');
+      concat       = require('gulp-concat'),
+      cssnano      = require('cssnano'),
+      gulp         = require('gulp'),
+      mqpacker     = require('css-mqpacker'),
+      path         = require('path'),
+      postcss      = require('gulp-postcss'),
+      rename       = require('gulp-rename'),
+      sass         = require('gulp-sass'),
+      zip          = require('gulp-zip');
 
 // These files are the ones which will be included in the `package` task.
 const buildInclude = [
@@ -64,6 +64,17 @@ gulp.task('style-editor', function () {
 		.pipe(gulp.dest('assets/css/'))
 });
 
+gulp.task('style-editor-rtl', function () {
+	return gulp.src([
+		path.resolve(__dirname, './src/general.scss'),
+		path.resolve(__dirname, './src/**/editor-rtl.scss')
+	])
+		.pipe(sass(sassOptions).on('error', sass.logError))
+		.pipe(concat('editor-rtl.css'))
+		.pipe(postcss(postCSSOptions))
+		.pipe(gulp.dest('assets/css/'))
+});
+
 gulp.task('style', function () {
 	return gulp.src([path.resolve(__dirname, './src/general.scss'), path.resolve(__dirname, './src/**/style.scss')])
 		.pipe(sass(sassOptions).on('error', sass.logError))
@@ -72,13 +83,13 @@ gulp.task('style', function () {
 		.pipe(gulp.dest('assets/css/'))
 });
 
-gulp.task('build-process', gulp.parallel('style', 'style-editor'));
+gulp.task('build-process', gulp.parallel('style', 'style-editor', 'style-editor-rtl'));
 gulp.task('build', gulp.series('build-process'));
 
 const watchFuncs = () => {
 	gulp.watch(
 		[path.resolve(__dirname, './src/**/*.scss')],
-		gulp.parallel(['style', 'style-editor'])
+		gulp.parallel(['style', 'style-editor', 'style-editor-rtl'])
 	);
 };
 
