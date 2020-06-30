@@ -11,6 +11,7 @@ import {__} from '@wordpress/i18n';
  * Internal dependencies
  */
 import schema from '../schema';
+import deprecatedAttrs from "../deprecated";
 import edit from './edit';
 import {ReviewListIcon} from "../../../icons";
 
@@ -32,6 +33,7 @@ const blockProperty = {
 		customClassName: false,
 		html: false,
 	},
+	deprecated: deprecatedAttrs,
 	example: {},
 	attributes: schema,
 	save: () => null,
