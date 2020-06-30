@@ -29,10 +29,18 @@ const deprecatedAttrs = [
 			});
 		},
 		isEligible: function (attrs) {
-			const {offers} = attrs;
-			return !offers.some((offer) => {
-				return 'enableBadge' in offer;
-			});
+			if (attrs) {
+				if (!attrs.offers) {
+					return false;
+				}
+
+				const {offers} = attrs;
+				return !offers.some((offer) => {
+					return 'enableBadge' in offer;
+				});
+			}
+
+			return false;
 		}
 	}
 ];
