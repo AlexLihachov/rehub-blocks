@@ -36,7 +36,7 @@ class Slider extends Basic {
 		wp_enqueue_script( 'modulobox' );
 		wp_enqueue_style( 'modulobox' );
 
-		$html .= '<div class="rh-slider js-hook__slider">';
+		$html .= '<div class="rh-slider js-hook__slider mb25">';
 		$html .= '	<div class="rh-slider__inner modulo-lightbox">';
 
 

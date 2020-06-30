@@ -18,15 +18,15 @@ class ColorHeading extends Basic {
 		),
 		'backgroundColor' => array(
 			'type'    => 'string',
-			'default' => '#8035be',
+			'default' => '#ebf2fc',
 		),
 		'titleColor'      => array(
 			'type'    => 'string',
-			'default' => '#f2f2f2'
+			'default' => '#111'
 		),
 		'subtitleColor'   => array(
 			'type'    => 'string',
-			'default' => '#f2f2f2'
+			'default' => '#111'
 		),
 	);
 
@@ -42,7 +42,7 @@ class ColorHeading extends Basic {
 			return;
 		}
 
-		$html .= '<div class="rh-color-heading alignfull pt30 pb30 blackcolor" style="' . esc_attr( $styles ) . '">';
+		$html .= '<div class="rh-color-heading alignfull pt30 pb30 blackcolor mb25" style="' . esc_attr( $styles ) . '">';
 		$html .= '	<div class="rh-container">';
 		$html .= '		<div class="rh-flex-columns rh-flex-column">';
 		$html .= '			<h2 class="mt0 mb0 font200 flex-3col-2" style="' . esc_attr( $title_styles ) . '">';

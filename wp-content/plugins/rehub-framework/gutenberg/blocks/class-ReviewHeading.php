@@ -64,7 +64,7 @@ class ReviewHeading extends Basic {
 		}
 
 
-		$html .= '<div class="rh-review-heading rh-flex-center-align">';
+		$html .= '<div class="rh-review-heading rh-flex-center-align mb25">';
 
 		if ( $include_position ) {
 			$html .= '	<div class="rh-review-heading__position mr15 font150">';
