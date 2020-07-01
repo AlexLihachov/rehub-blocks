@@ -10,6 +10,7 @@ import {compose} from "@wordpress/compose";
  */
 import classnames from "classnames";
 import {cloneDeep} from "lodash";
+import { v4 as uuidv4 } from 'uuid';
 
 /**
  * Internal dependencies
@@ -66,7 +67,7 @@ class EditBlock extends Component {
 							const {id, url} = image;
 
 							return (
-								<div className='rh-slider-item' key={id}>
+								<div className='rh-slider-item' key={uuidv4()}>
 									<ImageUploadPlaceholder
 										imageID={id}
 										imageURL={url}
@@ -97,9 +98,9 @@ class EditBlock extends Component {
 							<i className="fas fa-chevron-right"/>
 						</div>
 						<div className='rh-slider-dots'>
-							{slides.map((item) => {
+							{slides.map(() => {
 								return (
-									<div className='rh-slider-dots__item' key={item.id}/>
+									<div className='rh-slider-dots__item' key={uuidv4()}/>
 								)
 							})}
 						</div>
@@ -108,10 +109,10 @@ class EditBlock extends Component {
 						<div className="rh-slider-thumbs__row">
 							{slides.map((slide) => {
 								const {image} = slide;
-								const {id, url, alt} = image;
+								const {url, alt} = image;
 
 								return (
-									<div className='rh-slider-thumbs-item' key={id}>
+									<div className='rh-slider-thumbs-item' key={uuidv4()}>
 										<img src={url} alt={alt}/>
 									</div>
 								);
