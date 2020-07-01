@@ -83,13 +83,21 @@ gulp.task('style', function () {
 		.pipe(gulp.dest('assets/css/'))
 });
 
-gulp.task('build-process', gulp.parallel('style', 'style-editor', 'style-editor-rtl'));
+gulp.task('style-rtl', function () {
+	return gulp.src([path.resolve(__dirname, './src/general.scss'), path.resolve(__dirname, './src/**/style-rtl.scss')])
+		.pipe(sass(sassOptions).on('error', sass.logError))
+		.pipe(concat('frontend-rtl.css'))
+		.pipe(postcss(postCSSOptions))
+		.pipe(gulp.dest('assets/css/'))
+});
+
+gulp.task('build-process', gulp.parallel('style', 'style-rtl', 'style-editor', 'style-editor-rtl'));
 gulp.task('build', gulp.series('build-process'));
 
 const watchFuncs = () => {
 	gulp.watch(
 		[path.resolve(__dirname, './src/**/*.scss')],
-		gulp.parallel(['style', 'style-editor', 'style-editor-rtl'])
+		gulp.parallel(['style', 'style-rtl', 'style-editor', 'style-editor-rtl'])
 	);
 };
 
