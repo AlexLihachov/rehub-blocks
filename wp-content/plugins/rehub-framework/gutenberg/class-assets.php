@@ -134,6 +134,8 @@ final class Assets {
 			array( 'wp-edit-blocks' ),
 			null
 		);
+
+		wp_style_add_data( 'rehub-block-styles', 'rtl', true );
 	}
 }
 

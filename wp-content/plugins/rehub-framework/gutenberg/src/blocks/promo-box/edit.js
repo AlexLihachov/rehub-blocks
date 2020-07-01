@@ -68,7 +68,7 @@ class EditBlock extends Component {
 
 		if (showBorder) {
 			BORDER_ALIGN.forEach((align) => {
-				if (align === highlightPosition) {
+				if (align === highlightPosition && showHighlightBorder) {
 					return;
 				}
 
