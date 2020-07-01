@@ -16,7 +16,6 @@ const ContentColumn = (props) => {
 	const {attributes, setAttributes, onButtonClick, openUrlPopover, onButtonChange, writable} = props;
 	const {
 		      name,
-		      rating,
 		      sale_price,
 		      old_price,
 		      disclaimer,
@@ -28,6 +27,8 @@ const ContentColumn = (props) => {
 		      offer_is_expired,
 		      description
 	      } = attributes;
+
+	const rating = parseInt(attributes.rating);
 
 	return (
 		<div className="c-offer-box__column">
@@ -48,9 +49,9 @@ const ContentColumn = (props) => {
 			{writable === false && (
 				<h2 className='c-offer-box__title'>{name ? name : __('Product name', 'rehub-theme-child')}</h2>
 			)}
-			{+rating > 0 && (
+			{rating > 0 && (
 				<div className="c-offer-box__rating">
-					{[...Array(+rating).keys()].map((item) => {
+					{[...Array(rating).keys()].map((item) => {
 						return <span key={item}>&#x2605;</span>;
 					})}
 					{[...Array(5 - rating).keys()].map((item) => {

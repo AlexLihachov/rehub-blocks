@@ -9,15 +9,25 @@ $b: '.c-offer-box';
 			left: -12px;
 			transform: rotate(0deg);
 		}
+
+		&--masked {
+			i {
+				padding-left: 0;
+				padding-right: 6px;
+			}
+		}
 	}
 
 	#{$b}__price {
 		clear: both;
 
-		.retail-old {
+		span:not(.retail-old) {
 			float: right;
+			margin-left: 5px;
+		}
+
+		.retail-old {
 			margin-left: 0;
-			margin-right: 5px;
 		}
 	}
 }

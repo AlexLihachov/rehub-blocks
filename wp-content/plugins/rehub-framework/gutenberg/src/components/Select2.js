@@ -62,7 +62,7 @@ class Select2 extends Component {
 export default withSelect(
 	(select) => {
 		return {
-			posts: select('core').getEntityRecords('postType', 'post')
+			posts: select('core').getEntityRecords('postType', 'post', {per_page: -1})
 		};
 	}
 )(Select2);

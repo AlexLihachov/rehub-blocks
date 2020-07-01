@@ -161,6 +161,10 @@ class REST {
 		$rating            = get_post_meta( $id, 'rehub_review_overall_score', true );
 		//		$discount          = get_post_meta( $id, 'rehub_offer_discount', true );
 
+		if ( $rating ) {
+			$rating = $rating / 2;
+		}
+
 		if ( empty( $offer_title ) ) {
 			$offer_title = get_the_title( $id );
 		}
