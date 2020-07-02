@@ -108,7 +108,7 @@ const AdvancedToolbarControl = props => {
 				screens={props.screens}
 			/>
 			<Toolbar
-				{...omit(props, ['className', 'help', 'label', 'units', 'unit', 'onChangeUnit', 'screens'])}
+				{...omit(props, ['className', 'help', 'label', 'units', 'unit', 'onChangeUnit', 'screens', 'fullwidth', 'multiline'])}
 				controls={controls.map(option => {
 					return {
 						...option,

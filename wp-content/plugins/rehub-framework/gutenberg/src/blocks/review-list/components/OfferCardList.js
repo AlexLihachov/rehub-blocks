@@ -17,7 +17,7 @@ import {
  * External dependencies
  */
 import {cloneDeep} from "lodash";
-import {SortableContainer, SortableElement} from "react-sortable-hoc";
+import {SortableContainer, SortableElement} from "../../../react-sortable-hoc.esm";
 
 /**
  * Internal dependencies

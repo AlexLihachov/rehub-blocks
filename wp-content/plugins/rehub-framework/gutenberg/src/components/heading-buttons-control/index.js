@@ -58,6 +58,8 @@ const HeadingButtonsControl = props => {
 			{...props}
 			className="rh-heading-buttons-control"
 			controls={TAG_OPTIONS}
+			multiline={false}
+			fullwidth={false}
 		/>
 	)
 };

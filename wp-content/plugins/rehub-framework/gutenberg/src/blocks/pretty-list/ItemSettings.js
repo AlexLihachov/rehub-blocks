@@ -9,7 +9,7 @@ import {Card, CardBody, Button, BaseControl, TextareaControl} from '@wordpress/c
  * External dependencies
  */
 import {cloneDeep} from "lodash";
-import {SortableContainer, SortableElement} from "react-sortable-hoc";
+import {SortableContainer, SortableElement} from "../../react-sortable-hoc.esm";
 
 const SortableItem = SortableElement((props) => {
 	const {items, sortIndex, setAttributes, onClose} = props;
