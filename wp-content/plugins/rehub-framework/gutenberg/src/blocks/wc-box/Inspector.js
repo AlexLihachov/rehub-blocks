@@ -9,7 +9,7 @@ import {PanelBody, Notice, BaseControl} from '@wordpress/components';
 /**
  * Internal dependencies
  */
-import ProductsSelect from "../../components/ProductsSelect";
+import {ProductSelect} from "../../components/select";
 import updateProductData from "./util/updateProductData";
 
 /**
@@ -23,13 +23,13 @@ export default class Inspector extends Component {
 		return (
 			<InspectorControls>
 				<PanelBody title={__('Data query', 'rehub-theme-child')} initialOpen={true}>
-					<ProductsSelect
+					<ProductSelect
 						label={__('Product name', 'rehub-theme-child')}
-						setAttributes={setAttributes}
-						selectedPost={productId}
+						multiple={false}
 						onChange={(value) => {
-							updateProductData(value, setAttributes);
+							updateProductData([value[0].id], setAttributes);
 						}}
+						currentValues={productId}
 					/>
 					<BaseControl className='rri-advanced-range-control'>
 						{parseError && (

@@ -4,7 +4,7 @@
 import {__} from '@wordpress/i18n';
 
 export default function updateProductData(value, setAttributes) {
-	if (value.length === 0) {
+	if (value && value.length === 0) {
 		return false;
 	}
 
@@ -16,7 +16,7 @@ export default function updateProductData(value, setAttributes) {
 	});
 
 	wp.apiFetch({
-		path: `/rehub/v2/product/${value}`,
+		path: `/rehub/v2/product/${value[0]}`,
 		method: 'GET',
 	}).then(response => {
 		const data = JSON.parse(response);

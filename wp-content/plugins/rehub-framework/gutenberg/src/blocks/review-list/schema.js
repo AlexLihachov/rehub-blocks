@@ -6,7 +6,7 @@ import {__} from '@wordpress/i18n';
 const schema = {
 	selectedPosts: {
 		type: 'array',
-		default: ''
+		default: []
 	},
 	loading: {
 		type: 'boolean',

@@ -13,18 +13,20 @@ class PostOfferbox extends Basic {
 
 	protected $attributes = array(
 		'selectedPost' => array(
-			'type'    => 'string',
-			'default' => '',
+			'type'    => 'object',
+			'default' => array(),
 		),
 	);
 
 
 	protected function render( $settings = array(), $inner_content = '' ) {
-		$id = $settings['selectedPost'];
+		$selected_post = $settings['selectedPost'];
 
-		if ( empty( $id ) ) {
+		if ( empty( $selected_post ) ) {
 			return '';
 		}
+
+		$id = (int) $selected_post[0];
 
 		$offer_post_url         = get_post_meta( $id, 'rehub_offer_product_url', true );
 		$offer_post_url         = apply_filters( 'rehub_create_btn_url', $offer_post_url );

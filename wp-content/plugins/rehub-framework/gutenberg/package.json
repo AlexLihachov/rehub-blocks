@@ -126,7 +126,6 @@
 		"eslint": "^4.19.1",
 		"file-loader": "^5.0.2",
 		"react-sortable-hoc": "^1.11.0",
-		"select2": "^4.0.13",
 		"uuid": "^8.2.0"
 	}
 }

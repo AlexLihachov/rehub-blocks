@@ -9,7 +9,7 @@ import {PanelBody, Notice, BaseControl} from '@wordpress/components';
 /**
  * Internal dependencies
  */
-import MultiSelect from "../../../components/MultiSelect";
+import Select from "../../../components/select";
 import {fetchReviewData} from '../utils/fetchReviewData';
 
 /**
@@ -23,12 +23,14 @@ export default class Inspector extends Component {
 		return (
 			<InspectorControls>
 				<PanelBody title={__('Data query', 'rehub-theme-child')} initialOpen>
-					<MultiSelect
+					<Select
 						label={__('Post name', 'rehub-theme-child')}
-						setAttributes={setAttributes}
-						selectedPosts={selectedPosts}
+						multiple={true}
+						currentValues={selectedPosts}
 						onChange={(value) => {
-							fetchReviewData(value, setAttributes);
+							if (value && value.length) {
+								fetchReviewData(value.map(item => item.id), setAttributes);
+							}
 						}}
 					/>
 					<BaseControl className='rri-advanced-range-control'>

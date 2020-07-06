@@ -14,12 +14,12 @@ function validURL(userInput) {
 }
 
 export function updateOfferData(selectedPost, setAttribute, attributes) {
-	if (selectedPost) {
+	if (selectedPost && selectedPost.length) {
 		setAttribute({
 			loading: true
 		});
 
-		wp.apiFetch({path: `/rehub/v2/offer-data/${selectedPost}`}).then(post => {
+		wp.apiFetch({path: `/rehub/v2/offer-data/${selectedPost[0]}`}).then(post => {
 			const buttonClone = cloneDeep(attributes.button);
 			const thumbnailClone = cloneDeep(attributes.thumbnail);
 
