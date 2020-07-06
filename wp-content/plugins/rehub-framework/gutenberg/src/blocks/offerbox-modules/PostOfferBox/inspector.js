@@ -10,7 +10,7 @@ import {PanelBody} from '@wordpress/components';
  * Internal dependencies
  */
 import {updateOfferData} from "../utils/fetchService";
-import Select2 from "../../../components/Select2";
+import Select from "../../../components/select";
 
 /**
  * Create an Inspector Controls wrapper Component
@@ -23,13 +23,13 @@ export default class Inspector extends Component {
 		return (
 			<InspectorControls>
 				<PanelBody title={__('Copy data from Posts', 'rehub-theme-child')} initialOpen={true}>
-					<Select2
+					<Select
 						label={__('Post name', 'rehub-theme-child')}
-						setAttributes={setAttributes}
-						selectedPost={selectedPost}
+						multiple={false}
 						onChange={(value) => {
-							updateOfferData(value, setAttributes, attributes);
+							updateOfferData(value[0].id, setAttributes, attributes);
 						}}
+						currentValue={selectedPost}
 					/>
 				</PanelBody>
 			</InspectorControls>
