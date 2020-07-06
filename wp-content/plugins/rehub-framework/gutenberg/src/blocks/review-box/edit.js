@@ -103,6 +103,7 @@ class EditBlock extends Component {
 							consTitle={consTitle}
 							positives={positives}
 							negatives={negatives}
+							className='mt20'
 						/>
 					</div>
 				</div>

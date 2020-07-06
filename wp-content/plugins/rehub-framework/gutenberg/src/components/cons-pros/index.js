@@ -18,7 +18,9 @@ import AddItemButton from "../add-item-button";
 
 export default class ConsPros extends Component {
 	render() {
-		const {setAttributes, prosTitle, positives, consTitle, negatives} = this.props;
+		const {setAttributes, prosTitle, positives, consTitle, negatives, className = ''} = this.props;
+
+		const mainClasses = classnames(['c-cons-pros', className]);
 
 		const columnClasses = classnames([
 			'c-cons-pros__col',
@@ -126,7 +128,7 @@ export default class ConsPros extends Component {
 		}
 
 		return (
-			<div className='c-cons-pros'>
+			<div className={mainClasses}>
 				{positives.length > 0 && PositivesBox}
 				{negatives.length > 0 && NegativesBox}
 			</div>
