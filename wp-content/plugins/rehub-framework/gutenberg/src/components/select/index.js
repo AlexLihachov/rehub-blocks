@@ -53,22 +53,15 @@ class Select extends Component {
 	}
 
 	render() {
-		const {label, posts, multiple, currentValues} = this.props;
+		const {label, posts, multiple, currentValue} = this.props;
 		let selectData = null;
 
 		if (posts && posts.length) {
 			selectData = posts.map((post) => {
-				const item = {
+				return {
 					label: post.title.rendered,
-					value: post.id,
-					selected: false
+					value: post.id
 				};
-
-				if (currentValues && currentValues.length) {
-					item.selected = currentValues.some(element => +element === +post.id);
-				}
-
-				return item;
 			});
 		}
 
@@ -83,11 +76,15 @@ class Select extends Component {
 		if (selectData) {
 			return (
 				<BaseControl label={label}>
-					<select multiple={multiple} ref={this.ref}>
+					<select multiple={multiple}
+					        ref={this.ref}
+					        value={currentValue}
+					        onChange={() => {
+					        }}>
 						{selectData.map((item) => {
-							const {value, label, selected} = item;
+							const {value, label} = item;
 							return (
-								<option value={value} key={value} selected={selected}>{label}</option>
+								<option value={value} key={value}>{label}</option>
 							);
 						})}
 					</select>
@@ -105,7 +102,6 @@ Select.defaultProps = {
 	onChange: () => {
 	},
 	posts: [],
-	currentValues: []
 };
 
 const ProductSelect = withSelect(

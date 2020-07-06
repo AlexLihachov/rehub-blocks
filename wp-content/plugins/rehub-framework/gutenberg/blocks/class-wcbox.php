@@ -9,19 +9,17 @@ class WCBox extends Basic {
 
 	protected $attributes = array(
 		'productId' => array(
-			'type'    => 'object',
-			'default' => array(),
+			'type'    => 'string',
+			'default' => '',
 		),
 	);
 
 	protected function render( $settings = array(), $inner_content = '' ) {
-		$selected_product = $settings['productId'];
+		$id = $settings['productId'];
 
-		if ( empty( $selected_product ) ) {
-			return '';
+		if ( empty( $id ) ) {
+			return;
 		}
-
-		$id = (int) $selected_product[0];
 
 		if ( function_exists( 'wpsm_woobox_shortcode' ) ) {
 			echo wpsm_woobox_shortcode( array( 'id' => $id ) );

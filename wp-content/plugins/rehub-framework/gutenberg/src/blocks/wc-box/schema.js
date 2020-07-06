@@ -15,8 +15,8 @@ const schema = {
 	},
 
 	productId: {
-		type: 'array',
-		default: []
+		type: 'string',
+		default: ''
 	},
 	productUrl: {
 		type: 'string',

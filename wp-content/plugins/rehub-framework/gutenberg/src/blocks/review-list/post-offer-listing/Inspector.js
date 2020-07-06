@@ -26,7 +26,7 @@ export default class Inspector extends Component {
 					<Select
 						label={__('Post name', 'rehub-theme-child')}
 						multiple={true}
-						currentValues={selectedPosts}
+						currentValue={selectedPosts}
 						onChange={(value) => {
 							if (value && value.length) {
 								fetchReviewData(value.map(item => item.id), setAttributes);

@@ -77,8 +77,8 @@ const schema = {
 		default: ''
 	},
 	selectedPost: {
-		type: 'array',
-		default: [],
+		type: 'string',
+		default: '',
 	},
 	loading: {
 		type: 'boolean',

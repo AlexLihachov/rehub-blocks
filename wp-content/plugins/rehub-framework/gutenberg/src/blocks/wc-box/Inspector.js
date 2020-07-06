@@ -27,7 +27,7 @@ export default class Inspector extends Component {
 						label={__('Product name', 'rehub-theme-child')}
 						multiple={false}
 						onChange={(value) => {
-							updateProductData([value[0].id], setAttributes);
+							updateProductData(value[0].id, setAttributes);
 						}}
 						currentValues={productId}
 					/>

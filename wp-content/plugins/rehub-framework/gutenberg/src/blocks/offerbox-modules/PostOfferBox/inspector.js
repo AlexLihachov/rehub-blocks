@@ -27,9 +27,9 @@ export default class Inspector extends Component {
 						label={__('Post name', 'rehub-theme-child')}
 						multiple={false}
 						onChange={(value) => {
-							updateOfferData([value[0].id], setAttributes, attributes);
+							updateOfferData(value[0].id, setAttributes, attributes);
 						}}
-						currentValues={selectedPost}
+						currentValue={selectedPost}
 					/>
 				</PanelBody>
 			</InspectorControls>
