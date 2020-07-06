@@ -2,7 +2,7 @@
 
 .cons-pros-block {
 	padding: 18px;
-	border: 1px dashed #ddd;
+	box-shadow: 0 2px 20px rgba(0, 0, 0, .08);
 	overflow: hidden;
 
 	@include breakpoints(s) {

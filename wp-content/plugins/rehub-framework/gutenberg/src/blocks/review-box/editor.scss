@@ -7,7 +7,7 @@ $b: '.c-review-box';
 	padding: 18px;
 	margin-bottom: 25px;
 
-	border: 1px dashed #ddd;
+	box-shadow: 0 2px 20px rgba(0, 0, 0, .08);
 	overflow: hidden;
 
 	@include breakpoints(s) {
