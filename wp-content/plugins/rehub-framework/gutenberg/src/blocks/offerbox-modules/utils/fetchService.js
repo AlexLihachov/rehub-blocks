@@ -81,11 +81,12 @@ export function parseOfferData(url, setAttributes, attributes) {
 			return;
 		}
 
-		items.forEach(item => {
-			if (item.type[0].indexOf('Product') !== -1) {
-				product = item.properties;
+		for (let i = 0; i < items.length; i++) {
+			if (items[i].type[0].indexOf('Product') !== -1) {
+				product = items[i].properties;
+				break;
 			}
-		});
+		}
 
 		// Check if have product schema
 		if (product === null) {
@@ -110,10 +111,27 @@ export function parseOfferData(url, setAttributes, attributes) {
 			updatedData.description = product.description[0];
 		}
 
-		if ('offers' in product && product.offers[0].properties.price[0] !== '') {
-			updatedData.old_price = product.offers[0].properties.price[0];
-		}
+		if ('offers' in product && 'price' in product.offers[0].properties) {
+			const prices = product.offers[0].properties.price;
+			if (prices.length) {
+				const firstPrice = prices[0];
 
+				if (prices.length > 1) {
+					const secondPrice = prices[1];
+
+					if (parseFloat(firstPrice) > parseFloat(secondPrice)) {
+						updatedData.old_price = firstPrice;
+						updatedData.sale_price = secondPrice;
+					} else {
+						updatedData.old_price = secondPrice;
+						updatedData.sale_price = firstPrice;
+					}
+				} else {
+					updatedData.sale_price = firstPrice;
+					updatedData.old_price = '';
+				}
+			}
+		}
 
 		// Success updating
 		setAttributes({
