@@ -2,6 +2,17 @@ import schema from "./schema";
 import {__} from '@wordpress/i18n';
 import {assign} from 'lodash';
 
+function checkMissedProps(attributes) {
+	const {offers} = attributes;
+	const propsToCheck = ['enableBadge', 'enableScore'];
+
+	return !propsToCheck.some((prop) => {
+		return offers.some((offer) => {
+			return prop in offer;
+		})
+	});
+}
+
 const deprecatedAttrs = [
 	{
 		attributes: schema,
@@ -16,6 +27,7 @@ const deprecatedAttrs = [
 			const updatedOffers = offers.map((offer) => {
 				return assign(offer, {
 					enableBadge: true,
+					enableScore: true,
 					customBadge: {
 						text: __('Best Values', 'rehub-theme-child'),
 						textColor: '#fff',
@@ -34,10 +46,7 @@ const deprecatedAttrs = [
 					return false;
 				}
 
-				const {offers} = attrs;
-				return !offers.some((offer) => {
-					return 'enableBadge' in offer;
-				});
+				return checkMissedProps(attrs);
 			}
 
 			return false;

@@ -33,6 +33,7 @@ const SortableItem = SortableElement((props) => {
 		      button,
 		      copy,
 		      score,
+		      enableScore,
 		      currentPrice,
 		      oldPrice,
 		      disclaimer,
@@ -82,19 +83,29 @@ const SortableItem = SortableElement((props) => {
 						});
 					}}
 				/>
-				<AdvancedRangeControl
-					label={__('Score', 'rehub-theme-child')}
-					value={score}
-					min="0"
-					max="10"
-					step={0.5}
-					onChange={(value) => {
-						cloneItems[sortIndex].score = value;
-						setAttributes({
-							offers: cloneItems
-						});
+				<ToggleControl
+					label={__('Include Score?', 'rehub-theme-child')}
+					checked={enableScore}
+					onChange={() => {
+						cloneItems[sortIndex].enableScore = !enableScore;
+						setAttributes({offers: cloneItems});
 					}}
 				/>
+				{enableScore && (
+					<AdvancedRangeControl
+						label={__('Score', 'rehub-theme-child')}
+						value={score}
+						min="0"
+						max="10"
+						step={0.5}
+						onChange={(value) => {
+							cloneItems[sortIndex].score = value;
+							setAttributes({
+								offers: cloneItems
+							});
+						}}
+					/>
+				)}
 				<ToggleControl
 					label={__('Include Badge?', 'rehub-theme-child')}
 					checked={enableBadge}

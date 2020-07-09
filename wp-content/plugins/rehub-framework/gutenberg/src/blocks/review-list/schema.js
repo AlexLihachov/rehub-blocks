@@ -26,6 +26,7 @@ const schema = {
 			{
 				score: 10,
 				enableBadge: true,
+				enableScore: true,
 				thumbnail: {
 					id: '',
 					url: `${window.RehubGutenberg.pluginDirUrl}/gutenberg/src/icons/noimage-placeholder.png`,

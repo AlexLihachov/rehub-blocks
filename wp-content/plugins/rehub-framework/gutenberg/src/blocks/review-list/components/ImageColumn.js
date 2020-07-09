@@ -7,11 +7,11 @@ import {cloneDeep} from "lodash";
 const ImageColumn = (props) => {
 	const {attributes, setAttributes, index, writable} = props;
 	const {offers} = attributes;
-	const {score, thumbnail} = offers[index];
+	const {score, thumbnail, enableScore} = offers[index];
 
 	return (
 		<div className='c-offer-listing-image'>
-			{(score > 0) && (
+			{(score > 0 && enableScore) && (
 				<div className="c-offer-listing-score">
 					<span className={`score--${Math.round(+score)}`}>{score}</span>
 				</div>

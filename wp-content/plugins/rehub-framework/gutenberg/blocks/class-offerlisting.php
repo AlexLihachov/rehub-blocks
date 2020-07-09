@@ -14,6 +14,7 @@ class OfferListing extends Basic {
 				array(
 					'score'        => 10,
 					'enableBadge'  => true,
+					'enableScore'  => true,
 					'thumbnail'    => array(
 						'url' => '',
 					),
@@ -61,6 +62,7 @@ class OfferListing extends Basic {
 			$read_more_url  = $offer['readMoreUrl'];
 			$disclaimer     = $offer['disclaimer'];
 			$enable_badge   = $offer['enableBadge'];
+			$enable_score   = $offer['enableScore'];
 			$badge          = $offer['customBadge'];
 			$badge_styles   = 'background-color:' . $badge['backgroundColor'] . '; color:' . $badge['textColor'] . ';';
 
@@ -71,13 +73,17 @@ class OfferListing extends Basic {
 			$html .= '<div class="top_table_list_item border-lightgrey whitebg">';
 			$html .= '	<div class="rh-flex-eq-height mobileblockdisplay">';
 			$html .= '		<div class="listbuild_image border-right listitem_column text-center rh-flex-center-align position-relative pt15 pb15 pr20 pl20">';
-			$html .= '          <div class="colored_rate_bar abdposright mt15">';
-			$html .= '              <div class="review-small-circle mb10 fontbold text-center whitecolor mr10 floatleft rtlml10 r_score_' . round( $offer['score'] ) . '">';
-			$html .= '                  <div class="overall-score">';
-			$html .= '                    <span class="overall">' . esc_html( $score ) . '</span>';
-			$html .= '                  </div>';
-			$html .= '              </div>';
-			$html .= '          </div>';
+
+			if ( $enable_score ) {
+				$html .= '         <div class="colored_rate_bar abdposright mt15">';
+				$html .= '             <div class="review-small-circle mb10 fontbold text-center whitecolor mr10 floatleft rtlml10 r_score_' . round( $offer['score'] ) . '">';
+				$html .= '                 <div class="overall-score">';
+				$html .= '                   <span class="overall">' . esc_html( $score ) . '</span>';
+				$html .= '                 </div>';
+				$html .= '             </div>';
+				$html .= '         </div>';
+			}
+
 			$html .= '           <figure class="position-relative margincenter">';
 			$html .= '              <a class="img-centered-flex rh-flex-center-align rh-flex-justify-center" href="' . esc_url( $offer_url ) . '">';
 			$html .= '                  <img src="' . esc_url( $image_url ) . '" />';
