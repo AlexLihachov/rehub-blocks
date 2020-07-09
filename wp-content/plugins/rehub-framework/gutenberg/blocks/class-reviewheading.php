@@ -59,11 +59,6 @@ class ReviewHeading extends Basic {
 		$image            = $settings['image'];
 		$link             = $settings['link'];
 
-		if ( empty( $image['url'] ) ) {
-			$image['url'] = plugin_dir_url( __DIR__ ) . '/src/icons/noimage-placeholder.png';
-		}
-
-
 		$html .= '<div class="rh-review-heading rh-flex-center-align mb25">';
 
 		if ( $include_position ) {
@@ -77,7 +72,7 @@ class ReviewHeading extends Basic {
 		$html .= '		<div class="mt5 lineheight20 greycolor">' . do_shortcode( $subtitle ) . '</div>';
 		$html .= '	</div>';
 
-		if ( $include_image ) {
+		if ( $include_image && ! empty( $image['url'] ) ) {
 			$html .= '	<a class="rh-review-heading__logo rh-flex-right-align blockstyle" href="' . esc_url( $link ) . '">';
 			$html .= '		<div class="rh-review-heading__logo-container">';
 			$html .= '			<img src="' . esc_url( $image['url'] ) . '" alt="' . esc_attr( $image['alt'] ) . '"/>';
