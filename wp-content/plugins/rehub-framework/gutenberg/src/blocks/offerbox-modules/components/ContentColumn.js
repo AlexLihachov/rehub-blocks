@@ -25,7 +25,8 @@ const ContentColumn = (props) => {
 		      mask_coupon_text,
 		      expiration_date,
 		      offer_is_expired,
-		      description
+		      description,
+		      hide_old_price
 	      } = attributes;
 
 	const rating = parseInt(attributes.rating);
@@ -74,7 +75,8 @@ const ContentColumn = (props) => {
 								});
 							}}
 							keepPlaceholderOnFocus/>
-						<span className="retail-old">
+						{!hide_old_price && (
+							<span className="retail-old">
 							<RichText
 								placeholder={__('100', 'rehub-theme-child')}
 								tagName="strike"
@@ -86,6 +88,7 @@ const ContentColumn = (props) => {
 								}}
 								keepPlaceholderOnFocus/>
 						</span>
+						)}
 					</Fragment>
 				)}
 				{writable === false && (

@@ -119,7 +119,8 @@ export default class Inspector extends Component {
 						value={old_price}
 						onChange={(value) => {
 							setAttributes({
-								old_price: value
+								old_price: value,
+								hide_old_price: false
 							});
 						}}
 					/>

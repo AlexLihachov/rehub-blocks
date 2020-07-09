@@ -126,9 +126,13 @@ export function parseOfferData(url, setAttributes, attributes) {
 						updatedData.old_price = secondPrice;
 						updatedData.sale_price = firstPrice;
 					}
+
+					updatedData.hide_old_price = false;
 				} else {
 					updatedData.sale_price = firstPrice;
 					updatedData.old_price = '';
+					// Set flag to hide Old price from view
+					updatedData.hide_old_price = true;
 				}
 			}
 		}

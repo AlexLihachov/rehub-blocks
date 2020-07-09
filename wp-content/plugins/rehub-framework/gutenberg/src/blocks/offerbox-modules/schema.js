@@ -11,6 +11,7 @@ const schema = {
 		type: 'string',
 		default: ''
 	},
+
 	old_price: {
 		type: 'string',
 		default: ''
@@ -19,11 +20,12 @@ const schema = {
 		type: 'string',
 		default: ''
 	},
-	coupon_code: {
-		type: 'string',
-		default: ''
+	hide_old_price: {
+		type: 'boolean',
+		default: false
 	},
-	expiration_date: {
+
+	coupon_code: {
 		type: 'string',
 		default: ''
 	},
@@ -35,10 +37,16 @@ const schema = {
 		type: 'string',
 		default: ''
 	},
+
+	expiration_date: {
+		type: 'string',
+		default: ''
+	},
 	offer_is_expired: {
 		type: 'boolean',
 		default: false
 	},
+
 	button: {
 		type: 'object',
 		default: {
@@ -61,6 +69,7 @@ const schema = {
 		type: 'string',
 		default: ''
 	},
+
 	discount_tag: {
 		type: 'number',
 		default: 0
@@ -68,6 +77,7 @@ const schema = {
 	discount: {
 		type: 'string'
 	},
+
 	rating: {
 		type: 'number',
 		default: 0

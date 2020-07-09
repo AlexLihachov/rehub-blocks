@@ -12,6 +12,7 @@ import {__} from '@wordpress/i18n';
  * Internal dependencies
  */
 import schema from '../schema';
+import deprecatedAttrs from "./deprecated";
 import edit from './edit';
 import {OfferBoxIcon} from '../../../icons';
 
@@ -28,6 +29,7 @@ const blockProperty = {
 	},
 	example: {},
 	attributes: schema,
+	deprecated: deprecatedAttrs,
 	save: () => null,
 	edit
 };
