@@ -75,7 +75,8 @@ class ReviewHeading extends Basic {
 		if ( $include_image && ! empty( $image['url'] ) ) {
 			$html .= '	<a class="rh-review-heading__logo rh-flex-right-align blockstyle" href="' . esc_url( $link ) . '">';
 			$html .= '		<div class="rh-review-heading__logo-container">';
-			$html .= '			<img src="' . esc_url( $image['url'] ) . '" alt="' . esc_attr( $image['alt'] ) . '"/>';
+			$html .= '			<img src="' . esc_url( $image['url'] ) . '" alt="' . esc_attr( $image['alt'] ) . '"';
+			$html .= '              width="' . esc_attr( $image['width'] ) . '" height="' . esc_attr( $image['height'] ) . '"/>';
 			$html .= '		</div>';
 			$html .= '	</a>';
 		}

@@ -31,7 +31,8 @@ const schema = {
 					id: '',
 					url: `${window.RehubGutenberg.pluginDirUrl}/gutenberg/src/icons/noimage-placeholder.png`,
 					width: '',
-					height: ''
+					height: '',
+					alt: ''
 				},
 				title: __('Post name', 'rehub-theme-child'),
 				copy: __('Content', 'rehub-theme-child'),

@@ -16,7 +16,10 @@ class OfferListing extends Basic {
 					'enableBadge'  => true,
 					'enableScore'  => true,
 					'thumbnail'    => array(
-						'url' => '',
+						'url'    => '',
+						'width'  => '',
+						'height' => '',
+						'alt'    => '',
 					),
 					'title'        => 'Post name',
 					'copy'         => 'Content',
@@ -52,6 +55,7 @@ class OfferListing extends Basic {
 		foreach ( $offers as $offer ) {
 			$score          = $offer['score'];
 			$offer_url      = $offer['button']['url'];
+			$image          = $offer['thumbnail'];
 			$image_url      = $offer['thumbnail']['url'];
 			$title          = $offer['title'];
 			$copy           = $offer['copy'];
@@ -86,7 +90,8 @@ class OfferListing extends Basic {
 
 			$html .= '           <figure class="position-relative margincenter">';
 			$html .= '              <a class="img-centered-flex rh-flex-center-align rh-flex-justify-center" href="' . esc_url( $offer_url ) . '">';
-			$html .= '                  <img src="' . esc_url( $image_url ) . '" />';
+			$html .= '                  <img src="' . esc_url( $image_url ) . '" alt="' . esc_attr( $image['alt'] ) . '"';
+			$html .= '                       width="' . esc_attr( $image['width'] ) . '" height="' . esc_attr( $image['height'] ) . '"/>';
 			$html .= '              </a>';
 			$html .= '           </figure>';
 			$html .= '		</div>';

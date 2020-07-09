@@ -27,6 +27,7 @@ const ImageColumn = (props) => {
 							offersClone[index].thumbnail.url = '';
 							offersClone[index].thumbnail.width = '';
 							offersClone[index].thumbnail.height = '';
+							offersClone[index].thumbnail.alt = '';
 
 							setAttributes({
 								offers: offersClone
@@ -38,6 +39,7 @@ const ImageColumn = (props) => {
 							offersClone[index].thumbnail.url = image.url;
 							offersClone[index].thumbnail.width = image.width;
 							offersClone[index].thumbnail.height = image.height;
+							offersClone[index].thumbnail.alt = image.alt;
 
 							setAttributes({
 								offers: offersClone

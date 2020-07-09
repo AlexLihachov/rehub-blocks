@@ -41,15 +41,18 @@ class Slider extends Basic {
 
 
 		foreach ( $slides as $slide ) {
-			$url = $slide['image']['url'];
-			$alt = $slide['image']['alt'];
+			$url    = $slide['image']['url'];
+			$alt    = $slide['image']['alt'];
+			$width  = $slide['image']['width'];
+			$height = $slide['image']['height'];
 
 			if ( empty( $url ) ) {
 				$url = plugin_dir_url( __DIR__ ) . '/src/icons/noimage-placeholder.png';
 			}
 
 			$html .= '<a class="rh-slider-item" data-rel="slider_' . $random_key . '" href="' . esc_attr( $url ) . '" data-thumb="' . esc_attr( $url ) . '" target="_blank" ">';
-			$html .= '  <img src="' . esc_attr( $url ) . '" alt="' . esc_attr( $alt ) . '" />';
+			$html .= '  <img src="' . esc_attr( $url ) . '" alt="' . esc_attr( $alt ) . '"';
+			$html .= '       width="' . esc_attr( $width ) . '" height="' . esc_attr( $height ) . '"/>';
 			$html .= '</a>';
 		}
 
@@ -67,15 +70,18 @@ class Slider extends Basic {
 		$html .= '		<div class="rh-slider-thumbs__row">';
 
 		foreach ( $slides as $slide ) {
-			$url = $slide['image']['url'];
-			$alt = $slide['image']['alt'];
+			$url    = $slide['image']['url'];
+			$alt    = $slide['image']['alt'];
+			$width  = $slide['image']['width'];
+			$height = $slide['image']['height'];
 
 			if ( empty( $url ) ) {
 				$url = plugin_dir_url( __DIR__ ) . '/src/icons/noimage-placeholder.png';
 			}
 
 			$html .= '<div class="rh-slider-thumbs-item">';
-			$html .= '	<img src="' . esc_attr( $url ) . '" alt="' . esc_attr( $alt ) . '"  />';
+			$html .= '	<img src="' . esc_attr( $url ) . '" alt="' . esc_attr( $alt ) . '"';
+			$html .= '       width="' . esc_attr( $width ) . '" height="' . esc_attr( $height ) . '" />';
 			$html .= '</div>';
 		}
 
