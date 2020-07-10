@@ -15,7 +15,7 @@ require_once( 'microdata-parser-master/src/MicrodataParser.php' );
 use YusufKandemir\MicrodataParser\Microdata;
 
 class REST {
-	private $rest_namespace = 'rehub/v2/';
+	private $rest_namespace = 'rehub/v2';
 
 
 	private static $instance = null;
@@ -38,7 +38,7 @@ class REST {
 		//			return;
 		//		}
 
-		register_rest_route( $this->rest_namespace . 'posts',
+		register_rest_route( $this->rest_namespace . '/posts',
 			'/get',
 			array(
 				array(
