@@ -28,6 +28,7 @@ final class Assets {
 
 	private function __construct(){
 		add_action('enqueue_block_editor_assets', array( $this, 'editor_gutenberg' ));
+		add_action('enqueue_block_assets', array( $this, 'frontend_assets' ));
 		add_action('admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ));
 
 		add_action('init', array( $this, 'init' ));
@@ -47,7 +48,6 @@ final class Assets {
 		$this->is_rest             = defined('REST_REQUEST');
 		$this->is_elementor_editor = class_exists('\Elementor\Plugin') && \Elementor\Plugin::$instance->editor->is_edit_mode();
 		$this->is_editor           = $this->is_rest || $this->is_elementor_editor;
-		$this->frontend_assets();
 	}
 
 	public function admin_enqueue_scripts(){
@@ -119,19 +119,34 @@ final class Assets {
 //		wp_enqueue_style('rhstyle', get_stylesheet_directory_uri().'/style.css', array(), RH_MAIN_THEME_VERSION);
 	}
 
-	private function frontend_assets() {
-		wp_enqueue_script(
-			'rehub-block-script',
-			$this->assets->url_js . 'frontend.js',
-			array( 'wp-blocks', 'wp-i18n', 'wp-editor', 'wp-components' ),
-			null,
-			true
-		);
+	public function frontend_assets() {
+		// Load script on front only if slider exits
+		if ( is_singular() ) {
+			$id = get_the_ID();
+
+			if ( has_block( 'rehub/slider', $id ) ) {
+				wp_enqueue_script(
+					'rehub-block-script',
+					$this->assets->url_js . 'frontend.js',
+					null,
+					null,
+					true
+				);
+			}
+		} elseif ( is_admin() ) {
+			wp_enqueue_script(
+				'rehub-block-script',
+				$this->assets->url_js . 'frontend.js',
+				null,
+				null,
+				true
+			);
+		}
 
 		wp_enqueue_style(
 			'rehub-block-styles',
 			$this->assets->url_css . 'frontend.css',
-			array( 'wp-edit-blocks' ),
+			null,
 			null
 		);
 
