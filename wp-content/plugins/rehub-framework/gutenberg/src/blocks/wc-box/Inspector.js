@@ -26,10 +26,11 @@ export default class Inspector extends Component {
 					<ProductSelect
 						label={__('Product name', 'rehub-theme-child')}
 						multiple={false}
-						onChange={(value) => {
-							updateProductData(value[0].id, setAttributes);
+						onChange={({value}) => {
+							updateProductData(value, setAttributes);
 						}}
 						currentValues={productId}
+						type='product'
 					/>
 					<BaseControl className='rri-advanced-range-control'>
 						{parseError && (

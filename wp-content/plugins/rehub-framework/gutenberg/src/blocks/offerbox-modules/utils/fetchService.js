@@ -28,7 +28,7 @@ export function updateOfferData(selectedPost, setAttribute, attributes) {
 			thumbnailClone.url = post.thumbnail_url;
 
 			setAttribute({
-				selectedPost: selectedPost,
+				selectedPost: selectedPost.toString(),
 				name: post.name,
 				description: post.description,
 				disclaimer: post.disclaimer,
