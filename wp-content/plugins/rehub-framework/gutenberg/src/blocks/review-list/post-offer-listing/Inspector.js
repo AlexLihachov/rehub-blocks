@@ -29,9 +29,10 @@ export default class Inspector extends Component {
 						currentValue={selectedPosts}
 						onChange={(value) => {
 							if (value && value.length) {
-								fetchReviewData(value.map(item => item.id), setAttributes);
+								fetchReviewData(value.map(item => item.value), setAttributes);
 							}
 						}}
+						type='post'
 					/>
 					<BaseControl className='rri-advanced-range-control'>
 						{parseError && (

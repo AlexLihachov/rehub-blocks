@@ -26,10 +26,11 @@ export default class Inspector extends Component {
 					<Select
 						label={__('Post name', 'rehub-theme-child')}
 						multiple={false}
-						onChange={(value) => {
-							updateOfferData(value[0].id, setAttributes, attributes);
+						onChange={({value}) => {
+							updateOfferData(value, setAttributes, attributes);
 						}}
 						currentValue={selectedPost}
+						type='post'
 					/>
 				</PanelBody>
 			</InspectorControls>
