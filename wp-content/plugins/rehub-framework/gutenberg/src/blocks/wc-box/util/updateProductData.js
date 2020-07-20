@@ -7,10 +7,9 @@ export default function updateProductData(value, setAttributes) {
 	if (value.length === 0) {
 		return false;
 	}
-
 	setAttributes({
 		loading: true,
-		productId: value,
+		productId: value.toString(),
 		parseError: '',
 		parseSuccess: ''
 	});
