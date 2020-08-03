@@ -41,7 +41,7 @@ class Offerbox extends Basic {
 			'default' => '',
 		),
 		'mask_coupon_code' => array(
-			'type'    => 'string',
+			'type'    => 'boolean',
 			'default' => false,
 		),
 		'mask_coupon_text' => array(
