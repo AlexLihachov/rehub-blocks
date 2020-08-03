@@ -3,17 +3,33 @@
  */
 import {RichText} from '@wordpress/block-editor';
 import {__} from '@wordpress/i18n';
+import {Fragment} from "@wordpress/element";
+
+/**
+ * External dependencies
+ */
+import classnames from 'classnames';
 
 const Coupon = (props) => {
 	const {
-		      coupon_code,
-		      mask_coupon_code,
-		      mask_coupon_text,
-		      expiration_date,
-		      offer_is_expired,
-		      setAttributes,
-		      writable
-	      } = props;
+		coupon_code,
+		mask_coupon_code,
+		mask_coupon_text,
+		expiration_date,
+		offer_is_expired,
+		setAttributes,
+		writable
+	} = props;
+
+	const classes = classnames([
+		'rehub_offer_coupon',
+		{
+			'mt15': !mask_coupon_code,
+			'masked_coupon ': mask_coupon_code,
+			'btn_offer_block': mask_coupon_code,
+			'coupon_btn': mask_coupon_code
+		}
+	]);
 
 	// Calculate expires days and process render html
 	let expires_html = null;
@@ -41,8 +57,8 @@ const Coupon = (props) => {
 	if (coupon_code) {
 		if (mask_coupon_code) {
 			return (
-				<div>
-					<div className='c-offer-box__coupon c-offer-box__coupon--masked'>
+				<Fragment>
+					<div className={classes}>
 						{writable && (
 							<RichText
 								placeholder={__('Reveal', 'rehub-theme-child')}
@@ -63,12 +79,12 @@ const Coupon = (props) => {
 						<i className="far fa-external-link-square"/>
 					</div>
 					{expires_html}
-				</div>
+				</Fragment>
 			);
 		} else {
 			return (
-				<div>
-					<div className='c-offer-box__coupon'>
+				<Fragment>
+					<div className={classes}>
 						<i className="fal fa-cut fa-rotate-180"/>
 						{writable && (
 							<RichText
@@ -89,7 +105,7 @@ const Coupon = (props) => {
 						)}
 					</div>
 					{expires_html}
-				</div>
+				</Fragment>
 			);
 		}
 	} else {

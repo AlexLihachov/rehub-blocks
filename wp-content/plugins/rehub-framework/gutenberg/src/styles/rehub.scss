@@ -107,7 +107,7 @@
 	text-align: center;
 }
 
-.reveal_enabled:not(.expired_coupon) .btn_offer_block:not(.coupon_btn), .woocommerce .products .reveal_enabled .woo_loop_btn:not(.coupon_btn) {
-	display: none;
+.reveal_enabled:not(.expired_coupon) .btn_offer_block:not(.coupon_btn),
+.woocommerce .products .reveal_enabled .woo_loop_btn:not(.coupon_btn) {
+	display: none !important;
 }
-

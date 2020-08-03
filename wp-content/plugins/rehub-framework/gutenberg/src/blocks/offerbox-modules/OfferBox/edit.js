@@ -62,14 +62,15 @@ class EditBlock extends Component {
 
 	render() {
 		const {className, isSelected, attributes} = this.props;
-		const {
-			      borderColor,
-			      loading,
-		      } = attributes;
+		const {borderColor, loading, mask_coupon_code} = attributes;
+
 		const mainClasses = classnames([
 			className,
 			'c-offer-box',
-			{'c-offer-box--loading': loading}
+			{
+				'c-offer-box--loading': loading,
+				'reveal_enabled': mask_coupon_code
+			}
 		]);
 
 		const styles = {
