@@ -119,48 +119,50 @@ const ContentColumn = (props) => {
 			</div>
 
 			{/* CTA */}
-			{writable && (
-				<div onClick={onButtonClick}>
-					<div className="c-offer-box__button">
-						<RichText
-							placeholder={__('Buy this item', 'rehub-theme-child')}
-							tagName="span"
-							value={button.text}
-							onChange={(value) => {
-								const buttonClone = cloneDeep(button);
-								buttonClone.text = value;
-								setAttributes({
-									button: buttonClone
-								});
-							}}
-							keepPlaceholderOnFocus/>
+			<div className='priced_block'>
+				{writable && (
+					<div onClick={onButtonClick}>
+						<div className="btn_offer_block">
+							<RichText
+								placeholder={__('Buy this item', 'rehub-theme-child')}
+								tagName="span"
+								value={button.text}
+								onChange={(value) => {
+									const buttonClone = cloneDeep(button);
+									buttonClone.text = value;
+									setAttributes({
+										button: buttonClone
+									});
+								}}
+								keepPlaceholderOnFocus/>
+						</div>
+						{openUrlPopover && (
+							<UrlInputPopover
+								value={button.url}
+								newTab={button.newTab}
+								noFollow={button.noFollow}
+								onChange={value => onButtonChange(value, 'url')}
+								onChangeNewTab={value => onButtonChange(value, 'newTab')}
+								onChangeNoFollow={value => onButtonChange(value, 'noFollow')}/>
+						)}
 					</div>
-					{openUrlPopover && (
-						<UrlInputPopover
-							value={button.url}
-							newTab={button.newTab}
-							noFollow={button.noFollow}
-							onChange={value => onButtonChange(value, 'url')}
-							onChangeNewTab={value => onButtonChange(value, 'newTab')}
-							onChangeNoFollow={value => onButtonChange(value, 'noFollow')}/>
-					)}
-				</div>
-			)}
-			{writable === false && (
-				<div>
-					<div className='c-offer-box__button'>
-						<span>{button.text}</span>
+				)}
+				{writable === false && (
+					<div>
+						<div className='btn_offer_block'>
+							<span>{button.text}</span>
+						</div>
 					</div>
-				</div>
-			)}
-			<Coupon
-				coupon_code={coupon_code}
-				mask_coupon_code={mask_coupon_code}
-				mask_coupon_text={mask_coupon_text}
-				setAttributes={setAttributes}
-				expiration_date={expiration_date}
-				offer_is_expired={offer_is_expired}
-				writable={writable}/>
+				)}
+				<Coupon
+					coupon_code={coupon_code}
+					mask_coupon_code={mask_coupon_code}
+					mask_coupon_text={mask_coupon_text}
+					setAttributes={setAttributes}
+					expiration_date={expiration_date}
+					offer_is_expired={offer_is_expired}
+					writable={writable}/>
+			</div>
 
 			{/* Description	*/}
 			<div className="c-offer-box__desc">
