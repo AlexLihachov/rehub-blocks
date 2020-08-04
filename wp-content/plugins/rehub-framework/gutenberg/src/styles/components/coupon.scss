@@ -89,3 +89,15 @@
 		width: 25px;
 	}
 }
+
+.rehub_offer_coupon.expired_coupon {
+	border: 1px dashed $greyD;
+
+	span {
+		text-decoration: line-through;
+	}
+
+	i {
+		display: none;
+	}
+}

@@ -4,7 +4,7 @@ import {assign} from 'lodash';
 
 function checkMissedProps(attributes) {
 	const {offers} = attributes;
-	const propsToCheck = ['enableBadge', 'enableScore'];
+	const propsToCheck = ['enableBadge', 'enableScore', 'maskCouponText', 'expirationDate'];
 
 	return !propsToCheck.some((prop) => {
 		return offers.some((offer) => {
@@ -33,6 +33,8 @@ const deprecatedAttrs = [
 						textColor: '#fff',
 						backgroundColor: '#77B21D'
 					},
+					maskCouponText: '',
+					expirationDate: ''
 				});
 			});
 

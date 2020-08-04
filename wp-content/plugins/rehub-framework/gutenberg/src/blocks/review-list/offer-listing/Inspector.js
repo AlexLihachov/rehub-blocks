@@ -58,6 +58,8 @@ export default class Inspector extends Component {
 			},
 			coupon: '',
 			maskCoupon: false,
+			maskCouponText: '',
+			expirationDate: '',
 			readMore: __('Read full review', 'rehub-theme-child'),
 			readMoreUrl: '',
 			disclaimer: __('Disclaimer text....', 'rehub-theme-child')

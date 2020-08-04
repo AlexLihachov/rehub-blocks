@@ -2,7 +2,7 @@
 
 namespace Rehub\Gutenberg\Blocks;
 
-defined( 'ABSPATH' ) OR exit;
+defined( 'ABSPATH' ) or exit;
 
 class OfferListing extends Basic {
 	protected $name = 'offer-listing';
@@ -12,31 +12,36 @@ class OfferListing extends Basic {
 			'type'    => 'object',
 			'default' => array(
 				array(
-					'score'        => 10,
-					'enableBadge'  => true,
-					'enableScore'  => true,
-					'thumbnail'    => array(
+					'score'          => 10,
+					'enableBadge'    => true,
+					'enableScore'    => true,
+					'thumbnail'      => array(
 						'url'    => '',
 						'width'  => '',
 						'height' => '',
 						'alt'    => '',
 					),
-					'title'        => 'Post name',
-					'copy'         => 'Content',
-					'customBadge'  => array(
+					'title'          => 'Post name',
+					'copy'           => 'Content',
+					'customBadge'    => array(
 						'text'            => 'Best Values',
 						'textColor'       => '#fff',
 						'backgroundColor' => '#77B21D'
 					),
-					'currentPrice' => '',
-					'oldPrice'     => '',
-					'button'       => array(
+					'currentPrice'   => '',
+					'oldPrice'       => '',
+					'button'         => array(
 						'text' => 'Buy this item',
 						'url'  => ''
 					),
-					'readMore'     => 'Read full review',
-					'readMoreUrl'  => '',
-					'disclaimer'   => 'Disclaimer text...'
+					'coupon'         => '',
+					'maskCoupon'     => false,
+					'maskCouponText' => '',
+					'expirationDate' => '',
+					'offerExpired'   => false,
+					'readMore'       => 'Read full review',
+					'readMoreUrl'    => '',
+					'disclaimer'     => 'Disclaimer text...'
 				)
 			),
 		),
@@ -53,26 +58,54 @@ class OfferListing extends Basic {
 		$html .= '<div class="rh_list_builder rh-shadow4 disablemobileshadow mb25">';
 
 		foreach ( $offers as $offer ) {
-			$score          = $offer['score'];
-			$offer_url      = $offer['button']['url'];
-			$image          = $offer['thumbnail'];
-			$image_url      = $offer['thumbnail']['url'];
-			$title          = $offer['title'];
-			$copy           = $offer['copy'];
-			$current_price  = $offer['currentPrice'];
-			$old_price      = $offer['oldPrice'];
-			$button_text    = $offer['button']['text'];
-			$read_more_text = $offer['readMore'];
-			$read_more_url  = $offer['readMoreUrl'];
-			$disclaimer     = $offer['disclaimer'];
-			$enable_badge   = $offer['enableBadge'];
-			$enable_score   = $offer['enableScore'];
-			$badge          = $offer['customBadge'];
-			$badge_styles   = 'background-color:' . $badge['backgroundColor'] . '; color:' . $badge['textColor'] . ';';
+			$score             = $offer['score'];
+			$offer_url         = $offer['button']['url'];
+			$image             = $offer['thumbnail'];
+			$image_url         = $offer['thumbnail']['url'];
+			$title             = $offer['title'];
+			$copy              = $offer['copy'];
+			$current_price     = $offer['currentPrice'];
+			$old_price         = $offer['oldPrice'];
+			$button_text       = $offer['button']['text'];
+			$read_more_text    = $offer['readMore'];
+			$read_more_url     = $offer['readMoreUrl'];
+			$disclaimer        = $offer['disclaimer'];
+			$enable_badge      = $offer['enableBadge'];
+			$enable_score      = $offer['enableScore'];
+			$badge             = $offer['customBadge'];
+			$badge_styles      = 'background-color:' . $badge['backgroundColor'] . '; color:' . $badge['textColor'] . ';';
+			$offer_coupon      = $offer['coupon'];
+			$offer_coupon_date = $offer['expirationDate'];
+			$offer_coupon_mask = $offer['maskCoupon'];
+			$mask_text         = $offer['maskCouponText'];
+			$coupon_style      = '';
+			$expired           = '';
 
 			if ( empty( $image_url ) ) {
 				$image_url = plugin_dir_url( __DIR__ ) . '/src/icons/noimage-placeholder.png';
 			}
+
+			if ( ! empty( $offer_coupon_date ) ) {
+				$timestamp1 = strtotime( $offer_coupon_date ) + 86399;
+				$seconds    = $timestamp1 - (int) current_time( 'timestamp', 0 );
+				$days       = floor( $seconds / 86400 );
+				$seconds    %= 86400;
+
+				if ( $days > 0 ) {
+					$coupon_style = '';
+					$expired      = 'no';
+				} elseif ( $days == 0 ) {
+					$coupon_style = '';
+					$expired      = 'no';
+				} else {
+					$coupon_text  = esc_html__( 'Expired', 'rehub-theme' );
+					$coupon_style = ' expired_coupon';
+					$expired      = '1';
+				}
+			}
+
+			$coupon_mask_enabled = ( ! empty( $offer_coupon ) && $offer_coupon_mask && $expired != '1' ) ? '1' : '';
+			$reveal_enabled      = ( $coupon_mask_enabled == '1' ) ? ' reveal_enabled' : '';
 
 			$html .= '<div class="top_table_list_item border-lightgrey whitebg">';
 			$html .= '	<div class="rh-flex-eq-height mobileblockdisplay">';
@@ -113,8 +146,8 @@ class OfferListing extends Basic {
 			$html .= '          <div class="lineheight20">' . esc_html( trim( $copy ) ) . '</div>';
 			$html .= '		</div>';
 			$html .= '      <div class="listbuild_btn listitem_column text-center rh-flex-center-align pt15 pb15 pr20 pl20 rh-flex-justify-center">';
-			$html .= '        <div>';
-			$html .= '            <div class="priced_block clearfix block_btnblock mobile_block_btnclock mb5">';
+			$html .= '        <div class="width-100p">';
+			$html .= '            <div class="priced_block clearfix block_btnblock mobile_block_btnclock mb5 ' . esc_attr( $reveal_enabled ) . ' ' . esc_attr( $coupon_style ) . '">';
 
 			if ( $current_price ) {
 				$html .= '<span class="rh_price_wrapper">';
@@ -143,6 +176,39 @@ class OfferListing extends Basic {
 
 				$html .= '	</a>';
 				$html .= '</span>';
+			}
+
+			if ( $coupon_mask_enabled == '1' ) {
+				$html .= '<div class="post_offer_anons">';
+				$html .= '	<span class="coupon_btn re_track_btn btn_offer_block rehub_offer_coupon masked_coupon ';
+
+				if ( ! empty( $offer_coupon_date ) ) {
+					$html .= $coupon_style;
+				}
+
+				$html .= '">';
+
+				if ( ! empty( $mask_text ) ) {
+					$html .= esc_html( $mask_text );
+				} elseif ( rehub_option( 'rehub_mask_text' ) != '' ) {
+					$html = rehub_option( 'rehub_mask_text' );
+				} else {
+					$html .= esc_html__( 'Reveal coupon', 'rehub-theme' );
+				}
+
+				$html .= '	</span>';
+				$html .= '</div>';
+			} else {
+				if ( ! empty( $offer_coupon ) ) {
+					$html .= '<div class="rehub_offer_coupon not_masked_coupon';
+					if ( ! empty( $offer_coupon_date ) ) {
+						$html .= $coupon_style;
+					}
+					$html .= '">';
+					$html .= '<span class="coupon_text">'. esc_html($offer_coupon) .'</span>';
+					$html .= '<i class="fal fa-cut fa-rotate-180"></i>';
+					$html .= '</div>';
+				}
 			}
 
 			if ( $read_more_url ) {

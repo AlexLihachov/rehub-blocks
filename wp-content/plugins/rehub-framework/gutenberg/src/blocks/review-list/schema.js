@@ -52,6 +52,8 @@ const schema = {
 				},
 				coupon: '',
 				maskCoupon: false,
+				maskCouponText: '',
+				expirationDate: '',
 				offerExpired: false,
 				readMore: __('Read full review', 'rehub-theme-child'),
 				readMoreUrl: '',
