@@ -47,7 +47,7 @@ class Coupon extends Component {
 			return null;
 		}
 
-		if (maskCoupon) {
+		if (maskCoupon && !offerExpired && !expiredByDate) {
 			return (
 				<Fragment>
 					<div className={classes}>

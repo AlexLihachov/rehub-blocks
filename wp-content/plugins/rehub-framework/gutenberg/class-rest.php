@@ -159,6 +159,7 @@ class REST {
 		$offer_desc        = get_post_meta( $id, 'rehub_offer_product_desc', true );
 		$disclaimer        = get_post_meta( $id, 'rehub_offer_disclaimer', true );
 		$rating            = get_post_meta( $id, 'rehub_review_overall_score', true );
+		$offer_mask_text   = '';
 		//		$discount          = get_post_meta( $id, 'rehub_offer_discount', true );
 
 		if ( $rating ) {
@@ -181,6 +182,12 @@ class REST {
 			}
 		}
 
+		if ( ! empty( rehub_option( 'rehub_mask_text' ) ) ) {
+			$offer_mask_text = rehub_option( 'rehub_mask_text' );
+		} else {
+			$offer_mask_text = esc_html__( 'Reveal', 'rehub-theme' );
+		}
+
 		$data = array(
 			'name'             => $offer_title,
 			'description'      => $offer_desc,
@@ -190,6 +197,7 @@ class REST {
 			'coupon_code'      => $offer_coupon,
 			'expiration_date'  => $offer_coupon_date,
 			'mask_coupon_code' => $offer_coupon_mask,
+			'mask_coupon_text' => $offer_mask_text,
 			'button_url'       => $offer_post_url,
 			'button_text'      => $offer_btn_text,
 			'thumbnail_url'    => $offer_thumb,
