@@ -37,6 +37,7 @@ export function updateOfferData(selectedPost, setAttribute, attributes) {
 				coupon_code: post.coupon_code,
 				expiration_date: post.expiration_date,
 				mask_coupon_code: post.mask_coupon_code !== '',
+				mask_coupon_text: post.mask_coupon_text,
 				button: buttonClone,
 				thumbnail: thumbnailClone,
 				rating: post.rating,

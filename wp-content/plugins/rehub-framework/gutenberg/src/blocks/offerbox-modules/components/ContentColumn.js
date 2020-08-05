@@ -10,7 +10,7 @@ import {Fragment} from "@wordpress/element";
  * Internal dependencies
  */
 import UrlInputPopover from "../../../components/url-input-popover";
-import Coupon from "./Coupon";
+import Coupon from "../../../components/coupon";
 
 const ContentColumn = (props) => {
 	const {attributes, setAttributes, onButtonClick, openUrlPopover, onButtonChange, writable} = props;
@@ -30,6 +30,18 @@ const ContentColumn = (props) => {
 	      } = attributes;
 
 	const rating = parseInt(attributes.rating);
+
+	const handleMaskChange = (value) => {
+		setAttributes({
+			mask_coupon_text: value
+		});
+	};
+
+	const handleCouponChange = (value) => {
+		setAttributes({
+			coupon_code: value
+		});
+	};
 
 	return (
 		<div className="c-offer-box__column">
@@ -155,13 +167,16 @@ const ContentColumn = (props) => {
 					</div>
 				)}
 				<Coupon
-					coupon_code={coupon_code}
-					mask_coupon_code={mask_coupon_code}
-					mask_coupon_text={mask_coupon_text}
-					setAttributes={setAttributes}
-					expiration_date={expiration_date}
-					offer_is_expired={offer_is_expired}
-					writable={writable}/>
+					couponCode={coupon_code}
+					maskCoupon={mask_coupon_code}
+					maskCouponText={mask_coupon_text}
+					offerExpired={offer_is_expired}
+					expirationDate={expiration_date}
+					writable={writable}
+					onMaskChange={handleMaskChange}
+					onCouponChange={handleCouponChange}
+					hideExpires={false}
+				/>
 			</div>
 
 			{/* Description	*/}

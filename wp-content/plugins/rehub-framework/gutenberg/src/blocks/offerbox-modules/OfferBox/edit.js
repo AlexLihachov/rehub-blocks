@@ -18,6 +18,7 @@ import Inspector from './inspector';
 import Controls from '../editor-components/controls';
 import ImageColumn from "../components/ImageColumn";
 import ContentColumn from "../components/ContentColumn";
+import {calculateExpiredDays} from "../../../util";
 
 
 class EditBlock extends Component {
@@ -62,14 +63,20 @@ class EditBlock extends Component {
 
 	render() {
 		const {className, isSelected, attributes} = this.props;
-		const {borderColor, loading, mask_coupon_code} = attributes;
+		const {borderColor, loading, mask_coupon_code, offer_is_expired, expiration_date} = attributes;
+
+		let expiredByDate = false;
+
+		if (expiration_date) {
+			expiredByDate = calculateExpiredDays(expiration_date) < 0;
+		}
 
 		const mainClasses = classnames([
 			className,
 			'c-offer-box',
 			{
 				'c-offer-box--loading': loading,
-				'reveal_enabled': mask_coupon_code
+				'reveal_enabled': mask_coupon_code && !(expiredByDate || offer_is_expired)
 			}
 		]);
 

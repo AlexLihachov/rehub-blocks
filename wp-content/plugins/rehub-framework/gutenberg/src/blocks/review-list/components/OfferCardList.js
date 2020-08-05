@@ -10,7 +10,8 @@ import {
 	Button,
 	BaseControl,
 	ToggleControl,
-	ColorPicker
+	ColorPicker,
+	DateTimePicker
 } from '@wordpress/components';
 
 /**
@@ -29,19 +30,23 @@ const SortableItem = SortableElement((props) => {
 	const {offers} = attributes;
 	const cloneItems = cloneDeep(offers);
 	const {
-		      title,
-		      button,
-		      copy,
-		      score,
-		      enableScore,
-		      currentPrice,
-		      oldPrice,
-		      disclaimer,
-		      readMore,
-		      readMoreUrl,
-		      enableBadge,
-		      customBadge
-	      } = offers[sortIndex];
+		title,
+		button,
+		copy,
+		score,
+		enableScore,
+		currentPrice,
+		oldPrice,
+		disclaimer,
+		readMore,
+		readMoreUrl,
+		enableBadge,
+		customBadge,
+		coupon,
+		expirationDate,
+		maskCoupon,
+		maskCouponText
+	} = offers[sortIndex];
 
 	const handleClose = (index) => {
 		cloneItems.splice(index, 1);
@@ -176,26 +181,51 @@ const SortableItem = SortableElement((props) => {
 						});
 					}}
 				/>
-				{/*<TextControl*/}
-				{/*	label={__('Set coupon code', 'rehub-theme-child')}*/}
-				{/*	value={coupon}*/}
-				{/*	onChange={(value) => {*/}
-				{/*		cloneItems[sortIndex].coupon = value;*/}
-				{/*		setAttributes({*/}
-				{/*			offers: cloneItems*/}
-				{/*		});*/}
-				{/*	}}*/}
-				{/*/>*/}
-				{/*<ToggleControl*/}
-				{/*	label={__('Mask coupon code?', 'rehub-theme-child')}*/}
-				{/*	checked={maskCoupon}*/}
-				{/*	onChange={() => {*/}
-				{/*		cloneItems[sortIndex].maskCoupon = !maskCoupon;*/}
-				{/*		setAttributes({*/}
-				{/*			offers: cloneItems*/}
-				{/*		});*/}
-				{/*	}}*/}
-				{/*/>*/}
+				<TextControl
+					label={__('Set coupon code', 'rehub-theme-child')}
+					value={coupon}
+					onChange={(value) => {
+						cloneItems[sortIndex].coupon = value;
+						setAttributes({
+							offers: cloneItems
+						});
+					}}
+				/>
+				<div>
+					<label className="components-base-control__label">
+						{__('Choose date of finish', 'rehub-theme-child')}
+					</label>
+					<DateTimePicker
+						currentDate={expirationDate}
+						onChange={(value) => {
+							cloneItems[sortIndex].expirationDate = value;
+							setAttributes({
+								offers: cloneItems
+							});
+						}}
+						is12Hour={false}
+					/>
+				</div>
+				<ToggleControl
+					label={__('Mask coupon code?', 'rehub-theme-child')}
+					checked={maskCoupon}
+					onChange={() => {
+						cloneItems[sortIndex].maskCoupon = !maskCoupon;
+						setAttributes({
+							offers: cloneItems
+						});
+					}}
+				/>
+				<TextControl
+					label={__('Mask Text', 'rehub-theme-child')}
+					value={maskCouponText}
+					onChange={(value) => {
+						cloneItems[sortIndex].maskCouponText = value;
+						setAttributes({
+							offers: cloneItems
+						});
+					}}
+				/>
 				<TextareaControl
 					label={__('Disclaimer', 'rehub-theme-child')}
 					value={disclaimer}

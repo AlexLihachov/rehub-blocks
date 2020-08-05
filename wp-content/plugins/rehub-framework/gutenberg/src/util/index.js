@@ -80,3 +80,10 @@ export const __getValue = (attributes, attrNameCallback = null, defaultValue_ = 
 	const value = typeof attributes[attrNameFunc(attrName)] === 'undefined' ? '' : attributes[attrNameFunc(attrName)];
 	return value !== '' ? (format ? sprintf(format.replace(/%$/, '%%'), value) : value) : defaultValue
 };
+
+export const calculateExpiredDays = (value) => {
+	const currentTimestamp = Date.now();
+	const expiredTimestamp = Date.parse(value);
+	const difference = (expiredTimestamp - currentTimestamp);
+	return Math.floor(difference / 1000 / 60 / 60 / 24);
+};

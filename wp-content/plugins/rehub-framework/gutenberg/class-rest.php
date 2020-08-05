@@ -159,6 +159,7 @@ class REST {
 		$offer_desc        = get_post_meta( $id, 'rehub_offer_product_desc', true );
 		$disclaimer        = get_post_meta( $id, 'rehub_offer_disclaimer', true );
 		$rating            = get_post_meta( $id, 'rehub_review_overall_score', true );
+		$offer_mask_text   = '';
 		//		$discount          = get_post_meta( $id, 'rehub_offer_discount', true );
 
 		if ( $rating ) {
@@ -181,6 +182,12 @@ class REST {
 			}
 		}
 
+		if ( ! empty( rehub_option( 'rehub_mask_text' ) ) ) {
+			$offer_mask_text = rehub_option( 'rehub_mask_text' );
+		} else {
+			$offer_mask_text = esc_html__( 'Reveal', 'rehub-theme' );
+		}
+
 		$data = array(
 			'name'             => $offer_title,
 			'description'      => $offer_desc,
@@ -190,6 +197,7 @@ class REST {
 			'coupon_code'      => $offer_coupon,
 			'expiration_date'  => $offer_coupon_date,
 			'mask_coupon_code' => $offer_coupon_mask,
+			'mask_coupon_text' => $offer_mask_text,
 			'button_url'       => $offer_post_url,
 			'button_text'      => $offer_btn_text,
 			'thumbnail_url'    => $offer_thumb,
@@ -351,6 +359,7 @@ class REST {
 
 		foreach ( $posts_id as $id ) {
 			$button_text       = get_post_meta( (int) $id, 'rehub_offer_btn_text', true );
+			$mask_text = '';
 			$thumbnail_url     = get_the_post_thumbnail_url( (int) $id );
 			$coupon_mask       = get_post_meta( (int) $id, 'rehub_offer_coupon_mask', true );
 			$offer_coupon_date = get_post_meta( (int) $id, 'rehub_offer_coupon_date', true );
@@ -374,6 +383,14 @@ class REST {
 				}
 			}
 
+			if ( ! empty( $button_text ) ) {
+				$mask_text = $button_text;
+			} elseif ( rehub_option( 'rehub_mask_text' ) != '' ) {
+				$mask_text = rehub_option( 'rehub_mask_text' );
+			} else {
+				$mask_text = esc_html__( 'Reveal coupon', 'rehub-theme' );
+			}
+
 			if ( empty( $thumbnail_url ) ) {
 				$thumbnail_url = plugin_dir_url( __FILE__ ) . 'src/icons/noimage-placeholder.png';
 			}
@@ -394,25 +411,27 @@ class REST {
 
 
 			$data[] = array(
-				'score'        => get_post_meta( (int) $id, 'rehub_review_overall_score', true ),
-				'thumbnail'    => array(
+				'score'          => get_post_meta( (int) $id, 'rehub_review_overall_score', true ),
+				'thumbnail'      => array(
 					'url' => $thumbnail_url,
 				),
-				'title'        => get_the_title( (int) $id ),
-				'copy'         => $copy,
-				'badge'        => re_badge_create( 'labelsmall', (int) $id ),
-				'currentPrice' => get_post_meta( (int) $id, 'rehub_offer_product_price', true ),
-				'oldPrice'     => get_post_meta( (int) $id, 'rehub_offer_product_price_old', true ),
-				'button'       => array(
+				'title'          => get_the_title( (int) $id ),
+				'copy'           => $copy,
+				'badge'          => re_badge_create( 'labelsmall', (int) $id ),
+				'currentPrice'   => get_post_meta( (int) $id, 'rehub_offer_product_price', true ),
+				'oldPrice'       => get_post_meta( (int) $id, 'rehub_offer_product_price_old', true ),
+				'button'         => array(
 					'text' => $button_text,
 					'url'  => get_post_meta( (int) $id, 'rehub_offer_product_url', true ),
 				),
-				'coupon'       => get_post_meta( (int) $id, 'rehub_offer_product_coupon', true ),
-				'maskCoupon'   => $coupon_mask,
-				'offerExpired' => $is_coupon_expired,
-				'readMore'     => 'Read full review',
-				'readMoreUrl'  => '',
-				'disclaimer'   => get_post_meta( (int) $id, 'rehub_offer_disclaimer', true ),
+				'coupon'         => get_post_meta( (int) $id, 'rehub_offer_product_coupon', true ),
+				'maskCoupon'     => $coupon_mask,
+				'expirationDate' => $offer_coupon_date,
+				'maskCouponText' => $mask_text,
+				'offerExpired'   => $is_coupon_expired,
+				'readMore'       => 'Read full review',
+				'readMoreUrl'    => '',
+				'disclaimer'     => get_post_meta( (int) $id, 'rehub_offer_disclaimer', true ),
 			);
 		}
 
