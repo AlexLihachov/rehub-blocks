@@ -92,6 +92,8 @@
 
 .rehub_offer_coupon.expired_coupon {
 	border: 1px dashed $greyD;
+	background: $greyf4;
+	color: grey;
 
 	span {
 		text-decoration: line-through;
