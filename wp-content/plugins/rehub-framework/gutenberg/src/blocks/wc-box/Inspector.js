@@ -29,7 +29,7 @@ export default class Inspector extends Component {
 						onChange={({value}) => {
 							updateProductData(value, setAttributes);
 						}}
-						currentValues={productId}
+						currentValue={productId}
 						type='product'
 					/>
 					<BaseControl className='rri-advanced-range-control'>
