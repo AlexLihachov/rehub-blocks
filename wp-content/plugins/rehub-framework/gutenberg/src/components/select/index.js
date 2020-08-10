@@ -14,14 +14,10 @@ import debounce from "debounce-promise";
 import {trim} from 'lodash';
 import AsyncSelect from 'react-select/async';
 
-function mapPosts(posts, postType) {
+function mapPosts(posts) {
 	let data = [];
 
 	for (let i = 0; i < posts.length; i++) {
-		if (posts[i].type !== postType) {
-			continue;
-		}
-
 		data.push({
 			label: posts[i].title.rendered,
 			value: posts[i].id
@@ -31,20 +27,25 @@ function mapPosts(posts, postType) {
 	return data;
 }
 
-// function valueFromId(opts, id) {
-// 	return opts.find(o => o.value === +id);
-// }
-
+function isEmpty(value) {
+	if (typeof value === 'object') {
+		return value.length === 0;
+	} else {
+		return value === '';
+	}
+}
 
 class Select extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			selectedOption: null
+			selectedOption: null,
+			initialValueProcessed: false
 		};
 		this.handleChange = this.handleChange.bind(this);
 		this.getPosts = this.getPosts.bind(this);
 		this.getPostsDebounced = debounce(this.getPosts, 500);
+		this.setupInitialValue = this.setupInitialValue.bind(this);
 	}
 
 	handleChange(value) {
@@ -53,45 +54,68 @@ class Select extends Component {
 	}
 
 	getPosts(inputValue, callback) {
+		const {type} = this.props;
+		let query = '/wp/v2/';
+
 		if (!inputValue) {
 			return callback([]);
 		}
 
+		query += type === 'post' ? 'posts?search=' : 'product?search=';
+		query += trim(inputValue);
+
 		return apiFetch({
-			path: `/wp/v2/posts?search=${trim(inputValue)}`,
+			path: query,
 			method: 'GET'
 		}).then((response) => {
-			callback(mapPosts(response, this.props.type));
+			callback(mapPosts(response));
+		});
+	}
+
+	setupInitialValue(currentValue) {
+		const {multiple, type} = this.props;
+		let query = '/wp/v2/';
+		query += type === 'post' ? 'posts?' : 'product?'
+
+		if (multiple) {
+			for (let i = 0; i < currentValue.length; i++) {
+				query += `include[]=${currentValue[i]}&`;
+			}
+		} else {
+			query += `include[]=${currentValue}`;
+		}
+
+		apiFetch({
+			path: query,
+			method: 'GET'
+		}).then((response) => {
+			const value = mapPosts(response);
+			this.setState({
+				selectedOption: value,
+				initialValueProcessed: true
+			});
 		});
 	}
 
 	render() {
-		const {label, posts, multiple, type} = this.props;
+		const {label, posts, multiple, currentValue} = this.props;
+		const {initialValueProcessed, selectedOption} = this.state;
 		let defaultOption = null;
+		let value = null;
 
 		if (posts && posts.length) {
-			defaultOption = mapPosts(posts, type);
-
-			// if (currentValue) {
-			// 	console.log(currentValue);
-			//
-			// 	if (multiple) {
-			// 		defaultValue = currentValue.map(post => {
-			// 			return {
-			// 				label: valueFromId(defaultOption, post),
-			// 				value: post
-			// 			};
-			// 		});
-			// 	} else {
-			// 		defaultValue = {
-			// 			label: valueFromId(defaultOption, currentValue),
-			// 			value: currentValue
-			// 		};
-			// 	}
-			// }
+			defaultOption = mapPosts(posts);
 		}
 
-		if (defaultOption) {
+		if (initialValueProcessed === false && !selectedOption && !isEmpty(currentValue)) {
+			this.setupInitialValue(currentValue);
+		} else if (initialValueProcessed === false && isEmpty(currentValue)) {
+			this.setState({initialValueProcessed: true});
+		} else {
+			value = selectedOption;
+		}
+
+		if (defaultOption && initialValueProcessed) {
 			return (
 				<BaseControl label={label}>
 					<AsyncSelect
@@ -100,7 +124,7 @@ class Select extends Component {
 						loadOptions={this.getPostsDebounced}
 						onChange={this.handleChange}
 						isMulti={multiple}
-						value={this.state.selectedOption}
+						value={value}
 						className='react-select'
 					/>
 				</BaseControl>
