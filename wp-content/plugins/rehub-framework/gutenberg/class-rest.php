@@ -43,7 +43,9 @@ class REST {
 			array(
 				array(
 					'methods'  => WP_REST_Server::CREATABLE,
-					//					'permission_callback' => array( Settings::class, 'is_user_can' ),
+					'permission_callback' => function ( WP_REST_Request $request ) {
+						return current_user_can( 'editor' ) || current_user_can( 'administrator' );
+					},
 					'callback' => array( $this, 'rest_get_posts' ),
 				)
 			)
@@ -54,6 +56,9 @@ class REST {
 			"/offer-data/(?P<id>\d+)",
 			array(
 				'methods'  => WP_REST_Server::READABLE,
+				'permission_callback' => function ( WP_REST_Request $request ) {
+					return current_user_can( 'editor' ) || current_user_can( 'administrator' );
+				},
 				'callback' => array( $this, 'rest_offer_data_handler' ),
 			)
 		);
@@ -63,6 +68,9 @@ class REST {
 			"/offer-listing/",
 			array(
 				'methods'  => WP_REST_Server::CREATABLE,
+				'permission_callback' => function ( WP_REST_Request $request ) {
+					return current_user_can( 'editor' ) || current_user_can( 'administrator' );
+				},
 				'callback' => array( $this, 'rest_offer_listing_handler' ),
 			)
 		);
@@ -72,6 +80,9 @@ class REST {
 			"/parse-offer/",
 			array(
 				'methods'  => WP_REST_Server::CREATABLE,
+				'permission_callback' => function ( WP_REST_Request $request ) {
+					return current_user_can( 'editor' ) || current_user_can( 'administrator' );
+				},
 				'callback' => array( $this, 'rest_parse_offer_handler' ),
 			)
 		);
@@ -81,6 +92,9 @@ class REST {
 			"/product/(?P<id>\d+)",
 			array(
 				'methods'  => WP_REST_Server::READABLE,
+				'permission_callback' => function ( WP_REST_Request $request ) {
+					return current_user_can( 'editor' ) || current_user_can( 'administrator' );
+				},
 				'callback' => array( $this, 'rest_product_handler' ),
 			)
 		);

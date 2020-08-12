@@ -53,18 +53,6 @@ abstract class Basic {
 	private function __wakeup(){
 	}
 
-	function rest_api_init(){
-		$namespace = 'rehub/v1/block-render';
-		register_rest_route(
-			$namespace,
-			"/$this->name",
-			array(
-				'methods'  => WP_REST_Server::CREATABLE,
-				'callback' => array( $this, 'rest_handler' ),
-			)
-		);
-	}
-
 	public function rest_handler(WP_REST_Request $Request){
 		$data = array(
 			'rendered' => $this->render_block($Request->get_params()),
@@ -78,10 +66,6 @@ abstract class Basic {
 			'attributes'      => $this->attributes,
 			'render_callback' => array( $this, 'render_block' ),
 		));
-
-		if(\is_user_logged_in()) {
-			add_action('rest_api_init', array( $this, 'rest_api_init' ));
-		}
 	}
 
 	public function restHandler(WP_REST_Request $Request){
